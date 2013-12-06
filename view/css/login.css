@@ -1,0 +1,88 @@
+.rom_logo
+{
+    background-image: url('../img/rom_logo.png');
+    position: relative;
+    margin: auto;
+    
+    width: 228px;
+    height: 160px;
+}
+
+.login_img
+{
+    background-image: url('../img/hv.jpg');
+    position: relative;
+    margin: auto;
+    
+    margin-top: 15px;
+    width: 393px;
+    height: 450px;
+    
+    box-shadow: 0 0 20px black;
+    border-radius: 4px;
+}
+
+/*
+ * Bulle de connexion
+ * 
+ * Proviens de : http://www.lackofinspiration.com/news-3-107-quand-les-css3-se-mettent-au-service-de-la-bd.html
+ * par delphiki
+ */
+.bulle
+{
+    position: relative;
+    top: 50px;
+    left: 60px;
+    
+    width: 250px;
+    height: 120px;
+    
+    background-color: white;
+    text-align: center;
+    
+    border: 2px solid #555555;
+    border-radius: 10px;
+    
+    opacity: 0.90;
+}
+
+.login {padding-top: 7px;}
+.login > p
+{
+    margin: 1px;
+}
+
+.login > p > input[type=submit]
+{
+    margin-top: 7px;
+}
+
+.arrow_border
+{
+    position: absolute;
+    bottom: -30px;
+    left: 0px;
+    
+    width: 0;
+    height: 0;
+    line-height: 0;
+    
+    border-bottom: 3 0px solid transparent;
+    border-left: 30px solid transparent;
+    border-right: 3 0px solid #555555; /* couleur de la bordure de la bulle */
+}
+
+.arrow_inner
+{
+    position: absolute;
+    bottom: -25px;
+    left: 5px;
+    
+    width: 0;
+    height: 0;
+    line-height: 0;
+    
+    border-bottom: 30px solid transparent;
+    border-left: 30px solid transparent;
+    border-right: 30px solid white; /* couleur du fond de la bulle */
+}
