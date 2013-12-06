@@ -37,8 +37,24 @@ if(!is_null($login) && !is_null($mdp))
 	}
 }
 
+if($request == '/deco')
+{
+	session_destroy();
+	
+	ob_clean();
+	echo 'RedirectLogin'; //Instruction pour le js en sortie d'ajax
+	
+	exit;
+}
+
+if(!isset($_SESSION['logged']) && !($request == '/' || $request == '/login'))
+{
+	header('Location: /');
+}
+
 if(isset($_SESSION['logged']) && $_SESSION['logged'] == true)
 {
 	//Si connecté
 	$DefaultControler = 'index';
+	$idUser = $_SESSION['idUser'];
 }
