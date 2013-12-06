@@ -36,7 +36,7 @@ video {
 /**
  * Prevent modern browsers from displaying `audio` without controls.
  * Remove excess height in iOS 5 devices.
- */
+ *
 
 audio:not([controls]) {
     display: none;
@@ -234,7 +234,7 @@ img {
 
 /**
  * Correct overflow displayed oddly in IE 9.
- */
+ *
 
 svg:not(:root) {
     overflow: hidden;
