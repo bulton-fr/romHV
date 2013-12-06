@@ -30,6 +30,9 @@ $ClassLoaderIKernelI->register();
 
 $ClassLoaderModule = new SplClassLoader('modules', $path.'modules');
 $ClassLoaderModule->register();
+
+$ClassLoaderModele = new SplClassLoader('modeles', $path.'modeles');
+$ClassLoaderModele->register();
 //Class Loader
 
 

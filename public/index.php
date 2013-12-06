@@ -153,6 +153,11 @@ if(count($ex_request) > 1 && ($request != '/index.php' || $request != '/'))
 		exit;
 	}
 }
+elseif(count($ex_request) == 1 && !($request == '/index.php' || $request == '/'))
+{
+	require_once('../kernel/kernel.php');
+	ErrorView(404);
+}
 
 /** Gestion à faire à cause de l'url rewriting qui prend en compte tous les fichiers, css/js/images y compris. **/
 require_once('../kernel/kernel.php');
