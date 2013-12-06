@@ -22,6 +22,21 @@
     border-radius: 4px;
 }
 
+.form_login {display: block;}
+.result_login {display: none;}
+
+
+.login {padding-top: 7px;}
+.form_login p
+{
+    margin: 1px;
+}
+
+.form_login p > input[type=submit]
+{
+    margin-top: 7px;
+}
+
 /*
  * Bulle de connexion
  * 
@@ -44,17 +59,6 @@
     border-radius: 10px;
     
     opacity: 0.90;
-}
-
-.login {padding-top: 7px;}
-.login > p
-{
-    margin: 1px;
-}
-
-.login > p > input[type=submit]
-{
-    margin-top: 7px;
 }
 
 .arrow_border

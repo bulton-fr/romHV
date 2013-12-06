@@ -32,7 +32,7 @@ class users extends \BFW_Sql\Classes\Modeles
 		$req = $this->select()->from($this->_name, 'id')->where('login=:login', array(':login' => $login));
 		$res = $req->fetchrow();
 		
-		if($res) {return $res['id'];}
+		if($res) {return (int) $res['id'];}
 		else {return $default;}
 	}
 	
@@ -53,7 +53,7 @@ class users extends \BFW_Sql\Classes\Modeles
 		}
 		
 		$req = $this->select()->from($this->_name, 'login')->where('id=:id', array(':id' => $id));
-		$res = $req->fetchrow();
+		$res = $req->fetchRow();
 		
 		if($res) {return $res['login'];}
 		else {return $default;}
@@ -76,7 +76,7 @@ class users extends \BFW_Sql\Classes\Modeles
 		}
 		
 		$req = $this->select()->from($this->_name, 'mdp')->where('id=:id', array(':id' => $id));
-		$res = $req->fetchrow();
+		$res = $req->fetchRow();
 		
 		if($res) {return $res['mdp'];}
 		else {return $default;}
@@ -99,7 +99,7 @@ class users extends \BFW_Sql\Classes\Modeles
 		}
 		
 		$req = $this->select()->from($this->_name, 'mail')->where('id=:id', array(':id' => $id));
-		$res = $req->fetchrow();
+		$res = $req->fetchRow();
 		
 		if($res) {return $res['mail'];}
 		else {return $default;}

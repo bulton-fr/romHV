@@ -1,6 +1,6 @@
 <?php
 $TPL = new BFW_Tpl\Classes\Template('header.html');
-$TPL->AddGeneralVars(array('path' => $path));
+$TPL->AddGeneralVars(array('path' => $path, 'base_url' => $base_url));
 
 if(isset($Params_head) && is_array($Params_head))
 {

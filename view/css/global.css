@@ -34,3 +34,13 @@ form input[type=submit]
 }
 
 form input[type=submit]:hover {background-color: #f1f1f1;}
+
+p.loader
+{
+    background-image: url("../img/ajax-loader.gif");
+    background-position: 50% 0;
+    background-repeat: no-repeat;
+    
+    width: 100%;
+    height: 11px;
+}
