@@ -1,8 +1,24 @@
 <?php
+
+namespace modeles;
+
+/**
+ * Modèle pour la table config
+ * 
+ * @author Maxime Vermeulen <bulton.fr@gmail.com>
+ */
 class Config extends \BFW_Sql\Classes\Modeles
 {
+	/**
+	 * Nom de la table
+	 */
 	protected $_name = 'config';
 	
+	/**
+	 * Retourne toutes les configs
+	 * 
+	 * @return array : La liste des config
+	 */
 	public function recupAll()
 	{
 		$req = $this->select()->from($this->_name);
@@ -12,18 +28,50 @@ class Config extends \BFW_Sql\Classes\Modeles
 		else {return array();}
 	}
 	
+	/**
+	 * Met à jour une config
+	 * 
+	 * @param string $ref   : La référence de la config
+	 * @param string $value : La nouvelle valeur de la config
+	 * 
+	 * @return bool
+	 */
 	public function update($ref, $value)
 	{
-		$this->update($this->_name, array('ref' => $ref, 'value' => $value));
+		if(!is_string($ref) || !is_string($value))
+		{
+			if($this->get_debug()) {new Exception('Les paramètres données ne sont pas correct.');}
+			else {return false;}
+		}
+		
+		$req = $this->update($this->_name, array('value' => $value))->where('ref=:ref', array(':ref' => $ref));
+		
+		if($req->execute()) {return true;}
+		else {return false;}
 	}
 	
+	/**
+	 * Récupère une config
+	 * 
+	 * @param string $ref : La référence de la config 
+	 * 
+	 * @return string $value : La valeur de la config
+	 */
 	public function getConfig($ref)
 	{
+		$default = '';
+		
+		if(!is_string($ref))
+		{
+			if($this->get_debug()) {new Exception('Le paramètre données n\'est pas correct.');}
+			else {return $default;}
+		}
+		
 		$req = $this->select()->from($this->_name)->where('ref="'.$ref.'"');
-		$res = $req->fetch();
+		$res = $req->fetchRow();
 		
 		if($res) {return $res['value'];}
-		else {new Exception('Erreur dans la récupération de la config '.$ref);}
+		else {return $default;}
 	}
 }
 ?>

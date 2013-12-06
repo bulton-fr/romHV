@@ -104,4 +104,27 @@ class users extends \BFW_Sql\Classes\Modeles
 		if($res) {return $res['mail'];}
 		else {return $default;}
 	}
+	
+	/**
+	 * Retourne le nombre de po pour un id donné
+	 * 
+	 * @param int $id : L'id
+	 * 
+	 * @return int : L'id trouvé. 0 si aucun login trouvé.
+	 */
+	public function getPo($id)
+	{
+		$default = 0;
+		if(!is_int($id))
+		{
+			if($this->get_debug()) {new Exception('L\'id donné en paramètre doit être de type int.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()->from($this->_name, 'po')->where('id=:id', array(':id' => $id));
+		$res = $req->fetchRow();
+		
+		if($res) {return $res['po'];}
+		else {return $default;}
+	}
 }
