@@ -179,6 +179,9 @@ function ErrorView($num)
 	}
 	else
 	{
+		if(function_exists('http_response_code')) {http_response_code($num);}
+		else {header(':', true, $num);}
+		
 		echo 'Erreur '.$num;
 	}
 	

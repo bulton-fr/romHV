@@ -13,7 +13,7 @@ if($bd_enabled)
 	$DB = new \BFW_Sql\Classes\SqlConnect($bd_host, $bd_user, $bd_pass, $bd_name, $bd_type);
 	$bd_host = $bd_user = $bd_pass = 'bouh le vilain hacker !';
 	
-	if($Kernel->get_debug())
+	if($bd_observer)
 	{
 		$observerSql = new \BFW_Sql\Classes\SqlObserver;
 		$Kernel->attachOther($observerSql);

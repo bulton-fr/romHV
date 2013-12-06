@@ -164,7 +164,18 @@ class SqlActions extends \BFW\CKernel\Kernel implements \BFW_Sql\Interfaces\ISql
 	public function where($cond, $prepare=null)
 	{
 		$this->where[] = $cond;
-		if(func_num_args() > 1) {$this->prepare[] = $prepare;}
+		if(func_num_args() > 1 && is_array($prepare))
+		{
+			foreach($prepare as $key => $val)
+			{
+				//$this->prepare[] = $prepare;
+				if(isset($this->prepare[$key]) && $this->prepare[$key] != $val)
+				{
+					new Exception('La clé '.$key.' pour la requête sql préparé est déjà utilisé avec une autre valeur.');
+				}
+				else {$this->prepare[$key] = $val;}
+			}
+		}
 		
 		return $this;
 	}
