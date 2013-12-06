@@ -76,7 +76,7 @@ class Perso extends \BFW_Sql\Classes\Modeles
 			else {return false;}
 		}
 		
-		$req = $this->update($this->_name, array('nom' => $nom))->where('idPerso=:id', array(':id', $idPerso));
+		$req = $this->update($this->_name, array('nom' => '"'.$nom.'"'))->where('idPerso=:id', array(':id' => $idPerso));
 		
 		if($req->execute()) {return true;}
 		else {return false;}
@@ -98,7 +98,7 @@ class Perso extends \BFW_Sql\Classes\Modeles
 			else {return false;}
 		}
 		
-		$req = $this->update($this->_name, array('po' => $po))->where('idPerso=:id', array(':id', $idPerso));
+		$req = $this->update($this->_name, array('po' => $po))->where('idPerso=:id', array(':id' => $idPerso));
 		
 		if($req->execute()) {return true;}
 		else {return false;}
@@ -148,7 +148,7 @@ class Perso extends \BFW_Sql\Classes\Modeles
 			else {return false;}
 		}
 		
-		$req = $this->delete($this->_name)->where('idPerso=:id', array(':id', $idPerso));
+		$req = $this->delete($this->_name)->where('idPerso=:id', array(':id' => $idPerso));
 		
 		if($req->execute()) {return true;}
 		else {return false;}

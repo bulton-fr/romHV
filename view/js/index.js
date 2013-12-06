@@ -24,6 +24,7 @@ function mainResize()
  */
 function page(url, idPerso)
 {
+	$(".bandeau li.wait").show();
 	url = base_url+"/"+url; //Evite les erreurs d'injection d'url. Le framework se chargeant du reste après (renvoi 404)
 	
 	if(idPerso != undefined) {data = {idPerso : idPerso};}
@@ -34,8 +35,19 @@ function page(url, idPerso)
 		data: data,
 		type: 'POST'
 	})
-	.done(function(data) {$(".cont").html(data);})
-	.fail(function() {alert("Désolé j'ai crashé :o")});
+	.done(function(data)
+	{
+		$(".bandeau li.wait").hide();
+		
+		if(data != "RedirectLogin") {$(".cont").html(data);}
+		else {window.location.href = base_url;}
+	})
+	.fail(function()
+	{
+		$(".bandeau li.wait").hide();
+		
+		alert("Désolé j'ai crashé :o")
+	});
 }
 
 //Redimenssionnement si on change la taille de la fenêtre

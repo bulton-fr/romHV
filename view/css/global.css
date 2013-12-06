@@ -11,7 +11,7 @@ body
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 }
 
-form input[type=text], form input[type=password], form textarea
+input[type=text], form input[type=password], form textarea
 {
     color: #000000;
     padding: 3px;
@@ -21,7 +21,7 @@ form input[type=text], form input[type=password], form textarea
     margin-top: 2px;
 }
 
-form input[type=submit]
+input[type=submit]
 {
     padding: 5px 8px;
     background-color: #ffffff;
@@ -35,7 +35,7 @@ form input[type=submit]
     color: #1e325d;
 }
 
-form input[type=submit]:hover {background-color: #f1f1f1;}
+input[type=submit]:hover {background-color: #f1f1f1;}
 
 p.loader
 {

@@ -6,6 +6,7 @@ $Params_head = array(
 	),
 	'js' => array(
 		$path.'js/index.js',
+		$path.'js/perso.js'
 		//$path.'jquery_ui/ui/jquery-ui.min.js'
 	)
 );
@@ -16,6 +17,19 @@ $TPL = new \BFW_Tpl\Classes\Template('index.html');
 $TPL->AddGeneralVars(array('path' => $path));
 
 $TPL->AddVars(array('mesPo' => '25.000.000'));
+
+
+$MPerso = new \modeles\Perso();
+$persos = $MPerso->recupAll($idUser);
+
+if(count($persos) > 0)
+{
+	foreach($persos as $perso)
+	{
+		$TPL->AddBlockWithEnd('persos', $perso);
+	}
+}
+
 
 $TPL->End();
 

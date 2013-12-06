@@ -27,6 +27,7 @@
 
 .menu_left ul.list_perso
 {
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
@@ -119,4 +120,19 @@
     margin-top: 10px;
     min-height: 75px;
     overflow: auto;
+}
+
+input.po
+{
+    width: 110px;
+    background-image: url('../img/Icon_po.png');
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+p.ListeDesPersos img
+{
+    position: relative;
+    top: 3px;
+    cursor: pointer;
 }

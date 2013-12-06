@@ -34,7 +34,7 @@ $(document).ready(function()
 					
 					setTimeout(function() {
 						window.location.href = base_url;
-					}, 4000);
+					}, 3000);
 				}
 				else {login_crash();}
 			})
