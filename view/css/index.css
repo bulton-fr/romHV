@@ -12,6 +12,8 @@
     
     border: 3px solid #C0C0C0;
     border-radius: 4px;
+    
+    color: black;
 }
 
 .menu_left
@@ -77,12 +79,11 @@
 {
     float: right;
     width: 690px;
-    height: 20px;
-    /*border:1px solid black;*/
 }
 
 .bandeau
 {
+    height: 20px;
     border:0px;
     border-bottom: 2px solid #C0C0C0;
     padding-left: 5px;
@@ -105,7 +106,17 @@
     padding-left: 20px;
 }
 
+.bandeau ul li.wait
+{
+    display: none;
+}
+
+.bandeau ul li.link {cursor: pointer;}
+.bandeau ul li.link:hover {text-decoration: underline;}
+
 .cont
 {
     margin-top: 10px;
+    min-height: 75px;
+    overflow: auto;
 }

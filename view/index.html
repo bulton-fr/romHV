@@ -1,22 +1,23 @@
 <div class="main">
 	<div class="menu_left">
 		<ul class="main_liste">
-			<li>Récap</li>
-			<li>Ventes</li>
-			<li>En attente</li>
+			<li id="recap">Récap</li>
+			<li id="ventes">Ventes</li>
+			<li id="enAttente">En attente</li>
 			<li class="emptyLi"></li>
 		</ul>
 		<ul class="list_perso">
 			<block name="persos">
-				<li class="perso"><var name="monPerso" /></li>
+				<li class="perso" id="<var name='idPerso' />"><var name="nomPerso" /></li>
 			</block>
 		</ul>
 		
 	</div>
 	<div class="bandeau">
 		<ul>
-			<li>Mes personnages</li>
-			<li>Mon compte</li>
+			<li class="link" id="mesPersos">Mes personnages</li>
+			<li class="link" id="monCompte">Mon compte</li>
+			<li class="wait"><img src="<var name='path' />/img/ajax-loader.gif" /></li>
 			<li class="po" id="poPerso"></li>
 			<li class="po"><var name="mesPo" /></li>
 			<li class="clear"></li>

@@ -13,6 +13,7 @@ $Params_head = array(
 require_once('header.php');
 
 $TPL = new \BFW_Tpl\Classes\Template('index.html');
+$TPL->AddGeneralVars(array('path' => $path));
 
 $TPL->AddVars(array('mesPo' => '25.000.000'));
 
