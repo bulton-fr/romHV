@@ -1,0 +1,111 @@
+.main
+{
+    position: relative;
+    margin: auto;
+    
+    width: 900px;
+    min-height: 100px;
+    margin-top: 50px;
+    
+    background-color: white;
+    opacity: 0.93;
+    
+    border: 3px solid #C0C0C0;
+    border-radius: 4px;
+}
+
+.menu_left
+{
+    float: left;
+    overflow-x: hidden;
+    width: 200px;
+    border-right: 3px solid #C0C0C0;
+    height: 100%;
+}
+
+.menu_left ul.list_perso
+{
+    overflow-y: auto;
+}
+
+.menu_left ul, .menu_left li, .bandeau ul, .bandeau ul li
+{
+    margin: 0;
+    padding: 0;
+}
+
+.menu_left ul {
+    position: relative;
+    left: -1px;
+}
+
+.menu_left li
+{
+    cursor: pointer;
+    
+    padding: 2px;
+    padding-top: 4px;
+    padding-left: 5px;
+    
+    height: 16px;
+    width: 193px;
+    border: 1px solid #C0C0C0;
+    
+    list-style-type: none;
+}
+
+.menu_left li:hover
+{
+    background-color: #E9E9E9;
+}
+
+.menu_left li.emptyLi
+{
+    height: 0px;
+    background-color: #C0C0C0;
+    border-top: 0px;
+    border-left: 0px;
+    border-bottom: 0px;
+}
+
+.perso
+{
+    
+}
+
+.bandeau, .cont
+{
+    float: right;
+    width: 690px;
+    height: 20px;
+    /*border:1px solid black;*/
+}
+
+.bandeau
+{
+    border:0px;
+    border-bottom: 2px solid #C0C0C0;
+    padding-left: 5px;
+    padding-top: 4px;
+}
+
+.bandeau ul li
+{
+    list-style-type: none;
+    float: left;
+    margin-right: 15px;
+}
+
+.bandeau ul li.po
+{
+    background-image: url("../img/Icon_po.png");
+    background-repeat: no-repeat;
+    
+    float: right;
+    padding-left: 20px;
+}
+
+.cont
+{
+    margin-top: 10px;
+}
