@@ -1,5 +1,5 @@
 <?php
-$Params_head['css'] = array('login.css');
+$Params_head['css'] = array($path.'css/login.css');
 $Params_head['js'] = array($path.'js/login.js');
 require_once('header.php');
 
