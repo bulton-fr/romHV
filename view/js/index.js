@@ -24,7 +24,7 @@ function mainResize()
  */
 function page(url, idPerso)
 {
-	url = base_url+"/"+url+".php"; //Evite les erreurs d'injection d'url. Le framework se chargeant du reste après (renvoi 404)
+	url = base_url+"/"+url; //Evite les erreurs d'injection d'url. Le framework se chargeant du reste après (renvoi 404)
 	
 	if(idPerso != undefined) {data = {idPerso : idPerso};}
 	else {data = {};}
