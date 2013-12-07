@@ -21,12 +21,12 @@ class Perso extends \BFW_Sql\Classes\Modeles
 	 * 
 	 * @return array : La liste des comptes
 	 */
-	public function recupAll($idUser)
+	public function getAll($idUser)
 	{
 		$default = array();
 		if(!is_int($idUser))
 		{
-			if($this->get_debug()) {new Exception('L\'id donné en paramètre doit être de type int.');}
+			if($this->get_debug()) {throw new Exception('L\'id donné en paramètre doit être de type int.');}
 			else {return $default;}
 		}
 		
@@ -34,6 +34,45 @@ class Perso extends \BFW_Sql\Classes\Modeles
 		$res = $req->fetchAll();
 		
 		if($res) {return $res;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Retourne tous les persos pour un id d'user donnée avec les informations sur ces ventes
+	 * 
+	 * @param int $idUser : L'id de l'user des persos
+	 * 
+	 * @return array : La liste des comptes
+	 */
+	public function getAllWithVente($idUser)
+	{
+		$default = array();
+		if(!is_int($idUser))
+		{
+			if($this->get_debug()) {throw new Exception('L\'id donné en paramètre doit être de type int.');}
+			else {return $default;}
+		}
+		
+		$MPersoItem = new \modeles\PersoItem;
+		$sub_nbVente = $MPersoItem->subQ_nbVente('p.idPerso');
+		$sub_nbWait = $MPersoItem->subQ_nbWait('p.idPerso');
+		
+		$req = $this->select()
+					->from(array('p' => $this->_name))
+					->where('idUser=:id', array(':id' => $idUser));
+					
+		if(!is_null($sub_nbVente)) {$req->subQuery($sub_nbVente, 'nbVente');}
+		if(!is_null($sub_nbWait)) {$req->subQuery($sub_nbWait, 'nbWait');}
+		
+		$res = $req->fetchAll();
+		
+		if($res)
+		{
+			if(is_null($sub_nbVente)) {$res['nbVente'] = 'Crash';}
+			if(is_null($sub_nbWait)) {$res['nbWait'] = 'Crash';}
+			
+			return $res;
+		}
 		else {return $default;}
 	}
 	
@@ -49,7 +88,7 @@ class Perso extends \BFW_Sql\Classes\Modeles
 		$default = array();
 		if(!is_int($idUser))
 		{
-			if($this->get_debug()) {new Exception('L\'id donné en paramètre doit être de type int.');}
+			if($this->get_debug()) {throw new Exception('L\'id donné en paramètre doit être de type int.');}
 			else {return $default;}
 		}
 		
@@ -72,7 +111,7 @@ class Perso extends \BFW_Sql\Classes\Modeles
 	{
 		if(!is_int($idPerso) || !is_string($nom))
 		{
-			if($this->get_debug()) {new Exception('Les paramètres données ne sont pas correct.');}
+			if($this->get_debug()) {throw new Exception('Les paramètres données ne sont pas correct.');}
 			else {return false;}
 		}
 		
@@ -94,13 +133,18 @@ class Perso extends \BFW_Sql\Classes\Modeles
 	{
 		if(!is_int($idPerso) || !is_int($po))
 		{
-			if($this->get_debug()) {new Exception('Les paramètres données ne sont pas correct.');}
+			if($this->get_debug()) {throw new Exception('Les paramètres données ne sont pas correct.');}
 			else {return false;}
 		}
 		
 		$req = $this->update($this->_name, array('po' => $po))->where('idPerso=:id', array(':id' => $idPerso));
 		
-		if($req->execute()) {return true;}
+		if($req->execute())
+		{
+			global $idUser;
+			$MUser = new \modules\users\modeles\Users;
+			return $MUser->recalculPo($idUser);
+		}
 		else {return false;}
 	}
 	
@@ -117,7 +161,7 @@ class Perso extends \BFW_Sql\Classes\Modeles
 	{
 		if(!is_int($idUser) || !is_string($nom) || !is_int($po))
 		{
-			if($this->get_debug()) {new Exception('Les paramètres données ne sont pas correct.');}
+			if($this->get_debug()) {throw new Exception('Les paramètres données ne sont pas correct.');}
 			else {return false;}
 		}
 		
@@ -144,7 +188,7 @@ class Perso extends \BFW_Sql\Classes\Modeles
 	{
 		if(!is_int($idPerso))
 		{
-			if($this->get_debug()) {new Exception('Les paramètres données ne sont pas correct.');}
+			if($this->get_debug()) {throw new Exception('Les paramètres données ne sont pas correct.');}
 			else {return false;}
 		}
 		

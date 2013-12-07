@@ -55,9 +55,10 @@ $(window).resize(function() {mainResize();});
 
 $(document).ready(function()
 {
+	page("recap");
 	mainResize(); //Redimensionne dès que la page est chargé.
 	
-	$(".bandeau > ul > li.link").click(function() {page($(this).attr("id"));});
+	$(".cont").on('click', '.link', function() {page($(this).attr("id"));});
 	$("ul.main_liste > li").not('.emptyLi').click(function() {page($(this).attr("id"));});
 	$("ul.list_perso > li").click(function() {page("perso", $(this).attr("id"));});
 });

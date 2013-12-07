@@ -1,0 +1,33 @@
+table.recap, table.recap td
+{
+    border-collapse: collapse;
+    border: 1px solid #C0C0C0;
+    
+}
+
+table.recap {width: 670px;}
+
+table.recap td {padding: 2px;}
+table.recap thead td
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+    text-align: center;
+    background-color: #2779AA;
+    color: white;
+    font-weight: bold;
+}
+
+table.recap td.recap_perso {width: 190px;}
+table.recap td.recap_enCours {width: 100px;}
+table.recap td.recap_wait {width: 100px;}
+table.recap td.recap_po {width: 100px;}
+table.recap td.recap_stat {width: 80px;}
+
+table.recap td.po
+{
+    background-image: url('../img/Icon_po.png');
+    background-repeat: no-repeat;
+    background-position: right;
+}

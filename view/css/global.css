@@ -48,3 +48,7 @@ p.loader
 }
 
 .clear {clear: both;}
+.center {text-align: center;}
+
+.link {cursor: pointer;}
+.link:hover {text-decoration: underline;}
