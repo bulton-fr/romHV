@@ -56,7 +56,7 @@ $(document).ready(function()
 	})
 	.on('blur', 'p.ListeDesPersos input#poPerso', function() {
 		var idPerso = $(this).parent().attr('id');
-		var po = $(this).html();
+		var po = $(this).val();
 		
 		if(po == "") {po = 0;}
 		$(".bandeau li.wait").show();
