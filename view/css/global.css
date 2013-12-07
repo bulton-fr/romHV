@@ -11,7 +11,7 @@ body
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 }
 
-input[type=text], form input[type=password], form textarea
+input[type=text], input[type=password], textarea
 {
     color: #000000;
     padding: 3px;

@@ -83,6 +83,30 @@ class users extends \BFW_Sql\Classes\Modeles
 	}
 	
 	/**
+	 * Modifie le mot de passe pour un user donné
+	 * 
+	 * @param int    $idUser : L'id de l'user
+	 * @param string $newMDP : Le nouveau mot de passe
+	 * 
+	 * @return bool
+	 */
+	public function setMdp($idUser, $newMDP)
+	{
+		$default = false;
+		
+		if(!is_int($idUser) || !is_string($newMDP))
+		{
+			if($this->get_debug()) {new Exception('Les paramètres données sont incorrect.');}
+			else {return $default;}
+		}
+		
+		$req = $this->update($this->_name, array('mdp' => '"'.$newMDP.'"'))->where('id=:id', array(':id' => $idUser));
+		
+		if($req->execute()) {return true;}
+		else {return $default;}
+	}
+	
+	/**
 	 * Retourne le mail pour un id donné
 	 * 
 	 * @param int $id : L'id

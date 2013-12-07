@@ -6,7 +6,8 @@ $Params_head = array(
 	),
 	'js' => array(
 		$path.'js/index.js',
-		$path.'js/perso.js'
+		$path.'js/perso.js',
+		$path.'js/compte.js'
 		//$path.'jquery_ui/ui/jquery-ui.min.js'
 	)
 );

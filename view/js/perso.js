@@ -14,7 +14,7 @@ $(document).ready(function()
 			data: {nom: nom, po: po},
 			type: 'POST'
 		})
-		.done(function(data) {page("perso/liste");})
+		.done(function() {page("perso/liste");})
 		.fail(function()
 		{
 			$(".bandeau li.wait").hide();
