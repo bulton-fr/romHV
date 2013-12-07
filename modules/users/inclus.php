@@ -7,7 +7,7 @@ if(!is_null($login) && !is_null($mdp))
 	$logged = false;
 	//La personne cherche à se connecter.
 	
-	$modele_user = new \modules\users\modeles\users;
+	$modele_user = new \modules\users\modeles\Users;
 	
 	$idUser = $modele_user->IdFromLogin($login);
 	if($idUser != false)

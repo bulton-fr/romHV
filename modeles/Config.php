@@ -19,7 +19,7 @@ class Config extends \BFW_Sql\Classes\Modeles
 	 * 
 	 * @return array : La liste des config
 	 */
-	public function recupAll()
+	public function getAll()
 	{
 		$req = $this->select()->from($this->_name);
 		$res = $req->fetchAll();
@@ -40,7 +40,7 @@ class Config extends \BFW_Sql\Classes\Modeles
 	{
 		if(!is_string($ref) || !is_string($value))
 		{
-			if($this->get_debug()) {new Exception('Les paramètres données ne sont pas correct.');}
+			if($this->get_debug()) {throw new Exception('Les paramètres données ne sont pas correct.');}
 			else {return false;}
 		}
 		
@@ -63,7 +63,7 @@ class Config extends \BFW_Sql\Classes\Modeles
 		
 		if(!is_string($ref))
 		{
-			if($this->get_debug()) {new Exception('Le paramètre données n\'est pas correct.');}
+			if($this->get_debug()) {throw new Exception('Le paramètre données n\'est pas correct.');}
 			else {return $default;}
 		}
 		
