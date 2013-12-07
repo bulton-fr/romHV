@@ -30,7 +30,7 @@ class Perso extends \BFW_Sql\Classes\Modeles
 			else {return $default;}
 		}
 		
-		$req = $this->select()->from($this->_name)->where('idUser=:id', array(':id' => $idUser));
+		$req = $this->select()->from($this->_name)->where('idUser=:id', array(':id' => $idUser))->order('idPerso ASC');
 		$res = $req->fetchAll();
 		
 		if($res) {return $res;}
@@ -59,7 +59,8 @@ class Perso extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->select()
 					->from(array('p' => $this->_name))
-					->where('idUser=:id', array(':id' => $idUser));
+					->where('idUser=:id', array(':id' => $idUser))
+					->order('idPerso ASC');
 					
 		if(!is_null($sub_nbVente)) {$req->subQuery($sub_nbVente, 'nbVente');}
 		if(!is_null($sub_nbWait)) {$req->subQuery($sub_nbWait, 'nbWait');}
@@ -86,7 +87,7 @@ class Perso extends \BFW_Sql\Classes\Modeles
 	public function getPerso($idPerso)
 	{
 		$default = array();
-		if(!is_int($idUser))
+		if(!is_int($idPerso))
 		{
 			if($this->get_debug()) {throw new Exception('L\'id donné en paramètre doit être de type int.');}
 			else {return $default;}
@@ -173,7 +174,12 @@ class Perso extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->insert($this->_name, $data);
 		
-		if($req->execute()) {return true;}
+		if($req->execute())
+		{
+			global $idUser;
+			$MUser = new \modules\users\modeles\Users;
+			return $MUser->recalculPo($idUser);
+		}
 		else {return false;}
 	}
 	

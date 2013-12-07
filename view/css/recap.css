@@ -32,4 +32,5 @@ table.recap td.po
     background-position: right;
 }
 
-p.GraphRecap {margin-top: 50px;}
+div.GraphRecap {margin-top: 50px;}
+.statPerso {cursor: pointer;}

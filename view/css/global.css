@@ -11,7 +11,7 @@ body
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 }
 
-input[type=text], input[type=password], textarea
+input[type=text], input[type=password], textarea, button
 {
     color: #000000;
     padding: 3px;
@@ -35,7 +35,12 @@ input[type=submit]
     color: #1e325d;
 }
 
-input[type=submit]:hover {background-color: #f1f1f1;}
+input[type=submit]:hover, button:hover {background-color: #f1f1f1;}
+button.selected
+{
+    background-color: #2779AA;
+    color: white;
+}
 
 p.loader
 {
