@@ -72,6 +72,11 @@ class SqlSelect extends SqlActions implements \BFW_Sql\Interfaces\ISqlSelect
 	private $limit = '';
 	
 	/**
+	 * @var $limit : La clause GROUP BY
+	 */
+	private $group = array();
+	
+	/**
 	 * Constructeur
 	 * @param Sql (référence) : L'instance Sql
 	 * @param string (array|objet|object) : Le type de retour pour les données
@@ -313,6 +318,22 @@ class SqlSelect extends SqlActions implements \BFW_Sql\Interfaces\ISqlSelect
 		}
 		//Fin Partie ORDER BY
 		
+		//Partie GROUP BY
+		$group = '';
+		if(count($this->group) > 0)
+		{
+			$group = ' GROUP BY ';
+			foreach($this->group as $val)
+			{
+				if($group != ' GROUP BY ')
+				{
+					$group .= ', ';
+				}
+				$group .= $val;
+			} 
+		}
+		//Fin Partie GROUP BY
+		
 		//Partie LIMIT
 		$limit = '';
 		if($this->limit != '')
@@ -322,7 +343,7 @@ class SqlSelect extends SqlActions implements \BFW_Sql\Interfaces\ISqlSelect
 		//Fin Partie LIMIT
 		
 		//Et on créer la requête :)
-		$this->RequeteAssembler = 'SELECT '.$select.' FROM '.$from.$join.$joinLeft.$joinRight.$where.$order.$limit;
+		$this->RequeteAssembler = 'SELECT '.$select.' FROM '.$from.$join.$joinLeft.$joinRight.$where.$order.$group.$limit;
 		
 		$this->notifyObserver(array('value' => 'REQ_SQL', 'REQ_SQL' => $this->RequeteAssembler));
 	}
@@ -541,6 +562,17 @@ class SqlSelect extends SqlActions implements \BFW_Sql\Interfaces\ISqlSelect
 			$this->limit = $limit;
 		}
 		
+		return $this;
+	}
+	
+	/**
+	 * Permet d'ajouter une clause group by à la requête
+	 * @param string : Le champ concerné par le group by
+	 * @return Sql_Select : L'instance de l'objet courant.
+	 */
+	public function group($cond)
+	{
+		$this->group[] = $cond;
 		return $this;
 	}
 	
