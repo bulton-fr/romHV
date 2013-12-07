@@ -50,6 +50,44 @@ function page(url, idPerso)
 	});
 }
 
+google.load("visualization", "1", {packages:["corechart"]});
+
+/**
+ * Graph page récap
+ */
+function graphRecap()
+{
+	$("#GraphRecap").html("<p>Génération du graphique en cours</p><p><img src='"+path+"img/ajax-loader.gif' /></p>");
+	
+	$.ajax({
+		url: base_url+"/infosGraph",
+		dataType: 'json'
+	})
+	.done(function(data)
+	{
+		console.log(data);
+		
+		try {
+			var options = {
+				title: "Mes ventes de ces dernières semaines",
+				width: 670,
+				height: 400
+			};
+
+			var dataGraph = google.visualization.arrayToDataTable(data);
+			var chart = new google.visualization.LineChart(document.getElementById('GraphRecap'));
+			
+			$("p.GraphRecap").hide();
+			chart.draw(dataGraph, options);
+		}
+		catch(e) {$("#GraphRecap").html("Crash à la génération du graphique. : "+e);}
+	})
+	.fail(function()
+	{
+		$("#GraphRecap").html("Crash à la génération du graphique.");
+	});
+}
+
 //Redimenssionnement si on change la taille de la fenêtre
 $(window).resize(function() {mainResize();});
 

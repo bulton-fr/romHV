@@ -61,5 +61,38 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 					->where('enVente=0');
 		return $req;
 	}
+	
+	/**
+	 * Retourne la valeur des ventes de la semaine pour un User
+	 * 
+	 * @param int  $idUser  : L'id de l'user
+	 * @param Date $dateDeb : L'objet Date de la date de début de la semaine
+	 * @param Date $dateFin : L'objet Date de la date de fin de la semaine
+	 * 
+	 * @return int : Le nombre de po gagné dans la semaine
+	 */
+	public function getPoVenteSemaine($idUser, $dateDeb, $dateFin)
+	{
+		$default = 0;
+		
+		$classDateDeb = get_class($dateDeb);
+		$classDateFin = get_class($dateFin);
+		
+		if($classDateDeb != 'BFW\CKernel\Date' || $classDateFin != 'BFW\CKernel\Date' || !is_int($idUser))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()
+					->from($this->_name, array('po' => 'SUM(poGagne)'))
+					->where('idUser=:user', array(':user' => $idUser))
+					->where('dateVendu >= "'.$dateDeb->getSql().'"')
+					->where('dateVendu <= "'.$dateFin->getSql().'"');
+		$res = $req->fetchRow();
+		
+		if($res) {return (int) $res['po'];}
+		else {return $default;}
+	}
 }
 ?>

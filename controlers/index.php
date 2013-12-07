@@ -6,6 +6,7 @@ $Params_head = array(
 		//$path.'jquery_ui/themes/redmond/jquery-ui.css'
 	),
 	'js' => array(
+		'https://www.google.com/jsapi',
 		$path.'js/index.js',
 		$path.'js/perso.js',
 		$path.'js/compte.js'

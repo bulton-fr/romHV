@@ -31,3 +31,5 @@ table.recap td.po
     background-repeat: no-repeat;
     background-position: right;
 }
+
+p.GraphRecap {margin-top: 50px;}
