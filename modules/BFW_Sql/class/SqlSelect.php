@@ -339,7 +339,8 @@ class SqlSelect extends SqlActions implements \BFW_Sql\Interfaces\ISqlSelect
 		{
 			foreach($table as $key => $val)
 			{
-				$as = $key; $tableName = $val;
+				$as = $key;
+				$tableName = $val;
 			}
 		}
 		else
