@@ -1,0 +1,5 @@
+Menu Gauche > Liste des personnages
+	Pas d'actualisation au changement de nom
+
+Bandeau en haut
+	Po du compte : Pas de mise à jour automatique. Il faut F5 la page.
