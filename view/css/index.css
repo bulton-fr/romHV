@@ -25,12 +25,6 @@
     height: 100%;
 }
 
-.menu_left ul.list_perso
-{
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
 .menu_left ul, .menu_left li, .bandeau ul, .bandeau ul li
 {
     margin: 0;

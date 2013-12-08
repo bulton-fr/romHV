@@ -6,8 +6,10 @@ $Params_head = array(
 		$pagination_css[0],
 		$path.'css/vendu.css',
 		$path.'css/ventes.css',
-		$path.'css/enAttente.css'
-		//$path.'jquery_ui/themes/redmond/jquery-ui.css'
+		$path.'css/enAttente.css',
+		$path.'css/perso.css',
+		$path.'jquery_ui/themes/redmond/jquery-ui.css',
+		$path.'jquery_ui/timepicker/timepicker.css'
 	),
 	'js' => array(
 		'https://www.google.com/jsapi',
@@ -16,8 +18,9 @@ $Params_head = array(
 		$path.'js/compte.js',
 		$path.'js/vendu.js',
 		$path.'js/ventes.js',
-		$path.'js/enAttente.js'
-		//$path.'jquery_ui/ui/jquery-ui.min.js'
+		$path.'js/enAttente.js',
+		$path.'jquery_ui/ui/jquery-ui.min.js',
+		$path.'jquery_ui/timepicker/jquery-ui-timepicker-addon.js'
 	)
 );
 

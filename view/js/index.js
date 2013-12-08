@@ -47,10 +47,16 @@ function page(context, url, idPerso)
 			$(this).addClass('menuSelected');
 			
 			$(".cont").html(data);
-			
+			$("#poPerso").hide();
 			
 			if($(this).attr("id") == "ventes") {contVentes($("#buttonVentes button#me"), "me");}
 			if($(this).attr("id") == "vendu") {contVendu($("#buttonVendu button#semaine"), "semaine");}
+			if($(this).parent().attr("class") == "list_perso" && $(this).parents('div').attr("class") == "menu_left")
+			{
+				maj_po_bandeau();
+				var idPerso = $("#PersoViewId").val();
+				contPersoView($("#buttonPersoView button#vente"), "vente", idPerso);
+			}
 		}
 		else {window.location.href = base_url;}
 	})

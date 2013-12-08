@@ -1,5 +1,5 @@
 <?php
-$TPL = new \BFW_Tpl\Classes\Template('perso_liste.html');
+$TPL = new \BFW_Tpl\Classes\Template('perso/liste.html');
 $TPL->AddGeneralVars(array('path' => $path));
 
 $MPerso = new \modeles\Perso();

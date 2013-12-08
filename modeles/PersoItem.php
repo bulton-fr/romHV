@@ -459,9 +459,9 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		$correspondance = array(
 			'Item' => 'i.text', 
 			'Perso' => 'p.nom', 
-			'Date' => 'pi.dateVendu', 
-			'Achat' => 'pi.typeVente', 
-			'Po' => 'pi.poGagne'
+			'Date' => 'pi.dateDebut', 
+			'Enchere' => 'pi.enchere', 
+			'Rachat' => 'pi.rachat'
 		);
 		
 		$req = $this->select()
@@ -528,9 +528,9 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		$correspondance = array(
 			'Item' => 'i.text', 
 			'Perso' => 'p.nom', 
-			'Date' => 'pi.dateVendu', 
-			'Achat' => 'pi.typeVente', 
-			'Po' => 'pi.poGagne'
+			'Date' => 'pi.dateDebut', 
+			'Enchere' => 'pi.enchere', 
+			'Rachat' => 'pi.rachat'
 		);
 		
 		$req = $this->select()
@@ -559,6 +559,214 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 					->from($this->_name, 'idItem')
 					->where('enVente=1')
 					->where('vendu=0');
+		
+		$req->fetchRow();
+		return $req->nb_result();
+	}
+
+	/**
+	 * Retourne les ventes en cours pour un perso
+	 * 
+	 * @param int   $idPerso : L'id du perso
+	 * @param array $limit   : Indique le nombre d'item à retourner.
+	 * 							array('start' => Le nombre auquel on commence, 'nb' => Le nombre à retourner)
+	 * @param array $order   : Indique comment doit être fait le tri. [0]: sur quoi; [1] l'ordre
+	 * 
+	 * @return array : Les ventes en cours pour le perso
+	 */
+	public function getVentePerso($idPerso, $limit, $order)
+	{
+		$default = array();
+		
+		if(!is_int($idPerso) || !is_array($limit) || !is_array($order))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$correspondance = array(
+			'Item' => 'i.text', 
+			'Perso' => 'p.nom', 
+			'Date' => 'pi.dateDebut', 
+			'Enchere' => 'pi.enchere', 
+			'Rachat' => 'pi.rachat'
+		);
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), array('dateDebut', 'duree', 'enchere', 'rachat'))
+					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text'))
+					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
+					->where('pi.idPerso=:perso', array(':perso' => $idPerso))
+					->where('enVente=1')
+					->where('vendu=0')
+					->order($correspondance[$order[0]].' '.$order[1])
+					->limit(array($limit['start'], $limit['nb']));
+		
+		$res = $req->fetchAll();
+		if($res) {return $res;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Retourne le nombre de vente en cours pour un perso
+	 * 
+	 * @param int $idPerso : L'id du perso
+	 * 
+	 * @return int : Le nombre de ventes en cours pour le perso
+	 */
+	public function getNbVentePerso($idPerso)
+	{
+		$default = array();
+		
+		if(!is_int($idPerso))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), 'idItem')
+					->where('pi.idPerso=:perso', array(':perso' => $idPerso))
+					->where('enVente=1')
+					->where('vendu=0');
+		
+		$req->fetchRow();
+		return $req->nb_result();
+	}
+
+	/**
+	 * Retourne les items en attente pour un perso
+	 * 
+	 * @param int   $idPerso : L'id du perso
+	 * @param array $limit   : Indique le nombre d'item à retourner.
+	 * 							array('start' => Le nombre auquel on commence, 'nb' => Le nombre à retourner)
+	 * @param array $order   : Indique comment doit être fait le tri. [0]: sur quoi; [1] l'ordre
+	 * 
+	 * @return array : Les item en attente pour le perso
+	 */
+	public function getAttentePerso($idPerso, $limit, $order)
+	{
+		$default = array();
+		
+		if(!is_int($idPerso) || !is_array($limit) || !is_array($order))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$correspondance = array(
+			'Item' => 'i.text', 
+			'Perso' => 'p.nom', 
+			'Date' => 'pi.dateDebut', 
+			'Enchere' => 'pi.enchere', 
+			'Rachat' => 'pi.rachat'
+		);
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), array('dateDebut', 'duree', 'enchere', 'rachat'))
+					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text'))
+					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
+					->where('pi.idPerso=:perso', array(':perso' => $idPerso))
+					->where('enVente=0')
+					->where('vendu=0')
+					->order($correspondance[$order[0]].' '.$order[1])
+					->limit(array($limit['start'], $limit['nb']));
+		
+		$res = $req->fetchAll();
+		if($res) {return $res;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Retourne le nombre d'item en attente pour un perso
+	 * 
+	 * @param int $idPerso : L'id du perso
+	 * 
+	 * @return int : Le nombre d'item en attente pour le perso
+	 */
+	public function getNbAttentePerso($idPerso)
+	{
+		$default = array();
+		
+		if(!is_int($idPerso))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), 'idItem')
+					->where('pi.idPerso=:perso', array(':perso' => $idPerso))
+					->where('enVente=0')
+					->where('vendu=0');
+		
+		$req->fetchRow();
+		return $req->nb_result();
+	}
+
+	/**
+	 * Retourne les item vendu pour un perso
+	 * 
+	 * @param int   $idPerso : L'id du perso
+	 * @param array $limit   : Indique le nombre d'item à retourner.
+	 * 							array('start' => Le nombre auquel on commence, 'nb' => Le nombre à retourner)
+	 * @param array $order   : Indique comment doit être fait le tri. [0]: sur quoi; [1] l'ordre
+	 * 
+	 * @return array : Les item vendu pour le perso
+	 */
+	public function getVenduPerso($idPerso, $limit, $order)
+	{
+		$default = array();
+		
+		if(!is_int($idPerso) || !is_array($limit) || !is_array($order))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$correspondance = array(
+			'Item' => 'i.text', 
+			'Perso' => 'p.nom', 
+			'Date' => 'pi.dateVendu', 
+			'Achat' => 'pi.typeVente', 
+			'Po' => 'pi.poGagne'
+		);
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), array('typeVente', 'dateVendu', 'poGagne'))
+					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text'))
+					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
+					->where('pi.idPerso=:perso', array(':perso' => $idPerso))
+					->where('vendu=1')
+					->order($correspondance[$order[0]].' '.$order[1])
+					->limit(array($limit['start'], $limit['nb']));
+		
+		$res = $req->fetchAll();
+		if($res) {return $res;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Retourne le nombre d'item vendu pour un perso
+	 * 
+	 * @param int $idPerso : L'id du perso
+	 * 
+	 * @return int : Le nombre d'item vendu pour un perso
+	 */
+	public function getNbVenduPerso($idPerso)
+	{
+		$default = array();
+		
+		if(!is_int($idPerso))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), 'idItem')
+					->where('pi.idPerso=:perso', array(':perso' => $idPerso))
+					->where('vendu=1');
 		
 		$req->fetchRow();
 		return $req->nb_result();

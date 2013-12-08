@@ -2,7 +2,7 @@
  * Change de page
  * 
  * @param string nom
- * @param bool   color
+ * @param bool   suite
  * @param string idPerso
  */
 function contVendu(context, url, suite, tri)

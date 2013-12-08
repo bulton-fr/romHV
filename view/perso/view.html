@@ -1,0 +1,25 @@
+<h2 style="float: left;"><var name="nom" /></h2>
+<p class="infoPersoView">
+	En attente : <var name="nbAttente" />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	En vente : <var name="nbVente" /> / 30
+</p>
+
+<p id="buttonPersoView" class="clear">
+	<button id="addItem">Ajouter un item</button>
+	&nbsp;&nbsp;
+	<button id="vente">Ventes en cours</button>
+	&nbsp;&nbsp;
+	<button id="attente">Items en attente</button>
+	&nbsp;&nbsp;
+	<button id="vendu">Ventes effectuées</button>
+	
+	<input type="hidden" id="PersoViewPo" value="<var name='po' />" />
+	<input type="hidden" id="PersoViewId" value="<var name='idPerso' />" />
+	<input type="hidden" id="action" value="" />
+	<input type="hidden" id="suite" value="0" />
+	<input type="hidden" id="triRow" value="venteDate" />
+	<input type="hidden" id="triSens" value="DESC" />
+</p>
+
+<div class="cont_persoView"></div>

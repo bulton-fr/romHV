@@ -234,5 +234,34 @@ class Perso extends \BFW_Sql\Classes\Modeles
 		if($res) {return $res;}
 		else {return $default;}
 	}
+	
+	/**
+	 * Indique si un perso appartient à un user
+	 * 
+	 * @param int $idPerso : L'id du perso
+	 * @param int $idUSer  : L'id de l'user
+	 * 
+	 * @return bool
+	 */
+	public function persoBeUser($idPerso, $idUser)
+	{
+		$default = false;
+		
+		if(!is_int($idPerso) || !is_int($idUser))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()
+					->from($this->_name, 'idPerso')
+					->where('idPerso=:perso', array(':perso' => $idPerso))
+					->where('idUser=:user', array(':user' => $idUser));
+		$res = $req->fetchRow();
+		$nb = $req->nb_result();
+		
+		if($nb > 0) {$nb = 1;}
+		return $nb;
+	}
 }
 ?>
