@@ -13,7 +13,7 @@ $limit = array(
 $triRow = substr(post('triRow', 'venteDate'), 5);
 $triSens = post('triSens');
 
-$RowAccept = array('Item', 'Perso', 'Date', 'Achat', 'Po');
+$RowAccept = array('Item', 'Perso', 'Date', 'Enchere', 'Rachat');
 $SensAccept = array('ASC', 'DESC');
 
 if(!in_array($triRow, $RowAccept)) {$triRow = 'Date';}
