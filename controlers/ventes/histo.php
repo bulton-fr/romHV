@@ -1,17 +1,6 @@
 <?php
 $TPL = new \BFW_Tpl\Classes\Template('ventes/histo.html');
 
-$dateDeb = new \BFW\CKernel\Date();
-$dateDeb->DateTime->setTime(0, 0, 0);
-$jourNow = $dateDeb->DateTime->format('N');
-
-$sub = $jourNow-1;
-$dateDeb->modify('-'.$sub.' days'); //Positionne au lundi de la semaine courante
-
-$dateFin = new \BFW\CKernel\Date($dateDeb->getSql());
-$dateFin->modify('+7 jours'); //Avance d'une semaine
-$dateFin->modify('-1 seconde'); //Jour d'avant à 23h59:59
-
 $suite = post('suite', 0); //Le nombre de fois qu'on a fait afficher la suite.
 $nbParPage = 30;
 $start = $suite*$nbParPage;
