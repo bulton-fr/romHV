@@ -8,6 +8,7 @@ if(!is_null($nom) && !is_null($po) && !empty($nom))
 	
 	$po = str_replace(',', '', $po);
 	$po = str_replace('.', '', $po);
+	$po = str_replace(' ', '', $po);
 	$po = (int) $po;
 	
 	if(empty($po)) {$po = 0;}
