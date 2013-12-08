@@ -150,39 +150,14 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 			else {return $default;}
 		}
 		
-		/*
-		SELECT 
-		`p`.*, 
-		(
-		  SELECT SUM(pi.poGagne) 
-		  FROM `perso_item` AS `pi` 
-		  WHERE 
-		    pi.idPerso=p.idPerso AND 
-		    dateVendu >= "2013-12-02 00:00:00" AND 
-		    dateVendu <= "2013-12-08 23:59:59"
-		) AS po
-		
-		
-		FROM `perso` AS `p`
-		
-		WHERE p.idUser=1 
-		 */
-		
 		$subReq =  $this->select()
 						->from(array('pi' => $this->_name), 'SUM(poGagne)')
 						->where('pi.idPerso=p.idPerso')
 						->where('dateVendu >= "'.$dateDeb->getSql().'"')
 						->where('dateVendu <= "'.$dateFin->getSql().'"');
 		
-		$req = $this->select()
-					->from(array('p' => 'perso'), '')
-					->subQuery($subReq, 'po')
-					->where('p.idUser=:user', array(':user' => $idUser));
-		
-		$res = $req->fetchAll();
-		
-		if($res) {return $res;}
-		else {return $default;}
+		$MPerso = new \modeles\Perso;
+		return $MPerso->getReqPoVenteSemaineAllPerso($idUser, $subReq);
 	}
 }
 ?>

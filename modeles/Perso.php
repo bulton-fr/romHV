@@ -203,5 +203,36 @@ class Perso extends \BFW_Sql\Classes\Modeles
 		if($req->execute()) {return true;}
 		else {return false;}
 	}
+	
+	/**
+	 * Retourne la valeur des ventes de la semaine pour un User
+	 * 
+	 * @param int  		$idUser : L'id de l'user
+	 * @param SqlSelect $subReq : L'objet SqlSelect pour la sous-requête
+	 * 
+	 * @return array : Le nombre de po gagné dans la semaine pour chaque perso de l'user
+	 */
+	public function getReqPoVenteSemaineAllPerso($idUser, $subReq)
+	{
+		$default = array();
+		$classSubReq = get_class($subReq);
+		
+		if($classSubReq != 'BFW_Sql\Classes\SqlSelect' || !is_int($idUser))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		
+		$req = $this->select()
+					->from(array('p' => $this->_name), '')
+					->subQuery($subReq, 'po')
+					->where('p.idUser=:user', array(':user' => $idUser));
+		
+		$res = $req->fetchAll();
+		
+		if($res) {return $res;}
+		else {return $default;}
+	}
 }
 ?>
