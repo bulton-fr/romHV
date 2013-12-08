@@ -2,7 +2,8 @@
 $Params_head = array(
 	'css' => array(
 		$path.'css/index.css',
-		$path.'css/recap.css'
+		$path.'css/recap.css',
+		$pagination_css[0]
 		//$path.'jquery_ui/themes/redmond/jquery-ui.css'
 	),
 	'js' => array(
