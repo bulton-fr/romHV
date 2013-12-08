@@ -3,14 +3,16 @@ $Params_head = array(
 	'css' => array(
 		$path.'css/index.css',
 		$path.'css/recap.css',
-		$pagination_css[0]
+		$pagination_css[0],
+		$path.'css/ventes.css'
 		//$path.'jquery_ui/themes/redmond/jquery-ui.css'
 	),
 	'js' => array(
 		'https://www.google.com/jsapi',
 		$path.'js/index.js',
 		$path.'js/perso.js',
-		$path.'js/compte.js'
+		$path.'js/compte.js',
+		$path.'js/ventes.js'
 		//$path.'jquery_ui/ui/jquery-ui.min.js'
 	)
 );

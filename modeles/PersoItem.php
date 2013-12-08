@@ -159,5 +159,192 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		$MPerso = new \modeles\Perso;
 		return $MPerso->getReqPoVenteSemaineAllPerso($idUser, $subReq);
 	}
+	
+	/**
+	 * Retourne les ventes de la semaine pour un User
+	 * 
+	 * @param int   $idUser  : L'id de l'user
+	 * @param Date  $dateDeb : L'objet Date de la date de début de la semaine
+	 * @param Date  $dateFin : L'objet Date de la date de fin de la semaine
+	 * @param array $limit   : Indique le nombre d'item à retourner.
+	 * 							array('start' => Le nombre auquel on commence, 'nb' => Le nombre à retourner)
+	 * 
+	 * @return array : Les ventes dans la semaine pour l'user (qu'importe le perso)
+	 */
+	public function getVentesSemaineAllPerso($idUser, $dateDeb, $dateFin, $limit, $order)
+	{
+		$default = array();
+		
+		$classDateDeb = get_class($dateDeb);
+		$classDateFin = get_class($dateFin);
+		
+		if($classDateDeb != 'BFW\CKernel\Date' || $classDateFin != 'BFW\CKernel\Date' || !is_int($idUser) || !is_array($limit) || !is_array($order))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$correspondance = array(
+			'Item' => 'i.text', 
+			'Perso' => 'p.nom', 
+			'Date' => 'pi.dateVendu', 
+			'Achat' => 'pi.typeVente', 
+			'Po' => 'pi.poGagne'
+		);
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), array('typeVente', 'dateVendu', 'poGagne'))
+					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text'))
+					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
+					->where('pi.idUser=:user', array(':user' => $idUser))
+					->where('vendu=1')
+					->where('dateVendu >= "'.$dateDeb->getSql().'"')
+					->where('dateVendu <= "'.$dateFin->getSql().'"')
+					->order($correspondance[$order[0]].' '.$order[1])
+					->limit(array($limit['start'], $limit['nb']));
+		
+		$res = $req->fetchAll();
+		if($res) {return $res;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Retourne le nombre de vente dans la semaine pour un User
+	 * 
+	 * @param int   $idUser  : L'id de l'user
+	 * @param Date  $dateDeb : L'objet Date de la date de début de la semaine
+	 * @param Date  $dateFin : L'objet Date de la date de fin de la semaine
+	 * 
+	 * @return int : Le nombre de ventes dans la semaine pour l'user (qu'importe le perso)
+	 */
+	public function getNbVenteSemaineAllPerso($idUser, $dateDeb, $dateFin)
+	{
+		$default = array();
+		
+		$classDateDeb = get_class($dateDeb);
+		$classDateFin = get_class($dateFin);
+		
+		if($classDateDeb != 'BFW\CKernel\Date' || $classDateFin != 'BFW\CKernel\Date' || !is_int($idUser))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), 'idItem')
+					->where('pi.idUser=:user', array(':user' => $idUser))
+					->where('vendu=1')
+					->where('dateVendu >= "'.$dateDeb->getSql().'"')
+					->where('dateVendu <= "'.$dateFin->getSql().'"');
+		
+		$req->fetchRow();
+		return $req->nb_result();
+	}
+	
+	/**
+	 * Retourne les ventes pour un User
+	 * 
+	 * @param int   $idUser  : L'id de l'user
+	 * @param array $limit   : Indique le nombre d'item à retourner.
+	 * 							array('start' => Le nombre auquel on commence, 'nb' => Le nombre à retourner)
+	 * 
+	 * @return array : Les ventes pour l'user (qu'importe le perso)
+	 */
+	public function getVentesAllPerso($idUser, $limit)
+	{
+		$default = array();
+		
+		if(!is_int($idUser) || !is_array($limit))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), array('typeVente', 'dateVendu', 'poGagne'))
+					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text'))
+					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
+					->where('pi.idUser=:user', array(':user' => $idUser))
+					->where('vendu=1')
+					->order('dateVendu DESC')
+					->limit(array($limit['start'], $limit['nb']));
+		
+		$res = $req->fetchAll();
+		if($res) {return $res;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Retourne le nombre de vente pour un User
+	 * 
+	 * @param int   $idUser  : L'id de l'user
+	 * 
+	 * @return int : Le nombre de ventes pour l'user (qu'importe le perso)
+	 */
+	public function getNbVenteAllPerso($idUser)
+	{
+		$default = array();
+		
+		if(!is_int($idUser))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), 'idItem')
+					->where('pi.idUser=:user', array(':user' => $idUser))
+					->where('vendu=1');
+		
+		$req->fetchRow();
+		return $req->nb_result();
+	}
+	
+	/**
+	 * Retourne les ventes de tout le monde
+	 * 
+	 * @param array $limit   : Indique le nombre d'item à retourner.
+	 * 							array('start' => Le nombre auquel on commence, 'nb' => Le nombre à retourner)
+	 * 
+	 * @return array : Les ventes
+	 */
+	public function getVentesAll($limit)
+	{
+		$default = array();
+		
+		if(!is_array($limit))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), array('typeVente', 'dateVendu', 'poGagne'))
+					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text'))
+					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
+					->joinLeft(array('u' => 'users'), 'u.id=pi.idUser', array('nomUser' => 'login'))
+					->where('vendu=1')
+					->order('dateVendu DESC')
+					->limit(array($limit['start'], $limit['nb']));
+		
+		$res = $req->fetchAll();
+		if($res) {return $res;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Retourne le nombre de vente dans la semaine pour un User
+	 * 
+	 * @return int : Le nombre de ventes dans la semaine pour l'user (qu'importe le perso)
+	 */
+	public function getNbVenteAll()
+	{
+		$req = $this->select()
+					->from($this->_name, 'idItem')
+					->where('vendu=1');
+		
+		$req->fetchRow();
+		return $req->nb_result();
+	}
 }
 ?>

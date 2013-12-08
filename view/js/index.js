@@ -50,6 +50,9 @@ function page(context, url, color, idPerso)
 			$(this).addClass('menuSelected');
 			
 			$(".cont").html(data);
+			
+			
+			if($(this).attr("id") == "ventes") {contVentes($("#buttonVentes button#semaine"), "semaine");}
 		}
 		else {window.location.href = base_url;}
 	})
