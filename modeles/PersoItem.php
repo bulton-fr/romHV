@@ -168,6 +168,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	 * @param Date  $dateFin : L'objet Date de la date de fin de la semaine
 	 * @param array $limit   : Indique le nombre d'item à retourner.
 	 * 							array('start' => Le nombre auquel on commence, 'nb' => Le nombre à retourner)
+	 * @param array $order   : Indique comment doit être fait le tri. [0]: sur quoi; [1] l'ordre
 	 * 
 	 * @return array : Les ventes dans la semaine pour l'user (qu'importe le perso)
 	 */
@@ -247,18 +248,27 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	 * @param int   $idUser  : L'id de l'user
 	 * @param array $limit   : Indique le nombre d'item à retourner.
 	 * 							array('start' => Le nombre auquel on commence, 'nb' => Le nombre à retourner)
+	 * @param array $order   : Indique comment doit être fait le tri. [0]: sur quoi; [1] l'ordre
 	 * 
 	 * @return array : Les ventes pour l'user (qu'importe le perso)
 	 */
-	public function getVentesAllPerso($idUser, $limit)
+	public function getVentesAllPerso($idUser, $limit, $order)
 	{
 		$default = array();
 		
-		if(!is_int($idUser) || !is_array($limit))
+		if(!is_int($idUser) || !is_array($limit) || !is_array($order))
 		{
 			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
 			else {return $default;}
 		}
+		
+		$correspondance = array(
+			'Item' => 'i.text', 
+			'Perso' => 'p.nom', 
+			'Date' => 'pi.dateVendu', 
+			'Achat' => 'pi.typeVente', 
+			'Po' => 'pi.poGagne'
+		);
 		
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array('typeVente', 'dateVendu', 'poGagne'))
@@ -266,7 +276,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->where('pi.idUser=:user', array(':user' => $idUser))
 					->where('vendu=1')
-					->order('dateVendu DESC')
+					->order($correspondance[$order[0]].' '.$order[1])
 					->limit(array($limit['start'], $limit['nb']));
 		
 		$res = $req->fetchAll();
@@ -305,18 +315,27 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	 * 
 	 * @param array $limit   : Indique le nombre d'item à retourner.
 	 * 							array('start' => Le nombre auquel on commence, 'nb' => Le nombre à retourner)
+	 * @param array $order   : Indique comment doit être fait le tri. [0]: sur quoi; [1] l'ordre
 	 * 
 	 * @return array : Les ventes
 	 */
-	public function getVentesAll($limit)
+	public function getVentesAll($limit, $order)
 	{
 		$default = array();
 		
-		if(!is_array($limit))
+		if(!is_array($limit) || !is_array($order))
 		{
 			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
 			else {return $default;}
 		}
+		
+		$correspondance = array(
+			'Item' => 'i.text', 
+			'Perso' => 'p.nom', 
+			'Date' => 'pi.dateVendu', 
+			'Achat' => 'pi.typeVente', 
+			'Po' => 'pi.poGagne'
+		);
 		
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array('typeVente', 'dateVendu', 'poGagne'))
@@ -324,7 +343,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->joinLeft(array('u' => 'users'), 'u.id=pi.idUser', array('nomUser' => 'login'))
 					->where('vendu=1')
-					->order('dateVendu DESC')
+					->order($correspondance[$order[0]].' '.$order[1])
 					->limit(array($limit['start'], $limit['nb']));
 		
 		$res = $req->fetchAll();
