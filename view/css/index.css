@@ -71,6 +71,12 @@
     border-bottom: 0px;
 }
 
+.menuSelected, .menu_left li.menuSelected:hover
+{
+    background-color: #2779AA;
+    color: white;
+}
+
 .perso
 {
     
@@ -87,15 +93,23 @@
     height: 20px;
     border:0px;
     border-bottom: 2px solid #C0C0C0;
+    /*
     padding-left: 5px;
     padding-top: 4px;
+    */
+    padding-bottom: 5px;
 }
 
 .bandeau ul li
 {
     list-style-type: none;
     float: left;
+    /*
     margin-right: 15px;
+    */
+   
+    padding: 5px;
+    margin-right: 10px;
 }
 
 .bandeau ul li.po
@@ -104,11 +118,20 @@
     background-repeat: no-repeat;
     
     float: right;
+    
+    margin: 0px;
+    margin-top: 5px;
+    margin-right: 10px;
+    
+    padding: 0px;
     padding-left: 20px;
 }
 
+.bandeau ul li#poPerso {display: none;}
+
 .bandeau ul li.wait
 {
+    padding: 5px;
     display: none;
 }
 

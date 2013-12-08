@@ -20,12 +20,16 @@ function mainResize()
  * Change de page
  * 
  * @param string nom
+ * @param bool   color
  * @param string idPerso
  */
-function page(url, idPerso)
+function page(context, url, color, idPerso)
 {
 	$(".bandeau li.wait").show();
 	url = base_url+"/"+url; //Evite les erreurs d'injection d'url. Le framework se chargeant du reste après (renvoi 404)
+	
+	if(color == undefined || color == false) {color = false;}
+	else {color = true;}
 	
 	if(idPerso != undefined) {data = {idPerso : idPerso};}
 	else {data = {};}
@@ -33,13 +37,20 @@ function page(url, idPerso)
 	$.ajax({
 		url: url,
 		data: data,
-		type: 'POST'
+		type: 'POST',
+		context: context
 	})
 	.done(function(data)
 	{
 		$(".bandeau li.wait").hide();
 		
-		if(data != "RedirectLogin") {$(".cont").html(data);}
+		if(data != "RedirectLogin")
+		{
+			$(".menuSelected").removeClass('menuSelected');
+			$(this).addClass('menuSelected');
+			
+			$(".cont").html(data);
+		}
 		else {window.location.href = base_url;}
 	})
 	.fail(function()
@@ -94,12 +105,12 @@ $(window).resize(function() {mainResize();});
 
 $(document).ready(function()
 {
-	page("recap");
+	page($("ul.main_liste > li#recap"), "recap");
 	mainResize(); //Redimensionne dès que la page est chargé.
 	
-	$(".link").click(function() {page($(this).attr("id"));});
-	$("ul.main_liste > li").not('.emptyLi').click(function() {page($(this).attr("id"));});
-	$("ul.list_perso > li").click(function() {page("perso", $(this).attr("id"));});
+	$(".link").click(function() {page(this, $(this).attr("id"));});
+	$("ul.main_liste > li").not('.emptyLi').click(function() {page(this, $(this).attr("id"));});
+	$("ul.list_perso > li").click(function() {page(this, "perso", $(this).attr("id"));});
 	
 	$(".cont").on("click", ".GraphRecap button", function() {
 		$(".GraphRecap button.selected").removeClass("selected");
