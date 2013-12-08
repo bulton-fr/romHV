@@ -17,12 +17,9 @@ if(!is_null($idPerso) && (!is_null($nom) || !is_null($po)))
 	{
 		if(empty($po)) {$po = 0;}
 		
-		$po = str_replace(',', '', $po);
-		$po = str_replace('.', '', $po);
-		$po = str_replace(' ', '', $po);
-		$po = (int) $po;
+		$po = set_po($po);
 		
-		if($MPerso->setPo($idPerso, $po)) {echo number_format($po, 0, '', '.');}
+		if($MPerso->setPo($idPerso, $po)) {echo get_po($po);}
 		else {ErrorView(500);}
 	}
 	else {ErrorView(400);}

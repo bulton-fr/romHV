@@ -8,7 +8,7 @@ if(count($persos) > 0)
 {
 	foreach($persos as $perso)
 	{
-		$perso['po'] = number_format($perso['po'], 0, '', '.');
+		$perso['po'] = get_po($perso['po']);
 		$TPL->AddBlockWithEnd('persos', $perso);
 	}
 }

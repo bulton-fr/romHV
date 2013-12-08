@@ -21,7 +21,7 @@ $TPL->AddGeneralVars(array('path' => $path));
 
 $MUser = new \modules\users\modeles\Users;
 $mesPo = $MUser->getPo($idUser);
-$TPL->AddVars(array('mesPo' => number_format($mesPo, 0, '', '.')));
+$TPL->AddVars(array('mesPo' => get_po($mesPo)));
 
 
 $MPerso = new \modeles\Perso();
