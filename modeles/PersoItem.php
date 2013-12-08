@@ -365,5 +365,75 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		$req->fetchRow();
 		return $req->nb_result();
 	}
+	
+	/**
+	 * Retourne les items en attente pour un user
+	 * 
+	 * @param int   $idUser  : L'id de l'user
+	 * @param array $limit   : Indique le nombre d'item à retourner.
+	 * 							array('start' => Le nombre auquel on commence, 'nb' => Le nombre à retourner)
+	 * @param array $order   : Indique comment doit être fait le tri. [0]: sur quoi; [1] l'ordre
+	 * 
+	 * @return array : Les item en attente pour l'user (qu'importe le perso)
+	 */
+	public function getEnAttente($idUser, $limit, $order)
+	{
+		$default = array();
+		
+		if(!is_int($idUser) || !is_array($limit) || !is_array($order))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$correspondance = array(
+			'Item' => 'i.text', 
+			'Perso' => 'p.nom', 
+			'Date' => 'pi.dateDebut', 
+			'Enchere' => 'pi.enchere', 
+			'Rachat' => 'pi.rachat'
+		);
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), array('dateDebut', 'duree', 'enchere', 'rachat'))
+					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text'))
+					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
+					->where('pi.idUser=:user', array(':user' => $idUser))
+					->where('vendu=0')
+					->where('enVente=0')
+					->order($correspondance[$order[0]].' '.$order[1])
+					->limit(array($limit['start'], $limit['nb']));
+		
+		$res = $req->fetchAll();
+		if($res) {return $res;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Retourne le nombre d'item en attente pour un User
+	 * 
+	 * @param int   $idUser  : L'id de l'user
+	 * 
+	 * @return int : Le nombre d'item en attente pour l'user (qu'importe le perso)
+	 */
+	public function getNbEnAttente($idUser)
+	{
+		$default = array();
+		
+		if(!is_int($idUser))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), 'idItem')
+					->where('pi.idUser=:user', array(':user' => $idUser))
+					->where('vendu=0')
+					->where('enVente=0');
+		
+		$req->fetchRow();
+		return $req->nb_result();
+	}
 }
 ?>
