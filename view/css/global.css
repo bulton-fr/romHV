@@ -91,3 +91,21 @@ table td.po
 
 .suite {cursor: pointer;}
 .suite:hover {text-decoration: underline;}
+
+.triPosition
+{
+    margin-top: 3px;
+    display: inline;
+    float: right;
+    width: 10px;
+    height: 10px;
+}
+
+.tri, .triInverse
+{
+    background-image: url("../jquery_ui/themes/cupertino/images/ui-icons_ffffff_256x240.png");
+    background-repeat: no-repeat;
+}
+
+.tri {background-position: -2px -3px;}
+.triInverse {background-position: -67px -3px;}
