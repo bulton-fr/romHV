@@ -49,7 +49,7 @@ setcookie("arecookiesenabled", "yes", time()+365*24*60*60*10); //anti-cache
 
 //Inclusion fonction
 $dir = opendir($path.'kernel/fonctions'); //Ouverture du dossier fonctions se trouvant à la racine
-$dir_arr = array('.', '..', 'index.html', 'bbcode_parse.php', '.htaccess'); //Les fichiers & dossiers à ignorer à la lecture
+$dir_arr = array('.', '..', '.htaccess'); //Les fichiers & dossiers à ignorer à la lecture
 
 while(false !== ($file = readdir($dir))) //Si on a un fichier
 {
