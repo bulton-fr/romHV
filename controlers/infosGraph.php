@@ -26,7 +26,7 @@ $dateDeb->DateTime->setTime(0, 0, 0);
 $jourNow = $dateDeb->DateTime->format('N');
 
 $sub = $jourNow-1;
-$dateDeb->modify('-'.$sub.' days');
+$dateDeb->modify('-'.$sub.' days'); //Positionne au lundi de la semaine courante
 
 $MPersoItem = new \modeles\PersoItem;
 
