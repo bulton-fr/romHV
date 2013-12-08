@@ -5,7 +5,7 @@ function mainResize()
 {
 	var BodyHeight = $(window).height(); //Récupère la hauteur de la fenêtre
 	
-	if(BodyHeight > 160) //Si c'est supérieur au min-height+margin-top+10
+	if(BodyHeight > 180) //Si c'est supérieur au min-height+margin-top+10
 	{
 		//Alors on calcul la nouvelle taille avec margin-top et 70px en bas.
 		var height = BodyHeight-120;
