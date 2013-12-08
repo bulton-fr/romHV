@@ -19,17 +19,14 @@ function mainResize()
 /**
  * Change de page
  * 
+ * @param object context
  * @param string nom
- * @param bool   color
  * @param string idPerso
  */
-function page(context, url, color, idPerso)
+function page(context, url, idPerso)
 {
 	$(".bandeau li.wait").show();
 	url = base_url+"/"+url; //Evite les erreurs d'injection d'url. Le framework se chargeant du reste après (renvoi 404)
-	
-	if(color == undefined || color == false) {color = false;}
-	else {color = true;}
 	
 	if(idPerso != undefined) {data = {idPerso : idPerso};}
 	else {data = {};}
@@ -114,7 +111,7 @@ $(document).ready(function()
 	
 	$(".link").click(function() {page(this, $(this).attr("id"));});
 	$("ul.main_liste > li").not('.emptyLi').click(function() {page(this, $(this).attr("id"));});
-	$("ul.list_perso > li").click(function() {page(this, "perso", $(this).attr("id"));});
+	$("ul.list_perso > li").click(function() {page(this, "perso/view", $(this).attr("id"));});
 	
 	$(".cont").on("click", ".GraphRecap button", function() {
 		$(".GraphRecap button.selected").removeClass("selected");
