@@ -1,6 +1,6 @@
 function login_crash()
 {
-	$(".result_login").html("<p>Désolé, j'ai crashé :(");
+	$(".result_login").html("<p>Venez avec moi faire un tour à Dalanis :)");
 }
 
 $(document).ready(function()
