@@ -57,3 +57,37 @@ p.loader
 
 .link {cursor: pointer;}
 .link:hover {text-decoration: underline;}
+
+
+table, table td
+{
+    border-collapse: collapse;
+    border: 1px solid #C0C0C0;
+}
+
+table {width: 670px;}
+
+table td {padding: 2px;}
+table thead td
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+    text-align: center;
+    background-color: #2779AA;
+    color: white;
+    font-weight: bold;
+}
+
+table td.po
+{
+    background-image: url('../img/Icon_po.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    
+    padding-right: 20px;
+    text-align: right;
+}
+
+.suite {cursor: pointer;}
+.suite:hover {text-decoration: underline;}
