@@ -52,7 +52,7 @@ function page(context, url, color, idPerso)
 			$(".cont").html(data);
 			
 			
-			if($(this).attr("id") == "ventes") {contVentes($("#buttonVentes button#moi"), "moi");}
+			if($(this).attr("id") == "ventes") {contVentes($("#buttonVentes button#me"), "me");}
 			if($(this).attr("id") == "vendu") {contVendu($("#buttonVendu button#semaine"), "semaine");}
 		}
 		else {window.location.href = base_url;}

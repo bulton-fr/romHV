@@ -1,0 +1,30 @@
+<block name="start">
+<table id="Ventes">
+	<thead>
+		<tr>
+			<td class="venteItem">Item<div class="triPosition<var name='triItem' />"></div></td>
+			<td class="ventePerso">Personnage<div class="triPosition<var name='triPerso' />"></div></td>
+			<td class="venteDate">Depuis<div class="triPosition<var name='triDate' />"></div></td>
+			<td class="venteAchat">Enchère<div class="triPosition<var name='triEnchere' />"></div></td>
+			<td class="ventePo">Rachat<div class="triPosition<var name='triRachat' />"></div></td>
+		</tr>
+	</thead>
+	<tbody id="VentesTbody">
+</block>
+		<block name="items">
+			<tr>
+				<td><var name="nomItem" /></td>
+				<td class="center" title="<var name="nomUser" />"><var name="nomPerso" /></td>
+				<td class="center"><var name="date" /></td>
+				<td class="po"><var name="enchere" /></td>
+				<td class="po"><var name="rachat" /></td>
+			</tr>
+		</block>
+<block name="start">
+	</tbody>
+</table>
+</block>
+
+<block name="suite">
+	<p class="center suite" id="VenteSuite">Afficher la suite ?</p>
+</block>

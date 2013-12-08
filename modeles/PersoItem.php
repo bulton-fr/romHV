@@ -435,5 +435,133 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		$req->fetchRow();
 		return $req->nb_result();
 	}
+
+	/**
+	 * Retourne les ventes en cours pour un User
+	 * 
+	 * @param int   $idUser  : L'id de l'user
+	 * @param array $limit   : Indique le nombre d'item à retourner.
+	 * 							array('start' => Le nombre auquel on commence, 'nb' => Le nombre à retourner)
+	 * @param array $order   : Indique comment doit être fait le tri. [0]: sur quoi; [1] l'ordre
+	 * 
+	 * @return array : Les ventes en cours pour l'user (qu'importe le perso)
+	 */
+	public function getVenteAllPerso($idUser, $limit, $order)
+	{
+		$default = array();
+		
+		if(!is_int($idUser) || !is_array($limit) || !is_array($order))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$correspondance = array(
+			'Item' => 'i.text', 
+			'Perso' => 'p.nom', 
+			'Date' => 'pi.dateVendu', 
+			'Achat' => 'pi.typeVente', 
+			'Po' => 'pi.poGagne'
+		);
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), array('dateDebut', 'duree', 'enchere', 'rachat'))
+					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text'))
+					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
+					->where('pi.idUser=:user', array(':user' => $idUser))
+					->where('enVente=1')
+					->where('vendu=0')
+					->order($correspondance[$order[0]].' '.$order[1])
+					->limit(array($limit['start'], $limit['nb']));
+		
+		$res = $req->fetchAll();
+		if($res) {return $res;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Retourne le nombre de vente en cours pour un User
+	 * 
+	 * @param int   $idUser  : L'id de l'user
+	 * 
+	 * @return int : Le nombre de ventes en cours pour l'user (qu'importe le perso)
+	 */
+	public function getNbVenteAllPerso($idUser)
+	{
+		$default = array();
+		
+		if(!is_int($idUser))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), 'idItem')
+					->where('pi.idUser=:user', array(':user' => $idUser))
+					->where('enVente=1')
+					->where('vendu=0');
+		
+		$req->fetchRow();
+		return $req->nb_result();
+	}
+	
+	/**
+	 * Retourne les ventes en cours de tout le monde
+	 * 
+	 * @param array $limit   : Indique le nombre d'item à retourner.
+	 * 							array('start' => Le nombre auquel on commence, 'nb' => Le nombre à retourner)
+	 * @param array $order   : Indique comment doit être fait le tri. [0]: sur quoi; [1] l'ordre
+	 * 
+	 * @return array : Les ventes en cours
+	 */
+	public function getVenteAll($limit, $order)
+	{
+		$default = array();
+		
+		if(!is_array($limit) || !is_array($order))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$correspondance = array(
+			'Item' => 'i.text', 
+			'Perso' => 'p.nom', 
+			'Date' => 'pi.dateVendu', 
+			'Achat' => 'pi.typeVente', 
+			'Po' => 'pi.poGagne'
+		);
+		
+		$req = $this->select()
+					->from(array('pi' => $this->_name), array('dateDebut', 'duree', 'enchere', 'rachat'))
+					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text'))
+					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
+					->joinLeft(array('u' => 'users'), 'u.id=pi.idUser', array('nomUser' => 'login'))
+					->where('enVente=1')
+					->where('vendu=0')
+					->order($correspondance[$order[0]].' '.$order[1])
+					->limit(array($limit['start'], $limit['nb']));
+		
+		$res = $req->fetchAll();
+		if($res) {return $res;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Retourne le nombre de ventes en cours de tout le monde
+	 * 
+	 * @return int : Le nombre de ventes en cours pour tout le monde
+	 */
+	public function getNbVenteAll()
+	{
+		$req = $this->select()
+					->from($this->_name, 'idItem')
+					->where('enVente=1')
+					->where('vendu=0');
+		
+		$req->fetchRow();
+		return $req->nb_result();
+	}
 }
 ?>
