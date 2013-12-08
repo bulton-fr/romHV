@@ -365,7 +365,7 @@ class Date extends Kernel implements \BFW\IKernel\IDate
 			
 			$aff_heure = ''; #Partie prévu pour l'affichage
 		}
-		elseif($diffAnnee == 0 && $diffMois == 0 && ($diffJour == 0 && $diffHeure > 2) || $diffJour == 1)
+		elseif($diffAnnee == 0 && $diffMois == 0 && ($diffJour == 0 && $diffHeure > 2) || ($diffJour == 1 && $diffHeure == 0))
 		{
 			//C'était hier
 			$aff_date = 'Hier'; #On affiche donc en première partie "hier"
