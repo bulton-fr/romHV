@@ -54,7 +54,7 @@ $(document).ready(function()
 		contVentes(this, $(this).attr("id"));
 	})
 	
-	$(".cont").on("click", ".suite", function() {
+	$(".cont").on("click", "#VenteSuite", function() {
 		$(this).remove();
 		
 		var button = $("button.selected");
