@@ -4,6 +4,7 @@ $Params_head = array(
 		$path.'css/index.css',
 		$path.'css/recap.css',
 		$pagination_css[0],
+		$path.'css/vendu.css',
 		$path.'css/ventes.css',
 		$path.'css/enAttente.css'
 		//$path.'jquery_ui/themes/redmond/jquery-ui.css'
@@ -13,6 +14,7 @@ $Params_head = array(
 		$path.'js/index.js',
 		$path.'js/perso.js',
 		$path.'js/compte.js',
+		$path.'js/vendu.js',
 		$path.'js/ventes.js',
 		$path.'js/enAttente.js'
 		//$path.'jquery_ui/ui/jquery-ui.min.js'

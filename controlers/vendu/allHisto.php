@@ -1,5 +1,5 @@
 <?php
-$TPL = new \BFW_Tpl\Classes\Template('ventes/allHisto.html');
+$TPL = new \BFW_Tpl\Classes\Template('vendu/allHisto.html');
 
 $suite = post('suite', 0); //Le nombre de fois qu'on a fait afficher la suite.
 $nbParPage = 30;

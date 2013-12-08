@@ -5,10 +5,10 @@
  * @param bool   color
  * @param string idPerso
  */
-function contVentes(context, url, suite, tri)
+function contVendu(context, url, suite, tri)
 {
 	$(".bandeau li.wait").show();
-	url = base_url+"/ventes/"+url; //Evite les erreurs d'injection d'url. Le framework se chargeant du reste après (renvoi 404)
+	url = base_url+"/vendu/"+url; //Evite les erreurs d'injection d'url. Le framework se chargeant du reste après (renvoi 404)
 	
 	if(suite == undefined || suite == false) {$("#suite").val("0");}
 	suite = $("#suite").val();
@@ -34,8 +34,8 @@ function contVentes(context, url, suite, tri)
 		suite++;
 		$("#suite").val(suite);
 		
-		if(suite == 1) {$(".contVentes").html(data);}
-		else {$("#VentesTbody").append(data);}
+		if(suite == 1) {$(".contVendu").html(data);}
+		else {$("#VenduTbody").append(data);}
 	})
 	.fail(function()
 	{
@@ -47,21 +47,21 @@ function contVentes(context, url, suite, tri)
 
 $(document).ready(function()
 {
-	$(".cont").on("click", "#buttonVentes button", function() {
-		$("#buttonVentes button.selected").removeClass("selected");
+	$(".cont").on("click", "#buttonVendu button", function() {
+		$("#buttonVendu button.selected").removeClass("selected");
 		$(this).addClass("selected");
 		
-		contVentes(this, $(this).attr("id"));
+		contVendu(this, $(this).attr("id"));
 	})
 	
-	$(".cont").on("click", "#VenteSuite", function() {
+	$(".cont").on("click", "#VenduSuite", function() {
 		$(this).remove();
 		
 		var button = $("button.selected");
-		contVentes(button, $(button).attr("id"), true);
+		contVendu(button, $(button).attr("id"), true);
 	});
 	
-	$(".cont").on("click", "table#Ventes thead td", function() {
+	$(".cont").on("click", "table#Vendu thead td", function() {
 		var triRow = $("#triRow").val();
 		
 		if(triRow == $(this).attr("class"))
@@ -74,11 +74,11 @@ $(document).ready(function()
 		{
 			$("#triRow").val($(this).attr("class"));
 			
-			if($(this).attr("class") == "venteDate") {$("#triSens").val("DESC");}
+			if($(this).attr("class") == "venduDate") {$("#triSens").val("DESC");}
 			else {$("#triSens").val("ASC");}
 		}
 		
 		var button = $("button.selected");
-		contVentes(button, $(button).attr("id"), false, $(this).attr("class"));
+		contVendu(button, $(button).attr("id"), false, $(this).attr("class"));
 	})
 });

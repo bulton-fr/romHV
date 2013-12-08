@@ -1,5 +1,5 @@
 <?php
-$TPL = new \BFW_Tpl\Classes\Template('ventes/semaine.html');
+$TPL = new \BFW_Tpl\Classes\Template('vendu/semaine.html');
 
 $dateDeb = new \BFW\CKernel\Date();
 $dateDeb->DateTime->setTime(0, 0, 0);
