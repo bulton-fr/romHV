@@ -172,7 +172,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	 * 
 	 * @return array : Les ventes dans la semaine pour l'user (qu'importe le perso)
 	 */
-	public function getVentesSemaineAllPerso($idUser, $dateDeb, $dateFin, $limit, $order)
+	public function getVenduSemaineAllPerso($idUser, $dateDeb, $dateFin, $limit, $order)
 	{
 		$default = array();
 		
@@ -218,7 +218,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	 * 
 	 * @return int : Le nombre de ventes dans la semaine pour l'user (qu'importe le perso)
 	 */
-	public function getNbVenteSemaineAllPerso($idUser, $dateDeb, $dateFin)
+	public function getNbVenduSemaineAllPerso($idUser, $dateDeb, $dateFin)
 	{
 		$default = array();
 		
@@ -252,7 +252,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	 * 
 	 * @return array : Les ventes pour l'user (qu'importe le perso)
 	 */
-	public function getVentesAllPerso($idUser, $limit, $order)
+	public function getVenduAllPerso($idUser, $limit, $order)
 	{
 		$default = array();
 		
@@ -291,7 +291,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	 * 
 	 * @return int : Le nombre de ventes pour l'user (qu'importe le perso)
 	 */
-	public function getNbVenteAllPerso($idUser)
+	public function getNbVenduAllPerso($idUser)
 	{
 		$default = array();
 		
@@ -319,7 +319,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	 * 
 	 * @return array : Les ventes
 	 */
-	public function getVentesAll($limit, $order)
+	public function getVenduAll($limit, $order)
 	{
 		$default = array();
 		
@@ -356,7 +356,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	 * 
 	 * @return int : Le nombre de ventes dans la semaine pour l'user (qu'importe le perso)
 	 */
-	public function getNbVenteAll()
+	public function getNbVenduAll()
 	{
 		$req = $this->select()
 					->from($this->_name, 'idItem')

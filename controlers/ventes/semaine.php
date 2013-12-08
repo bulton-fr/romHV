@@ -37,7 +37,7 @@ if(is_null($triSens))
 }
 
 $MPersoItem = new \modeles\PersoItem();
-$items = $MPersoItem->getVentesSemaineAllPerso($idUser, $dateDeb, $dateFin, $limit, array($triRow, $triSens));
+$items = $MPersoItem->getVenduSemaineAllPerso($idUser, $dateDeb, $dateFin, $limit, array($triRow, $triSens));
 
 if($suite == 0)
 {
@@ -64,7 +64,7 @@ if($suite == 0)
 	$TPL->AddBlockWithEnd('start', $varTri);
 }
 
-$nbVente = $MPersoItem->getNbVenteSemaineAllPerso($idUser, $dateDeb, $dateFin);
+$nbVente = $MPersoItem->getNbVenduSemaineAllPerso($idUser, $dateDeb, $dateFin);
 if($nbVente > ($start+$nbParPage)) {$TPL->AddBlockWithEnd('suite');}
 
 foreach($items as $item)
