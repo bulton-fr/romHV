@@ -352,7 +352,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	}
 	
 	/**
-	 * Retourne le nombre de vente dans la semaine pour un User
+	 * Retourne le nombre de ventes de tout le monde
 	 * 
 	 * @return int : Le nombre de ventes dans la semaine pour l'user (qu'importe le perso)
 	 */
