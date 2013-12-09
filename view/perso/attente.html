@@ -4,9 +4,9 @@
 		<tr>
 			<td class="venteItem">Item<div class="triPosition<var name='triItem' />"></div></td>
 			<td class="ventePerso">Personnage<div class="triPosition<var name='triPerso' />"></div></td>
-			<td class="venteDate">Depuis<div class="triPosition<var name='triDate' />"></div></td>
 			<td class="venteEnchere">Enchère<div class="triPosition<var name='triEnchere' />"></div></td>
 			<td class="venteRachat">Rachat<div class="triPosition<var name='triRachat' />"></div></td>
+			<td class="venteAction" colspan="2"></td>
 		</tr>
 	</thead>
 	<tbody id="ViewPersoTbody">
@@ -15,9 +15,10 @@
 			<tr>
 				<td><var name="nomItem" /></td>
 				<td class="center"><var name="nomPerso" /></td>
-				<td class="center"><var name="date" /></td>
 				<td class="po"><var name="enchere" /></td>
 				<td class="po"><var name="rachat" /></td>
+				<td class="center" title="Mise en vente"><button class="ItemMiseEnVente" id="<var name='ref' />">MeV</button></td>
+				<td class="center"><button class="ItemVendu" id="<var name='ref' />">Vendu</button></td>
 			</tr>
 		</block>
 <block name="start">
