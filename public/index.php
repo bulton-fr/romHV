@@ -132,7 +132,7 @@ if(count($ex_request) > 1 && ($request != '/index.php' || $request != '/'))
 				require_once('../kernel/kernel.php');
 				require_once('../modules/'.$name_mods.'/externe.php');
 				
-				if(in_array($ex_dir_request[3], $lst_require_ok))
+				if(in_array($dirRequest[3], $lst_require_ok))
 				{
 					require_once('../'.$path_request.$request);
 				} 
