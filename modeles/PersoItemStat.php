@@ -23,9 +23,12 @@ class PersoItemStat extends \BFW_Sql\Classes\Modeles
 	{
 		//Les vérifs sont déjà fait car on vient de PersoItem->add() uniquement.
 		
+		var_dump($stats);
 		$retour = true;
 		foreach($stats as $stat)
 		{
+			$stat = (int) substr($stat, 1);
+			var_dump($stat);
 			$req = $this->insert($this->_name, array('ref' => $ref, 'idStat' => $stat));
 			
 			if(!$req->execute()) {$retour = false;}

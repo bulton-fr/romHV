@@ -48,7 +48,7 @@ function contPersoView(context, url, idPerso, suite, tri)
 		
 		if($(this).attr("id") == "addItem")
 		{
-			$('#AddItem_date').datetimepicker();
+			$('#AddItem_date').datetimepicker({timeFormat: 'HH:mm:ss'});
 			
 			item_autocomplete("#AddItem");
 			item_autocomplete("#Stat1", "stat");

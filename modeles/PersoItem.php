@@ -865,6 +865,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		
 		if($req->execute())
 		{
+			var_dump($nbStat);
 			if($nbStat > 0)
 			{
 				$MPersoItemStat = new \modeles\PersoItemStat;
