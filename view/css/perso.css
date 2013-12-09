@@ -4,3 +4,34 @@
     margin-top: 0px;
     margin-right: 5px;
 }
+
+.AddItemLeft
+{
+    float: left;
+    width: 400px;
+}
+
+.addItemRight
+{
+    float: right;
+    width: 200px;
+    min-height: 150px;
+    
+    border-left: 2px solid #C0C0C0;
+    padding-left: 5px;
+    
+}
+
+.addItemRight p {margin: 0px;}
+
+.AddItemLeft img
+{
+    position: relative;
+    top: 3px;
+}
+
+.AddItemLeft textarea
+{
+    width: 365px;
+    height: 70px;
+}

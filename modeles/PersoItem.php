@@ -771,5 +771,108 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		$req->fetchRow();
 		return $req->nb_result();
 	}
+	
+	/**
+	 * Ajoute un item dans la liste des items des persos
+	 * 
+	 * @param int    $idUser  : L'id de l'user
+	 * @param int    $idPerso : L'id du perso
+	 * @param string $idItem  : L'id de l'item (avec le premier caractère indiquand le type)
+	 * @param array  $idStat  : L'id des stats sur l'item
+	 * @param int    $enchere : Le prix en enchère
+	 * @param int    $rachat  : Le prix en rachat
+	 * @param string $date    : La date de la mise en vente
+	 * @param int    $duree   : La durée de la mise en vente.
+	 * @param string $notes   : Les notes sur l'item
+	 * 
+	 * @return bool
+	 */
+	public function add($idUser, $idPerso, $idItem, $idStat, $enchere, $rachat, $date, $duree, $notes)
+	{
+		$default = false;
+		if(
+			!is_int($idUser) || 
+			!is_int($idPerso) || 
+			!is_string($idItem) || 
+			!is_int($enchere) || 
+			!is_int($rachat) || 
+			!is_string($date) || 
+			!is_int($duree) || 
+			!is_string($notes)
+		)
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$nbStat = 0;
+		$statOk = array();
+		foreach($idStat as $stat)
+		{
+			if(!is_null($stat) && !is_string($stat))
+			{
+				if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+				else {return $default;}
+			}
+			elseif(!is_null($stat) && is_string($stat) && !empty($stat))
+			{
+				$nbStat++;
+				$statOk[] = $stat;
+			}
+		}
+		
+		//Traitement idItem
+		$typeItem = $idItem[0];
+		$idItem = substr($idItem, 1);
+		
+		$req = $this->select()
+					->from($this->_name, array('ref'))
+					->where('idUser=:user', array(':user' => $idUser))
+					->where('idPerso=:perso', array(':perso' => $idPerso))
+					->where('idItem=:item', array(':item' => $idItem));
+		$res = $req->fetchAll();
+		
+		$nb = 1;
+		if($res)
+		{
+			foreach($res as $result)
+			{
+				$num = (int) substr($result['ref'], (strpos($result['ref'], 'N')+1));
+				if($num >= $nb) {$nb = $num+1;}
+			}
+		}
+		
+		$ref = 'U'.$idUser.'P'.$idPerso.$typeItem.$idItem.'N'.$nb;
+		
+		$data = array(
+			'ref' => $ref,
+			'idPerso' => $idPerso,
+			'idUser' => $idUser,
+			'idItem' => $idItem,
+			'typeItem' => $typeItem,
+			'enchere' => $enchere,
+			'rachat' => $rachat,
+			'enVente' => 1,
+			'dateDebut' => $date,
+			'duree' => $duree,
+			'notes' => $notes,
+			'vendu' => 0
+		);
+		
+		if($date == '') {$data['enVente'] = 0;}
+		
+		$req = $this->insert($this->_name, $data);
+		
+		if($req->execute())
+		{
+			if($nbStat > 0)
+			{
+				$MPersoItemStat = new \modeles\PersoItemStat;
+				return $MPersoItemStat->add($ref, $statOk);
+			}
+			else {return true;}
+		}
+		else {return $default;}
+	}
 }
 ?>

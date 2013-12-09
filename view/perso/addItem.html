@@ -1,16 +1,51 @@
-<form>
-	<input type="text" id="AddItem_name" placeholder="Nom de l'item" style="width: 400px;" />
-	<p>Prix : 
-		<input type="text" id="AddItem_enchere" placeholder="Enchère" class="po" />&nbsp;&nbsp;
-		<input type="text" id="AddItem_rachat" placeholder="Rachat" class="po" />
-	</p>
-	<p>Mise en vente : 
-		<input type="text" id="AddItem_date" placeholder="Quand ?" />&nbsp;&nbsp;Pour
-		<select id="AddItem_duree">
-			<option value="1">1 jour</option>
-			<option value="2">2 jours</option>
-			<option value="3">3 jours</option>
-		</select>
-	</p>
-	<p><button>Mettre en vente</button></p>
+<form id="FormAddItem">
+	<div class="AddItemLeft">
+		<input type="text" id="AddItem_name" placeholder="Nom de l'item" style="width: 355px;" />&nbsp;&nbsp;
+		<img src="../img/cross.png" id="EtatItem" />
+		<input type="hidden" id="AddItem_idItem" value="" />
+		<p>Prix : 
+			<input type="text" id="AddItem_enchere" placeholder="Enchère" class="po" />&nbsp;&nbsp;
+			<input type="text" id="AddItem_rachat" placeholder="Rachat" class="po" />
+		</p>
+		<p>Mise en vente : 
+			<input type="text" id="AddItem_date" placeholder="Quand ?" />&nbsp;&nbsp;Pour
+			<select id="AddItem_duree">
+				<option value="1">1 jour</option>
+				<option value="2">2 jours</option>
+				<option value="3">3 jours</option>
+			</select>
+		</p>
+		<p>
+			<textarea placeholder="Notes" id="AddItem_notes"></textarea>
+		</p>
+		<p><button>Mettre en vente</button></p>
+	</div>
+	
+	<div class="addItemRight">
+		<p>Statistiques : </p>
+		<p>
+			<input type="text" id="Stat1_name" placeholder="Stat 1" />
+			<input type="hidden" id="Stat1_idItem" value="" />
+		</p>
+		<p>
+			<input type="text" id="Stat2_name" placeholder="Stat 2" />
+			<input type="hidden" id="Stat2_idItem" value="" />
+		</p>
+		<p>
+			<input type="text" id="Stat3_name" placeholder="Stat 3" />
+			<input type="hidden" id="Stat3_idItem" value="" />
+		</p>
+		<p>
+			<input type="text" id="Stat4_name" placeholder="Stat 4" />
+			<input type="hidden" id="Stat4_idItem" value="" />
+		</p>
+		<p>
+			<input type="text" id="Stat5_name" placeholder="Stat 5" />
+			<input type="hidden" id="Stat5_idItem" value="" />
+		</p>
+		<p>
+			<input type="text" id="Stat6_name" placeholder="Stat 6" />
+			<input type="hidden" id="Stat6_idItem" value="" />
+		</p>
+	</div>
 </form>

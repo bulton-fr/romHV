@@ -46,7 +46,18 @@ function contPersoView(context, url, idPerso, suite, tri)
 		if(suite == 1) {$(".cont_persoView").html(data);}
 		else {$("#ViewPersoTbody").append(data);}
 		
-		if($(this).attr("id") == "addItem") {$('#AddItem_date').datetimepicker();}
+		if($(this).attr("id") == "addItem")
+		{
+			$('#AddItem_date').datetimepicker();
+			
+			item_autocomplete("#AddItem");
+			item_autocomplete("#Stat1", "stat");
+			item_autocomplete("#Stat2", "stat");
+			item_autocomplete("#Stat3", "stat");
+			item_autocomplete("#Stat4", "stat");
+			item_autocomplete("#Stat5", "stat");
+			item_autocomplete("#Stat6", "stat");
+		}
 	})
 	.fail(function()
 	{
@@ -54,6 +65,65 @@ function contPersoView(context, url, idPerso, suite, tri)
 		
 		alert("Désolé j'ai crashé :o")
 	});
+}
+
+/**
+ * Créer l'auto-complétion pour la recherche d'item/stat
+ * 
+ * @param string context
+ * @param string params
+ */
+function item_autocomplete(context, params)
+{
+	if(params == undefined) {params = "all";}
+	
+	//http://blog.aurelien-gerits.be/2013/01/26/jquery-ui-autocomplete-avec-une-requete-ajax-json/
+	$(context+"_name").autocomplete({
+		minLength: 2,
+		source: function(req, add) {
+			$.ajax({
+	            url:'itemSearch',
+	            type:"post",
+	            dataType: 'json',
+	            data: {search: req.term, params: params},
+	            async: true,
+	            cache: true,
+	            success: function(data)
+	            {
+	                var suggestions = [];  
+	                
+	                //process response  
+	                $.each(data, function(i, val){  
+	                 	suggestions.push({"id": val.id, "value": val.value, "text": val.text});  
+	             	});  
+	             	
+	             	//pass array to callback  
+	             	add(suggestions); 
+	            }
+	        });
+	    },
+		focus: function( event, ui ) {
+			$(context+"_name").val(ui.item.text);
+			$(context+"_idItem").val(ui.item.id);
+			
+			if(context == "#AddItem") {$("#EtatItem").attr("src", "../img/cross.png");}
+			
+			return false;
+		},
+		select: function( event, ui ) {
+			$(context+"_name").val(ui.item.text);
+			$(context+"_idItem").val(ui.item.id);
+			
+			if(context == "#AddItem") {$("#EtatItem").attr("src", "../img/tick.png");}
+			
+			return false;
+		}
+	})
+    .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<a>" + item.value + "</a>" )
+        .appendTo( ul );
+    };;
 }
 
 $(document).ready(function()
@@ -140,6 +210,7 @@ $(document).ready(function()
 		
 		if(confirm('Voulez-vous vraiment supprimer le personnage ?'))
 		{
+			$(".bandeau li.wait").show();
 			$.ajax({
 				url: base_url+"/perso/delete",
 				data: {idPerso: idPerso},
@@ -195,8 +266,56 @@ $(document).ready(function()
 		contPersoView(button, $(button).attr("id"), idPerso, false, $(this).attr("class"));
 	});
 	
-	
-	//$(".cont").on('datetimepicker', '#AddItem_date', function() {});
+	$(".cont").on('submit', 'form#FormAddItem', function() {
+		$(".bandeau li.wait").show();
+		
+		var idPerso = $("#PersoViewId").val();
+		var idItem = $("#AddItem_idItem").val();
+		var idStat1 = $("#Stat1_idItem").val();
+		var idStat2 = $("#Stat2_idItem").val();
+		var idStat3 = $("#Stat3_idItem").val();
+		var idStat4 = $("#Stat4_idItem").val();
+		var idStat5 = $("#Stat5_idItem").val();
+		var idStat6 = $("#Stat6_idItem").val();
+		var enchere = $("#AddItem_enchere").val();
+		var rachat = $("#AddItem_rachat").val();
+		var date = $("#AddItem_date").val();
+		var duree = $("#AddItem_duree").val();
+		var notes = $("#AddItem_notes").val();
+		
+		$.ajax({
+			url: base_url+"/perso/addVente",
+			type: 'POST',
+			data: {
+				idPerso : idPerso,
+				idItem : idItem,
+				idStat1 : idStat1,
+				idStat2 : idStat2,
+				idStat3 : idStat3,
+				idStat4 : idStat4,
+				idStat5 : idStat5,
+				idStat6 : idStat6,
+				enchere : enchere,
+				rachat : rachat,
+				date : date,
+				duree : duree,
+				notes : notes
+			}
+		})
+		.done(function(data)
+		{
+			var button = $("button.selected");
+			var idPerso = $("#PersoViewId").val();
+			
+			contPersoView(button, $(button).attr("id"), idPerso);
+		})
+		.fail(function() {
+			$(".bandeau li.wait").hide();
+			alert("Désolé j'ai crashé :o")
+		});
+		
+		return false;
+	});
 	
 	//Vue d'un perso
 });
