@@ -143,7 +143,7 @@ $(document).ready(function()
 			data: {nom: nom, po: po},
 			type: 'POST'
 		})
-		.done(function() {page("perso/liste");})
+		.done(function() {page($(".menuSelected"), "perso/liste");})
 		.fail(function()
 		{
 			$(".bandeau li.wait").hide();

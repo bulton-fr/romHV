@@ -9,7 +9,7 @@ if(!is_null($oldMDP) || !is_null($newMDP))
 	
 	if(!empty($oldMDP) && !empty($newMDP))
 	{
-		$MUser = new \modules\users\modeles\users;
+		$MUser = new \modules\users\modeles\Users;
 		$mdpBDD = $MUser->getMdp($idUser);
 		
 		$mdpHash = hashage($oldMDP);
