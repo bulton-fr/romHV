@@ -3,7 +3,6 @@ $Params_head = array(
 	'css' => array(
 		$path.'css/index.css',
 		$path.'css/recap.css',
-		$pagination_css[0],
 		$path.'css/vendu.css',
 		$path.'css/ventes.css',
 		$path.'css/enAttente.css',
