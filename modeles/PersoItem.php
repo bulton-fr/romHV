@@ -395,7 +395,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('dateDebut', 'duree', 'enchere', 'rachat'))
+					->from(array('pi' => $this->_name), array('dateDebut', 'duree', 'enchere', 'rachat', 'ref'))
 					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->where('pi.idUser=:user', array(':user' => $idUser))
@@ -663,7 +663,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('dateDebut', 'duree', 'enchere', 'rachat'))
+					->from(array('pi' => $this->_name), array('dateDebut', 'duree', 'enchere', 'rachat', 'ref'))
 					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->where('pi.idPerso=:perso', array(':perso' => $idPerso))
@@ -874,6 +874,40 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 			else {return true;}
 		}
 		else {return $default;}
+	}
+
+	/**
+	 * Fin de vente
+	 */
+	public function FinDeVente()
+	{
+		$dateReq = new \BFW\CKernel\Date;
+		$dateReq->modify('+3 jours');
+		$dateReqSql = $dateReq->getSql();
+		
+		$req = $this->select()
+					->from($this->_name, array('ref', 'dateDebut', 'duree'))
+					->where('dateDebut<="'.$dateReqSql.'"')
+					->where('enVente=1')
+					->where('vendu=0');
+		$res = $req->fetchAll();
+		
+		if($res)
+		{
+			$dateNow = new \BFW\CKernel\Date;
+			
+			foreach($res as $result)
+			{
+				$dateItem = new \BFW\CKernel\Date($result['dateDebut']);
+				$dateItem->modify('+'.$result['duree'].' jours');
+				
+				$dateDiff = $dateNow->DateTime->diff($dateItem->DateTime);
+				if($dateDiff->invert == 1)
+				{
+					$this->update($this->_name, array('enVente' => 0))->where('ref="'.$result['ref'].'"')->execute();
+				}
+			}
+		}
 	}
 }
 ?>
