@@ -9,7 +9,7 @@ $idStat[] = post('idStat5');
 $idStat[] = post('idStat6');
 $enchere = post('enchere');
 $rachat = post('rachat');
-$date = post('date');
+$date = dateFr2Us(post('date'));
 $duree = (int) post('duree');
 $notes = post('notes');
 

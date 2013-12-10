@@ -48,7 +48,11 @@ function contPersoView(context, url, idPerso, suite, tri)
 		
 		if($(this).attr("id") == "addItem")
 		{
-			$('#AddItem_date').datetimepicker({timeFormat: 'HH:mm:ss'});
+			$('#AddItem_date').datetimepicker({
+				timeFormat: 'HH:mm:ss',
+				dateFormat: 'dd/mm/yy'
+			});
+			$('#AddItem_date').datetimepicker('setDate', (new Date()) );
 			
 			item_autocomplete("#AddItem");
 			item_autocomplete("#Stat1", "stat");
@@ -150,7 +154,7 @@ function dialogVendu()
 					type: 'post'
 				})
 				.done(function() {
-					$(this).dialog("close");
+					$("#dialogVendu").dialog("close");
 					
 					var button = $("button.selected");
 					var idPerso = $("#PersoViewId").val();
@@ -166,6 +170,64 @@ function dialogVendu()
 			$(".trSelected").removeClass("trSelected");
 			$("#TypeAchatVendu").val("rachat");
 			$("#poGagneVendu").val("");
+		}
+	});
+	
+	$(".ui-dialog-titlebar").removeClass("ui-corner-all");
+}
+
+/**
+ * Pour la fenêtre de dialog quand un item est mit en vente
+ */
+function dialogMeV()
+{
+	$("#dialogMeV").dialog({
+		autoOpen: false,
+		height: 170,
+		width: 350,
+		modal: true,
+		buttons:
+		{
+			"C'est bien ça": function()
+			{
+				var ref = $("#dialogMeVRefItem").val();
+				var enchere = $("#dialogMeVEnchere").val();
+				var rachat = $("#dialogMeVRachat").val();
+				var date = $("#dialogMeVDate").val();
+				var duree = $("#dialogMeVDuree").val();
+				
+				$.ajax({
+					url: base_url+"/perso/itemMeV",
+					data: {
+						ref: ref,
+						enchere: enchere,
+						rachat: rachat,
+						date: date,
+						duree: duree
+					},
+					type: 'post'
+				})
+				.done(function() {
+					$("#dialogMeV").dialog("close");
+					
+					var button = $("button.selected");
+					var idPerso = $("#PersoViewId").val();
+					
+					contPersoView(button, $(button).attr("id"), idPerso);
+				})
+				.fail(function() {alert("Désolé j'ai crashé");});
+			},
+			"Annuler": function() {$(this).dialog("close");}
+		},
+		close: function()
+		{
+			$(".trSelected").removeClass("trSelected");
+			
+			$("#dialogMeVEnchere").val("");
+			$("#dialogMeVRachat").val("");
+			$("#dialogMeVDate").val("");
+			$("#dialogMeVDuree").val("3");
+			
 		}
 	});
 	
@@ -412,7 +474,31 @@ $(document).ready(function()
 		
 		var calc = val-((val*6)/100)-1;
 		$("#poGagneVendu").val(numberWithCommas(calc));
-	})
+	});
+	
+	$('.cont').on('click', '#ViewPersoTbody button.ItemMeV', function() {
+		var ref = $(this).attr("id");
+		var trSelect = $(this).parents("tr");
+		
+		$(trSelect).addClass("trSelected");
+		
+		var enchere = 0;
+		var rachat = 0;
+		
+		$(trSelect).children('td').each(function(index, element)
+		{
+			if(index == 1) {enchere = $(trSelect).find('td').eq(index).text();}
+			if(index == 2) {rachat = $(trSelect).find('td').eq(index).text();}
+		});
+		
+		$("#dialogMeVEnchere").val(enchere);
+		$("#dialogMeVRachat").val(rachat);
+		
+		$("#dialogMeVRefItem").val($(this).attr("id"));
+		$("#dialogMeVDate").datetimepicker('setDate', (new Date()) );
+		
+		$("#dialogMeV").dialog("open");
+	});
 	
 	//Vue d'un perso
 });

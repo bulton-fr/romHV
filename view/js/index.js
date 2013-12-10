@@ -56,7 +56,13 @@ function page(context, url, idPerso)
 				maj_po_bandeau();
 				var idPerso = $("#PersoViewId").val();
 				contPersoView($("#buttonPersoView button#vente"), "vente", idPerso);
+				
 				dialogVendu();
+				dialogMeV();
+				$('#dialogMeVDate').datetimepicker({
+					timeFormat: 'HH:mm:ss',
+					dateFormat: 'dd/mm/yy'
+				});
 			}
 		}
 		else {window.location.href = base_url;}

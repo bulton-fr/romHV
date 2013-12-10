@@ -938,7 +938,43 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 			'poGagne' => $po
 		);
 		$req = $this->update($this->_name, $data)->where('ref=:ref', array(':ref' => $ref));
-		echo $req->assemble();
+		
+		if($req->execute()) {return true;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Remise en vente d'un item
+	 * 
+	 * @param string $ref     : La ref de l'item
+	 * @param int    $enchere : La valeur pour un achat en enchère
+	 * @param int    $rachat  : La valeur pour un achat en rachat
+	 * @param string $date    : La date de début de mise en vente
+	 * @param int    $duree   : La durée de mise en vente
+	 * 
+	 * @return bool
+	 */
+	public function setVente($ref, $enchere, $rachat, $date, $duree)
+	{
+		$default = false;
+		
+		if(!is_string($ref) || !is_int($enchere) || !is_int($rachat) || !is_string($date) || !is_int($duree))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$date = new \BFW\CKernel\Date($date);
+		
+		$data = array(
+			'enVente' => 1,
+			'enchere' => $enchere,
+			'rachat' => $rachat,
+			'dateDebut' => '"'.$date->getSql().'"',
+			'duree' => $duree
+		);
+		$req = $this->update($this->_name, $data)->where('ref=:ref', array(':ref' => $ref));
+		
 		if($req->execute()) {return true;}
 		else {return $default;}
 	}
