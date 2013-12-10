@@ -62,3 +62,35 @@ function get_color_item($color)
 	
 	return $color;
 }
+
+/**
+ * Date française vers anglaise (utlise pour la classe Date)
+ * 
+ * @param string $date : La date au format française
+ * 
+ * @return string
+ */
+function dateFr2Us($date)
+{
+	$exDateTime = explode(' ', $date);
+	$exDate = explode('/', $exDateTime[0]);
+	
+	if(count($exDate) == 1)
+	{
+		$exDate = explode('-', $exDateTime[0]);
+		if(count($exDate) == 1) {return $date;}
+	}
+	
+	$jour = $mois = $annee = '';
+	foreach($exDate as $i => $val)
+	{
+			if($i == 1) {$mois = $val;}
+		elseif(strlen($val) == 4) {$annee = $val;}
+		else {$jour = $val;}
+	}
+	
+	$dateUs = $annee.'-'.$mois.'-'.$jour;
+	if(isset($exDateTime[1])) {$dateUs .= ' '.$exDateTime[1];}
+	
+	return $dateUs;
+}
