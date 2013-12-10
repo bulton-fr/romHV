@@ -36,7 +36,7 @@ class Config extends \BFW_Sql\Classes\Modeles
 	 * 
 	 * @return bool
 	 */
-	public function update($ref, $value)
+	public function maj($ref, $value)
 	{
 		if(!is_string($ref) || !is_string($value))
 		{
