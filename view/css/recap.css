@@ -6,3 +6,11 @@ table.recap td.recap_stat {width: 80px;}
 
 div.GraphRecap {margin-top: 50px;}
 .statPerso {cursor: pointer;}
+
+p.romVersion
+{
+    margin: 0;
+    padding: 0;
+    
+    font-size: 0.85em;
+}

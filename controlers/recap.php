@@ -13,5 +13,9 @@ if(count($persos) > 0)
 	}
 }
 
+$MConfig = new \modeles\Config;
+$romVersion = $MConfig->getConfig('rom_version');
+$TPL->AddVars(array('romVersion' => $romVersion));
+
 $TPL->End();
 ?>
