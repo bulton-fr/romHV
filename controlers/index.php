@@ -1,14 +1,14 @@
 <?php
 $Params_head = array(
 	'css' => array(
+		$path.'jquery_ui/themes/redmond/jquery-ui.css',
+		$path.'jquery_ui/timepicker/timepicker.css',
 		$path.'css/index.css',
 		$path.'css/recap.css',
 		$path.'css/vendu.css',
 		$path.'css/ventes.css',
 		$path.'css/enAttente.css',
-		$path.'css/perso.css',
-		$path.'jquery_ui/themes/redmond/jquery-ui.css',
-		$path.'jquery_ui/timepicker/timepicker.css'
+		$path.'css/perso.css'
 	),
 	'js' => array(
 		'https://www.google.com/jsapi',

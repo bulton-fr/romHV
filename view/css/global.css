@@ -89,6 +89,8 @@ table td.po
     text-align: right;
 }
 
+table tr.trSelected {background-color: #5c9ccc;}
+
 .suite {cursor: pointer;}
 .suite:hover {text-decoration: underline;}
 

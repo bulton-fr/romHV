@@ -909,5 +909,38 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 			}
 		}
 	}
+	
+	/**
+	 * Passage d'un item en vendu
+	 * 
+	 * @param string $ref  : La référence de l'item
+	 * @param string $type : Le type d'achat
+	 * @param int    $po   : Les po obtenu
+	 * 
+	 * @return bool
+	 */
+	public function setVendu($ref, $type, $po)
+	{
+		$default = false;
+		
+		if(!is_string($ref) || !is_string($type) || !is_int($po))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$dateNow = new \BFW\CKernel\Date;
+		
+		$data = array(
+			'vendu' => 1,
+			'typeVente' => '"'.$type.'"',
+			'dateVendu' => '"'.$dateNow->getSql().'"',
+			'poGagne' => $po
+		);
+		$req = $this->update($this->_name, $data)->where('ref=:ref', array(':ref' => $ref));
+		echo $req->assemble();
+		if($req->execute()) {return true;}
+		else {return $default;}
+	}
 }
 ?>

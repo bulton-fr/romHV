@@ -23,3 +23,20 @@
 </p>
 
 <div class="cont_persoView"></div>
+
+<div id="dialogVendu" title="Vente de l'item">
+	<p>L'item vient d'être vendu.</p>
+	<form>
+		<input type="hidden" id="dialogVenduRefItem" />
+		<input type="hidden" id="dialogVenduRefRachat" />
+		<input type="hidden" id="dialogVenduRefEnchere" />
+		<p>
+			L'item à été achété en 
+			<select id="TypeAchatVendu">
+				<option value="rachat">Rachat</option>
+				<option value="enchere">Enchère</option>
+			</select>&nbsp;
+			et vous avez gagné <input type="text" id="poGagneVendu" class="po" />
+		</p>
+	</form>
+</div>

@@ -126,6 +126,64 @@ function item_autocomplete(context, params)
     };;
 }
 
+/**
+ * Pour la fenêtre de dialog quand un item est acheté
+ */
+function dialogVendu()
+{
+	$("#dialogVendu").dialog({
+		autoOpen: false,
+		height: 150,
+		width: 550,
+		modal: true,
+		buttons:
+		{
+			"C'est bien ça": function()
+			{
+				var ref = $("#dialogVenduRefItem").val();
+				var type = $("#TypeAchatVendu").val();
+				var po = $("#poGagneVendu").val();
+				
+				$.ajax({
+					url: base_url+"/perso/itemVendu",
+					data: {type: type, po: po, ref: ref},
+					type: 'post'
+				})
+				.done(function() {
+					$(this).dialog("close");
+					
+					var button = $("button.selected");
+					var idPerso = $("#PersoViewId").val();
+					
+					contPersoView(button, $(button).attr("id"), idPerso);
+				})
+				.fail(function() {alert("Désolé j'ai crashé");});
+			},
+			"Annuler": function() {$(this).dialog("close");}
+		},
+		close: function()
+		{
+			$(".trSelected").removeClass("trSelected");
+			$("#TypeAchatVendu").val("rachat");
+			$("#poGagneVendu").val("");
+		}
+	});
+	
+	$(".ui-dialog-titlebar").removeClass("ui-corner-all");
+}
+
+/**
+ * Ajoute des points dans les nombres
+ * http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+ * 
+ * @param {Object} x
+ * 
+ * @return string
+ */
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
 $(document).ready(function()
 {
 	//Liste des persos
@@ -316,6 +374,45 @@ $(document).ready(function()
 		
 		return false;
 	});
+	
+	$('.cont').on('click', '#ViewPersoTbody button.ItemVendu', function() {
+		var ref = $(this).attr("id");
+		var trSelect = $(this).parents("tr");
+		
+		$(trSelect).addClass("trSelected");
+		
+		var type = $("#TypeAchatVendu").val();
+		var calc = 0;
+		var val = 0;
+		
+		$(trSelect).children('td').each(function(index, element)
+		{
+			if(index == 2 && type == 'enchere') {val = parseInt($("#"+ref+"_enchere").val());}
+			if(index == 3 && type == 'rachat') {val = parseInt($("#"+ref+"_rachat").val());}
+		});
+		
+		var calc = val-((val*6)/100)-1;
+		$("#poGagneVendu").val(numberWithCommas(calc));
+		
+		$("#dialogVenduRefItem").val($(this).attr("id"));
+		$("#dialogVendu").dialog("open");
+	});
+	
+	$('.cont').on('change', '#TypeAchatVendu', function() {
+		var trSelect = $("tr.trSelected");
+		var type = $("#TypeAchatVendu").val();
+		var calc = 0;
+		var val = 0;
+		
+		$(trSelect).children('td').each(function(index, element)
+		{
+			if(index == 2 && type == 'enchere') {val = parseInt($("#"+ref+"_enchere").val());}
+			if(index == 3 && type == 'rachat') {val = parseInt($("#"+ref+"_rachat").val());}
+		});
+		
+		var calc = val-((val*6)/100)-1;
+		$("#poGagneVendu").val(numberWithCommas(calc));
+	})
 	
 	//Vue d'un perso
 });

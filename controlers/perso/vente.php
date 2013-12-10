@@ -74,6 +74,9 @@ $MPersoItemStat = new \modeles\PersoItemStat;
 
 foreach($items as $item)
 {
+	$item['poEnchere'] = $item['enchere'];
+	$item['poRachat'] = $item['rachat'];
+	
 	$item['enchere'] = get_po($item['enchere']);
 	$item['rachat'] = get_po($item['rachat']);
 	

@@ -48,3 +48,34 @@
 
 .persoVenduItem {width: 340px;}
 .persoVenduAchat {width: 110px;}
+
+.ui-dialog-titlebar {padding: 0px;}
+.ui-dialog button.ui-dialog-titlebar-close
+{
+    width: 18px;
+    height: 18px;
+}
+
+.ui-dialog, .ui-dialog .ui-dialog-buttonpane {padding: 0;}
+.ui-widget-header {border: 0;}
+
+.ui-dialog button.ui-dialog-titlebar-close {background: #ffffff;} /* <-- Dialog : bouton x use it */
+/*.ui-widget-content .ui-state-default {background: #ffffff;} /* <-- DatePicker use it */
+/*.ui-widget-header .ui-state-default {background: #ffffff;}*/
+.ui-dialog .ui-dialog-buttonpane button {background: #ffffff;}
+
+.ui-dialog p
+{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 3px;
+}
+
+
+.ui-dialog-buttonpane button
+{
+    margin: 0;
+    margin-left: 5px;
+}
+
+.ui-widget .ui-widget {font-size: 0.85em;}
