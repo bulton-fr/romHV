@@ -55,7 +55,7 @@ $(document).ready(function()
 	})
 	
 	$(".cont").on("click", "#VenduSuite", function() {
-		$(this).remove();
+		$(this).hide();
 		
 		var button = $("button.selected");
 		contVendu(button, $(button).attr("id"), true);

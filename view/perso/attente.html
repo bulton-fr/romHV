@@ -2,22 +2,26 @@
 <table id="ViewPerso">
 	<thead>
 		<tr>
-			<td class="venteItem">Item<div class="triPosition<var name='triItem' />"></div></td>
-			<td class="ventePerso">Personnage<div class="triPosition<var name='triPerso' />"></div></td>
-			<td class="venteEnchere">Enchère<div class="triPosition<var name='triEnchere' />"></div></td>
-			<td class="venteRachat">Rachat<div class="triPosition<var name='triRachat' />"></div></td>
-			<td class="venteAction" colspan="2"></td>
+			<td class="persoAttenteItem">Item<div class="triPosition<var name='triItem' />"></div></td>
+			<td class="persoEnchere">Enchère<div class="triPosition<var name='triEnchere' />"></div></td>
+			<td class="persoRachat">Rachat<div class="triPosition<var name='triRachat' />"></div></td>
+			<td class="persoAttenteAction" colspan="2"></td>
 		</tr>
 	</thead>
 	<tbody id="ViewPersoTbody">
 </block>
 		<block name="items">
 			<tr>
-				<td><var name="nomItem" /></td>
-				<td class="center"><var name="nomPerso" /></td>
+				<td>
+					<span style="color: #<var name='color' />;"><var name="nomItem" /></span>
+					
+					<block name="notes">
+						<p class="notes"><var name="notes" /></p>
+					</block>
+				</td>
 				<td class="po"><var name="enchere" /></td>
 				<td class="po"><var name="rachat" /></td>
-				<td class="center" title="Mise en vente"><button class="ItemMiseEnVente" id="<var name='ref' />">MeV</button></td>
+				<td class="center"><button class="ItemMiseEnVente" id="<var name='ref' />">Mise en vente</button></td>
 				<td class="center"><button class="ItemVendu" id="<var name='ref' />">Vendu</button></td>
 			</tr>
 		</block>
@@ -28,4 +32,7 @@
 
 <block name="suite">
 	<p class="center suite" id="ViewPersoSuite">Afficher la suite ?</p>
+</block>
+<block name="suiteAfter">
+	<script type="text/javascript">$("#ViewPersoSuite").show();</script>
 </block>

@@ -237,7 +237,7 @@ $(document).ready(function()
 	})
 	
 	$(".cont").on("click", "#ViewPersoSuite", function() {
-		$(this).remove();
+		$(this).hide();
 		
 		var button = $("button.selected");
 		var idPerso = $("#PersoViewId").val();

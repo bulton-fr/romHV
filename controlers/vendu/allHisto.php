@@ -54,16 +54,43 @@ if($suite == 0)
 }
 
 $nbVente = $MPersoItem->getNbVenduAll();
-if($nbVente > ($start+$nbParPage)) {$TPL->AddBlockWithEnd('suite');}
+if($nbVente > ($start+$nbParPage))
+{
+	if($start == 0) {$TPL->AddBlockWithEnd('suite');}
+	else {$TPL->AddBlockWithEnd('suiteAfter');}
+}
+
+$MPersoItemStat = new \modeles\PersoItemStat;
 
 foreach($items as $item)
 {
 	$item['poGagne'] = get_po($item['poGagne']);
 	$dateVendu = new \BFW\CKernel\Date($item['dateVendu']);
 	$item['dateVendu'] = $dateVendu->aff_simple();
+	$item['color'] = get_color_item($item['color']);
 	
-	$TPL->AddBlockWithEnd('items', $item);
+	$TPL->AddBlock('items', $item);
+	
+	$moreInfos = false;
+	$stats = $MPersoItemStat->getStats($item['ref']);
+	
+	if(!empty($item['notes']) || count($stats) > 0) {$moreInfos = true;}
+	
+	if($moreInfos)
+	{
+		$moreInfos = '';
+		if(count($stats) > 0)
+		{
+			foreach($stats as $stat) {$moreInfos .= $stat['nom']."\n";}
+		}
+		
+		if(!empty($item['notes']) && $moreInfos != '') {$moreInfos .= "\n";}
+		$moreInfos .= $item['notes'];
+		
+		$TPL->AddBlockWithEnd('notes', array('notes' => nl2br($moreInfos)));
+	}
 }
+$TPL->EndBlock();
 
 $TPL->End();
 ?>

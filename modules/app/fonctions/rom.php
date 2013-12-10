@@ -1,6 +1,6 @@
 <?php
 /**
- * Fonctions en rapport avec les po
+ * Fonctions en rapport avec le gestionaire d'hv
  * 
  * @author Vermeulen Maxime <bulton.fr@gmail.com>
  */
@@ -46,4 +46,19 @@ function set_po($po)
 	$po = str_replace(' ', '', $po);
 	
 	return (int) $po;
+}
+
+/**
+ * Renvoi les bonnes couleurs (changement de couleur à cause du design)
+ * 
+ * @param string $color : La couleur à mettre normalement
+ * 
+ * @return string : La couleur à utiliser
+ */
+function get_color_item($color)
+{
+	$color = str_replace('ffffff', '000000', $color); //Blanc en noir
+	$color = str_replace('00ff00', '00C000', $color); //Vert plus foncé car trop clair
+	
+	return $color;
 }

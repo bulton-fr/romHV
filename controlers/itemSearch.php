@@ -32,7 +32,8 @@ if($type == 'all')
 	{
 		//Si doublon, privilégie les stats.
 		if(!in_array($val, $result))
-		{ 
+		{
+			$val['color'] = get_color_item($val['color']); 
 			$result[] = array(
 				'id' => 'I'.$val['id'],
 				'value' => '<span style="color: #'.$val['color'].';">'.$val['text'].'</span>',
@@ -43,12 +44,6 @@ if($type == 'all')
 }
 
 if(count($result) > 15) {array_splice($result, 15);}
-
-foreach($result as $key => $val)
-{
-	$result[$key]['value'] = str_replace('#ffffff', '#000000', $result[$key]['value']);
-	$result[$key]['value'] = str_replace('#00ff00', '#00C000', $result[$key]['value']);
-}
 
 
 echo json_encode($result);

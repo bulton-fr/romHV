@@ -35,3 +35,16 @@
     width: 365px;
     height: 70px;
 }
+
+/* Total : 670px */
+.persoEnchere, .persoRachat, .persoPo {width: 100px;}
+.persoDate {width: 120px;}
+
+.persoAttenteItem {width: 290px;}
+.persoAttenteAction {width: 180px;}
+
+.persoVenteItem {width: 300px;}
+.persoVenteAction {width: 50px;}
+
+.persoVenduItem {width: 340px;}
+.persoVenduAchat {width: 110px;}

@@ -2,20 +2,23 @@
 <table id="ViewPerso">
 	<thead>
 		<tr>
-			<td class="venteItem">Item<div class="triPosition<var name='triItem' />"></div></td>
-			<td class="ventePerso">Personnage<div class="triPosition<var name='triPerso' />"></div></td>
-			
-			<td class="venteDate">Date<div class="triPosition<var name='triDate' />"></div></td>
-			<td class="venteAchat">Type d'achat<div class="triPosition<var name='triAchat' />"></div></td>
-			<td class="ventePo">Po obtenu<div class="triPosition<var name='triPo' />"></div></td>
+			<td class="persoVenduItem">Item<div class="triPosition<var name='triItem' />"></div></td>
+			<td class="persoDate">Date<div class="triPosition<var name='triDate' />"></div></td>
+			<td class="persoVenduAchat">Type d'achat<div class="triPosition<var name='triAchat' />"></div></td>
+			<td class="persoPo">Po obtenu<div class="triPosition<var name='triPo' />"></div></td>
 		</tr>
 	</thead>
 	<tbody id="ViewPersoTbody">
 </block>
 		<block name="items">
 			<tr>
-				<td><var name="nomItem" /></td>
-				<td class="center"><var name="nomPerso" /></td>
+				<td>
+					<span style="color: #<var name='color' />;"><var name="nomItem" /></span>
+					
+					<block name="notes">
+						<p class="notes"><var name="notes" /></p>
+					</block>
+				</td>
 				<td class="center"><var name="date" /></td>
 				<td class="center"><var name="typeVente" /></td>
 				<td class="po"><var name="poGagne" /></td>
@@ -28,4 +31,7 @@
 
 <block name="suite">
 	<p class="center suite" id="ViewPersoSuite">Afficher la suite ?</p>
+</block>
+<block name="suiteAfter">
+	<script type="text/javascript">$("#ViewPersoSuite").show();</script>
 </block>

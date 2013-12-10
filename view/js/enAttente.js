@@ -44,7 +44,7 @@ function contAttente(suite, tri)
 $(document).ready(function()
 {
 	$(".cont").on("click", "#AttenteSuite", function() {
-		$(this).remove();
+		$(this).hide();
 		contAttente(true);
 	});
 	

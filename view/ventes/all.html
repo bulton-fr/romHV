@@ -13,7 +13,13 @@
 </block>
 		<block name="items">
 			<tr>
-				<td><var name="nomItem" /></td>
+				<td>
+					<span style="color: #<var name='color' />;"><var name="nomItem" /></span>
+					
+					<block name="notes">
+						<p class="notes"><var name="notes" /></p>
+					</block>
+				</td>
 				<td class="center" title="<var name="nomUser" />"><var name="nomPerso" /></td>
 				<td class="center"><var name="date" /></td>
 				<td class="po"><var name="enchere" /></td>
@@ -27,4 +33,7 @@
 
 <block name="suite">
 	<p class="center suite" id="VenteSuite">Afficher la suite ?</p>
+</block>
+<block name="suiteAfter">
+	<script type="text/javascript">$("#VenteSuite").show();</script>
 </block>
