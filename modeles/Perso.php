@@ -227,7 +227,8 @@ class Perso extends \BFW_Sql\Classes\Modeles
 		$req = $this->select()
 					->from(array('p' => $this->_name), '')
 					->subQuery($subReq, 'po')
-					->where('p.idUser=:user', array(':user' => $idUser));
+					->where('p.idUser=:user', array(':user' => $idUser))
+					->order('idPerso ASC');
 		
 		$res = $req->fetchAll();
 		
