@@ -21,7 +21,7 @@ $(document).ready(function()
 			dataType: 'json'
 		})
 		.done(function(data) {
-			if(data.status == 200) {page("monCompte/ok");}
+			if(data.status == 200) {page($(".menuSelected"), "monCompte/ok");}
 			else
 			{
 				$(".bandeau li.wait").hide();
