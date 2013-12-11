@@ -16,3 +16,4 @@ Bug
 - Champ de recherche dans les items ventes
 - Auto-complétion : L'avoir en liste déroulante pour pouvoir choisir un item qui apparait pas immédiatement (ex: Or)
 - Couleur sur le champ texte pour l'auto-complétion. Ou de quoi indiquer quel était la couleur de l'item choisi.
+- Ajouter un champ (non obligatoire) pour le prix de frais de mise en vente sur l'ajout d'un item
