@@ -6,6 +6,7 @@ Bug
 
 
 @TODO
+- Décodage des caractères html pour les noms des persos sur le graph ayant tous les persos
 - Mise à jour du nombre de po sur un perso lors de mise en vendu
 - Garder en mémoire le prix d'un item lors des ajouts (si même item).
 - Actualisation auto de la liste des persos lors de l'ajout ou modification d'un perso
