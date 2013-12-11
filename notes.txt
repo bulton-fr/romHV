@@ -6,6 +6,7 @@ Bug
 
 
 @TODO
+- Remplacé "po obtenu" par le prix auquel était l'item sur les tableaux généraux
 - Décodage des caractères html pour les noms des persos sur le graph ayant tous les persos
 - Mise à jour du nombre de po sur un perso lors de mise en vendu
 - Garder en mémoire le prix d'un item lors des ajouts (si même item).
