@@ -453,7 +453,8 @@ $(document).ready(function()
 			if(index == 3 && type == 'rachat') {val = parseInt($("#"+ref+"_rachat").val());}
 		});
 		
-		var calc = val-((val*6)/100)-1;
+		var calc = 0;
+		if(val > 0) {calc = val-((val*6)/100)-1;}
 		$("#poGagneVendu").val(numberWithCommas(calc));
 		
 		$("#dialogVenduRefItem").val($(this).attr("id"));
