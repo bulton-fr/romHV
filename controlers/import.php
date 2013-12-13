@@ -7,6 +7,7 @@ $Params_head = array(
 		'https://www.google.com/jsapi',
 		$path.'js/index.js',
 		$path.'js/import.js',
+		$path.'js/php.js'
 	)
 );
 

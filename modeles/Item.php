@@ -36,7 +36,6 @@ class Item extends \BFW_Sql\Classes\Modeles
 					
 		if($exact) {$req->where('`text`=:search', array(':search' => $search));}
 		else {$req->where('`text` LIKE ?', array('%'.$search.'%'));}
-		
 		$res = $req->fetchAll();
 		
 		if($res) {return $res;}
@@ -50,8 +49,8 @@ class Item extends \BFW_Sql\Classes\Modeles
 	 */
 	public function getAll()
 	{
-		$req = $this->select()->from($this->_name, array('id', 'text'))->order('text ASC')->group('text');
-		$res = $this->fetchAll();
+		$req = $this->select()->from($this->_name, array('id', 'text'))->order('`text` ASC')->group('`text`');
+		$res = $req->fetchAll();
 		
 		if($res) {return $res;}
 		else {return array();}

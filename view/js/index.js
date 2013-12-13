@@ -119,7 +119,7 @@ $(window).resize(function() {mainResize();});
 
 $(document).ready(function()
 {
-	if(document.URL == base_url+"/import") {page($("ul.main_liste > li#recap"), "recap");}
+	if(document.URL != base_url+"/import") {page($("ul.main_liste > li#recap"), "recap");}
 	mainResize(); //Redimensionne dès que la page est chargé.
 	
 	$(".link").click(function() {page(this, $(this).attr("id"));});

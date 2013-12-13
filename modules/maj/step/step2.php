@@ -1,6 +1,5 @@
 <?php
 //Supression des items en doublon
-
 $list_suppr = array();
 
 //Récupérer la liste actuelle
@@ -16,19 +15,22 @@ foreach($listItem as $item)
 		//Récupérer liste des doublons
 		$listDoublon = $MItem->search($item['text'], true);
 		
-		if(count($listDoublon) > 0)
+		if(count($listDoublon) > 1)
 		{
 			foreach($listDoublon as $doublon)
 			{
-				//Pour chaque éléments vérifier s'il n'est pas utilisé dans perso_item
-				$listPersoItem = $MPersoItem->search('I'.$doublon['id']);
-				
-				if(count($listPersoItem) > 0)
+				if($doublon['id'] != $item['id'])
 				{
-					foreach($listPersoItem as $itemUseDoublon)
+					//Pour chaque éléments vérifier s'il n'est pas utilisé dans perso_item
+					$listPersoItem = $MPersoItem->search('I'.$doublon['id']);
+					
+					if(count($listPersoItem) > 0)
 					{
-						//S'il est utilisé, remplacer par l'id de l'item qu'on a et maj de la ref
-						if(!$MPersoItem->majIdItem($itemUseDoublon['ref'], 'I'.$item['id'])) {ErrorView(500);}
+						foreach($listPersoItem as $itemUseDoublon)
+						{
+							//S'il est utilisé, remplacer par l'id de l'item qu'on a et maj de la ref
+							if(!$MPersoItem->majIdItem($itemUseDoublon['ref'], 'I'.$item['id'])) {ErrorView(500);}
+						}
 					}
 					
 					//Supprimer les doublons trouvé et gardé en mémoire l'id des items supprimé

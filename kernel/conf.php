@@ -15,7 +15,7 @@ $tpl_module = 'BFW_Template';
 //*** Template ***
 
 //*** Adresse ***
-$base_url = 'http://romHV';
+$base_url = 'http://romhv';
 //*** Adresse ***
 
 //*** Controler par défaut ***
