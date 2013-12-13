@@ -3,9 +3,12 @@
 $list_suppr = array();
 
 //Récupérer la liste actuelle
+if($Memcache->if_val_exists('majStep2Start')) {$valStart = (int) $Memcache->getVal('majStep2Start');}
+else {$valStart = 0;}
+
 $MItem = new \modeles\Item;
 $MPersoItem = new \modeles\PersoItem;
-$listItem = $MItem->getAll();
+$listItem = $MItem->getAll($valStart);
 
 foreach($listItem as $item)
 {
@@ -29,16 +32,19 @@ foreach($listItem as $item)
 						foreach($listPersoItem as $itemUseDoublon)
 						{
 							//S'il est utilisé, remplacer par l'id de l'item qu'on a et maj de la ref
-							if(!$MPersoItem->majIdItem($itemUseDoublon['ref'], 'I'.$item['id'])) {ErrorView(500);}
+							if(!$MPersoItem->majIdItem($itemUseDoublon['ref'], 'I'.$item['id'])) {ErrorView(500, false);}
 						}
 					}
 					
 					//Supprimer les doublons trouvé et gardé en mémoire l'id des items supprimé
 					$DoublonId = (int) $doublon['id'];
 					if($MItem->suppr($DoublonId)) {$list_suppr[] = $doublon['id'];}
-					else {ErrorView(500);}
+					else {ErrorView(500, false);}
 				}
 			}
 		}
 	}
+	
+	$Memcache->maj_data('majStep2Start', $item['id']);
 }
+?>

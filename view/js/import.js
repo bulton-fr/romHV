@@ -29,11 +29,15 @@ function startStepMaj(step)
 			if(step == 2 && error == "Fatal error: Maximum execution time of 30 seconds exceeded")
 			{
 				nbRelanceStep2++;
-				$("#StatusMaj").text("Etape 2 relancé ("+nbRelanceStep2+").");
+				$("#StatusMaj").text("Etape 2 relancé "+nbRelanceStep2+" fois.");
+				$("#StatusMaj").css("color", "black");
+				
 				startStepMaj(2);
 			}
 			else
 			{
+				console.log(data);
+				
 				$("#StatusMaj").text("Erreur dans la maj à l'étape "+step+" : "+error);
 				$("#StatusMaj").css("color", "red");
 				endFail();

@@ -1,4 +1,6 @@
 <?php
+$Memcache->delete('majStep2Start');
+
 $Params_head = array(
 	'css' => array(
 		$path.'css/index.css'

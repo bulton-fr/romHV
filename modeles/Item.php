@@ -45,11 +45,17 @@ class Item extends \BFW_Sql\Classes\Modeles
 	/**
 	 * Récupère tous les items existant
 	 * 
+	 * @param int $idStart : L'id à partir duquel on doit commencer à récupérer
+	 * 
 	 * @return array
 	 */
-	public function getAll()
+	public function getAll($idStart)
 	{
-		$req = $this->select()->from($this->_name, array('id', 'text'))->order('`text` ASC')->group('`text`');
+		$req = $this->select()
+					->from($this->_name, array('id', 'text'))
+					->where('id>=:id', array(':id' => $idStart))
+					->order('id ASC')
+					->group('`text`');
 		$res = $req->fetchAll();
 		
 		if($res) {return $res;}

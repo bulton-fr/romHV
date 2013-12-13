@@ -1019,19 +1019,19 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	public function majIdItem($ref, $newItem)
 	{
 		$default = false;
-		if(!is_strig($ref) || !is_string($idItem))
+		if(!is_string($ref) || !is_string($newItem))
 		{
 			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres donnés');}
 			else {return $default;}
 		}
 		
 		//Calcul de la nouvelle ref
-		$req = $this->select()->from($this->_name, array('idUser', 'idPerso'))->where('ref=:ref', array(':ref'));
-		$resInfos = $this->fetchRow();
-		if(!$res) {return $default;}
+		$req = $this->select()->from($this->_name, array('idUser', 'idPerso'))->where('ref=:ref', array(':ref' => $ref));
+		$resInfos = $req->fetchRow();
+		if(!$resInfos) {return $default;}
 		
-		$typeItem = substr($idItem, 0, 1);
-		$idItem = substr($idItem, 1);
+		$typeItem = substr($newItem, 0, 1);
+		$idItem = substr($newItem, 1);
 		
 		$req = $this->select()
 					->from($this->_name, array('ref'))
