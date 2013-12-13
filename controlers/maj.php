@@ -11,11 +11,11 @@ elseif($step == 2) //Supression des items en doublon
 }
 elseif($step == 3) //Supression des runes en doublon
 {
-	ErrorView(500);
+	//Pas besoin, j'avais déjà géré le cas lors de leurs premier import
 }
 elseif($step == 4) //Récupération du fichier de donnée
 {
-	
+	ErrorView(500);
 }
 elseif($step == 5) //Extraction des fichiers de donnée
 {
