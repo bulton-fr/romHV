@@ -47,6 +47,7 @@ class Ram extends Kernel implements \BFW\IKernel\IRam
 	/**
 	 * Constructeur
 	 * Se connecte au serveur memcache indiqué, par défaut au localhost
+	 * 
 	 * @param string [optionel] le nom du serveur memcache
 	 * @return bool [optionel] : Renvoi false si l'extension memcached n'est pas installé
 	 */
@@ -57,7 +58,7 @@ class Ram extends Kernel implements \BFW\IKernel\IRam
 			//memcache_debug(true);
 			$this->ext_load = true;
 		
-			$this->Server = new Memcache;
+			$this->Server = new \Memcache;
 			$co = $this->Server->connect($name);
 			
 			//if(!$co) {echo 'Echec de la connexion !!'; echo '<br/><br/>';}
@@ -101,9 +102,9 @@ class Ram extends Kernel implements \BFW\IKernel\IRam
 				
 				if(file_exists($path.'kernel/Memcache_ifnoExt/'.$key.'.txt'))
 				{
-					$json = json_decode(file_get_content($path.'kernel/Memcache_ifnoExt/'.$key.'.txt'));
-					$expire = $json['expire'];
-					$create = $json['create'];
+					$json = json_decode(file_get_contents($path.'kernel/Memcache_ifnoExt/'.$key.'.txt'));
+					$expire = $json->expire;
+					$create = $json->create;
 					
 					if($expire != 0)
 					{
@@ -111,12 +112,12 @@ class Ram extends Kernel implements \BFW\IKernel\IRam
 						$now = time();
 						if($calcul >= $now)
 						{
-							$data = $json['data'];
+							$data = $json->data;
 						}
 					}
 					else
 					{
-						$data = $json['data'];
+						$data = $json->data;
 					}
 				}
 				else
@@ -156,9 +157,9 @@ class Ram extends Kernel implements \BFW\IKernel\IRam
 			global $path;
 			if(file_exists($path.'kernel/Memcache_ifnoExt/'.$key.'.txt'))
 			{
-				$data = json_decode(file_get_content($path.'kernel/Memcache_ifnoExt/'.$key.'.txt'));
-				$data['expire'] = $exp;
-				$data['create'] = time();
+				$data = json_decode(file_get_contents($path.'kernel/Memcache_ifnoExt/'.$key.'.txt'));
+				$data->expire = $exp;
+				$data->create = time();
 				
 				$fop = fopen($path.'kernel/Memcache_ifnoExt/'.$key.'.txt', 'w+');
 				fputs($fop, json_encode($data));
@@ -183,8 +184,13 @@ class Ram extends Kernel implements \BFW\IKernel\IRam
 			if($ret != false)
 			{
 				$this->Server->replace($key, $data, 0, $expire);
-				$this->maj_lasts($key, $data);
 			}
+			else
+			{
+				$this->Server->set($key, $data, 0, $expire);
+			}
+			
+			$this->maj_lasts($key, $data);
 		}
 		else
 		{
@@ -286,5 +292,52 @@ class Ram extends Kernel implements \BFW\IKernel\IRam
 	{
 		$this->lastKey = $key;
 		$this->lastVal = $data;
+	}
+	
+	
+	
+	/**
+	 * Permet de retourner la valeur d'une clé. Si la clé n'existe pas, on la met en mémoire
+	 * @param string : Clé correspondant à la valeur
+	 * @param mixed : Les nouvelles données
+	 * @param int [optionnel] Le temps en seconde avant expiration. 0 illimité, max 30jours
+	 * @return mixed La valeur demandée
+	 */
+	public function getVal($key)
+	{
+		$data = null;
+		
+		if($this->no_ext == false) //Récupère la valeur
+		{
+			$data = $this->Server->get($key);
+		}
+		else
+		{
+			global $path;
+				
+			if(file_exists($path.'kernel/Memcache_ifnoExt/'.$key.'.txt'))
+			{
+				$json = json_decode(file_get_contents($path.'kernel/Memcache_ifnoExt/'.$key.'.txt'));
+				
+				$expire = $json->expire;
+				$create = $json->create;
+				
+				if($expire != 0)
+				{
+					$calcul = $create+$expire;
+					$now = time();
+					if($calcul >= $now)
+					{
+						$data = $json->data;
+					}
+				}
+				else
+				{
+					$data = $json->data;
+				}
+			}
+		}
+		
+		return $data;
 	}
 }
