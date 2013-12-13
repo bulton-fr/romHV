@@ -136,7 +136,8 @@ class View extends Kernel implements \BFW\IKernel\IView
 		else
 		{
 			$link = substr($link, 1); //enlève le premier / de l'url
-			$ex = explode('/', $link); //Découpage de l'url, on découpe sur chaque /
+			$exArg = explode('?', $link);
+			$ex = explode('/', $exArg[0]); //Découpage de l'url, on découpe sur chaque /
 			
 			$file_find = false; //Indique si le fichier a été trouvé
 			$dir_find = false; //Indique si le dossier a été trouvé
