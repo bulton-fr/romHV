@@ -34,30 +34,42 @@ if(count($persos) > 0)
 	}
 }
 
+$MConfig = new \modeles\Config;
+$versionBdd = $MConfig->getConfig('rom_version');
+
 $idDirParent = '0BxEHaLjVuOdeZjNTRFU2V042bFU';
 $urlGDrive = 'https://googledrive.com/host/'.$idDirParent.'/';
 $actionYML = 'select * from html where url="'.$urlGDrive.'" and xpath=\'//div[@class="folder-cell"]/a\'';
 $urlYML = 'http://query.yahooapis.com/v1/public/yql?q='.urlencode($actionYML).'&format=json&diagnostics=true&callback=';
 
-
-$listJson = file_get_contents($urlYML);
-$listClass = json_decode($listJson);
-$list = $listClass->query->results->a;
-
-$urlGZip = $urlVersion = '';
-foreach($list as $file)
+try
 {
-	if($file->content == 'version.txt') {$urlVersion = 'https://googledrive.com'.$file->href;}
-	if($file->content == 'runes.targz') {$urlGZip = 'https://googledrive.com'.$file->href;}
+	$listJson = file_get_contents($urlYML);
+	$listClass = json_decode($listJson);
+	$list = $listClass->query->results->a;
+	
+	$urlGZip = $urlVersion = '';
+	foreach($list as $file)
+	{
+		if($file->content == 'version.txt') {$urlVersion = 'https://googledrive.com'.$file->href;}
+		if($file->content == 'runes.targz') {$urlGZip = 'https://googledrive.com'.$file->href;}
+	}
+	
+	$versionServeur = file_get_contents($urlVersion);
 }
-
-$MConfig = new \modeles\Config;
-$versionBdd = $MConfig->getConfig('rom_version');
-$versionServeur = file_get_contents($urlVersion);
+catch(exception $e)
+{
+	$versionServeur = $versionBdd;
+	$TPL->AddBlockWithEnd('errorRecupInfos');
+}
 
 if($versionBdd == $versionServeur) {$TPL->AddBlockWithEnd('noUpdate');}
 else
 {
+	$Memcache->setVal('MajUrlVersion', $urlVersion);
+	$Memcache->setVal('MajVersion', $versionServeur);
+	$Memcache->setVal('MajUrlGZip', $urlGZip);
+	
 	$TPL->AddBlockWithEnd('update', array(
 		'urlVersion' => $urlVersion, 
 		'urlGZip' => $urlGZip)

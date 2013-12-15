@@ -3,7 +3,7 @@
 $list_suppr = array();
 
 //Récupérer la liste actuelle
-if($Memcache->if_val_exists('majStep2Start')) {$valStart = (int) $Memcache->getVal('majStep2Start');}
+if($Memcache->ifExists('majStep2Start')) {$valStart = (int) $Memcache->getVal('majStep2Start');}
 else {$valStart = 0;}
 
 $MItem = new \modeles\Item;
@@ -45,6 +45,6 @@ foreach($listItem as $item)
 		}
 	}
 	
-	$Memcache->maj_data('majStep2Start', $item['id']);
+	$Memcache->setVal('majStep2Start', $item['id']);
 }
 ?>

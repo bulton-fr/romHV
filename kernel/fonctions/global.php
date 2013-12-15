@@ -212,3 +212,37 @@ function logfile($file, $txt, $date=true)
 	try {file_put_contents($file, rtrim($txt)."\n", FILE_APPEND);}
 	catch(Exception $e) {echo '<br/>Impossible d\'écrire dans le fichier : '.$file.'<br/>';}
 }
+
+/**
+ * Vérifie le type d'un ensemble de variable
+ * 
+ * @param array $vars : Les variables à vérifier array(array('type' => 'monType', 'data' => 'mesData), array(...)...)
+ * 
+ * @return bool
+ */
+function verifTypeData($vars)
+{
+	if(is_array($vars))
+	{
+		foreach($vars as $var)
+		{
+			if(is_array($var))
+			{
+				if(!empty($var['type']) && isset($var['data']))
+				{
+					if($var['type'] == 'int') {$var['type'] = 'integer';}
+					if($var['type'] == 'float') {$var['type'] = 'double';}
+					
+					if(!is_string($var['type'])) {return false;}
+					if(gettype($var['data']) != $var['type']) {return false;}
+				}
+				else {return false;}
+			}
+			else {return false;}
+		}
+	}
+	else {return false;}
+	
+	return true;
+}
+	

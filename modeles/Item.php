@@ -83,5 +83,93 @@ class Item extends \BFW_Sql\Classes\Modeles
 		if($suppr->execute()) {return true;}
 		else {return $default;}
 	}
+	
+	/**
+	 * Met à jour un item
+	 * 
+	 * @param int   $idItem : L'id de l'item
+	 * @param array $data   : Les infos sur l'item
+	 * 
+	 * @return bool
+	 */
+	public function maj($idItem, $data)
+	{
+		$default = false;
+		if(!is_int($idItem) || !is_array($data))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans le paramètre donné.');}
+			else {return $default;}
+		}
+		
+		$dataVerif = array(
+			array('type' => 'int', 'data' => $data['id']),
+			array('type' => 'string', 'data' => $data['left']),
+			array('type' => 'string', 'data' => $data['right']),
+			array('type' => 'string', 'data' => $data['text']),
+			array('type' => 'string', 'data' => $data['color'])
+		);
+		
+		if(!$dataVerif) {return false;}
+		
+		$req = $this->update($this->_name, $data)->where('id=:id', array(':id' => $idItem));
+		if($req->execute()) {return true;}
+		else {return false;}
+	}
+	
+	/**
+	 * Créer l'item
+	 * 
+	 * @param array $data : Les infos sur l'item
+	 * 
+	 * @return bool
+	 */
+	public function create($data)
+	{
+		$default = false;
+		if(!is_array($data))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans le paramètre donné.');}
+			else {return $default;}
+		}
+		
+		$dataVerif = array(
+			array('type' => 'int', 'data' => $data['id']),
+			array('type' => 'string', 'data' => $data['left']),
+			array('type' => 'string', 'data' => $data['right']),
+			array('type' => 'string', 'data' => $data['text']),
+			array('type' => 'string', 'data' => $data['color'])
+		);
+		
+		if(!$dataVerif) {return false;}
+		
+		$req = $this->insert($this->_name, $data);
+		if($req->execute()) {return true;}
+		else {return false;}
+	}
+	
+	/**
+	 * Vérifie si un item existe
+	 * 
+	 * @param int $idItem : L'id de l'item recherché
+	 * 
+	 * @return bool/null
+	 */
+	public function ifExists($idItem)
+	{
+		$default = null;
+		if(!is_int($idItem))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans le paramètre donné.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()
+					->from($this->_name, 'id')
+					->where('id=:id', array(':id' => $idItem));
+		$res = $req->fetchRow();
+		
+		if(!$res && $req->nb_result() == 0) {return false;}
+		else {return true;}
+	}
 }
 ?>
