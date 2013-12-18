@@ -27,27 +27,26 @@ elseif($step == 6) //Extraction des items
 }
 elseif($step == 7) //Sauvegarde des items
 {
+/*	
 	if(function_exists('system'))
 	{
 		$system = system('cd ../modules/maj/step && php5 step7.php');
 		if($system === false) {ErrorView(500);}
 	}
 	else {ErrorView(500);}
+
+*/
 }
-elseif($step == 8) //Extraction des runes et stat
+elseif($step == 8) //Extraction et sauvegarde des runes et stat
+{
+	require_once(path_modules.'maj/step/step8.php');
+}
+elseif($step == 9) //Mise à jour de la configuration
 {
 	ErrorView(500);
 }
-elseif($step == 9) //Sauvegarde des runes et stat
+elseif($step == 10) //Suppression des fichiers téléchargés
 {
-	
-}
-elseif($step == 10) //Mise à jour de la configuration
-{
-	
-}
-elseif($step == 11) //Suppression des fichiers téléchargés
-{
-	
+	ErrorView(500);
 }
 ?>

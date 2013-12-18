@@ -28,7 +28,7 @@ class Stat extends \BFW_Sql\Classes\Modeles
 			else {return $default;}
 		}
 		
-		if(!$this->statExists($id, $nom))
+		if(!$this->ifExists($id, $nom))
 		{
 			$data = array('idStat' => $id, 'nom' => $nom);
 			$req = $this->insert($this->_name, $data);
@@ -45,11 +45,11 @@ class Stat extends \BFW_Sql\Classes\Modeles
 	 * @param int    $id  : L'id de la stat
 	 * @param string $nom : Le nom de la stat
 	 * 
-	 * @return bool
+	 * @return bool/null
 	 */
-	public function statExists($id, $nom)
+	public function ifExists($id, $nom)
 	{
-		$default = true;
+		$default = null;
 		
 		if(!is_int($id) || !is_string($nom))
 		{
@@ -63,7 +63,7 @@ class Stat extends \BFW_Sql\Classes\Modeles
 		$res = $req->fetchRow();
 		
 		if(!$res && $req->nb_result() == 0) {return false;}
-		else {return $default;}
+		else {return true;}
 	}
 	
 	/**
@@ -91,7 +91,7 @@ class Stat extends \BFW_Sql\Classes\Modeles
 	}
 	
 	/**
-	 * Recherche un item avec un nom commençant par le paramètre. Maximum 10 item retourné en ordre alphabétique.
+	 * Recherche une stat avec un nom commençant par le paramètre. Maximum 10 item retourné en ordre alphabétique.
 	 * 
 	 * @param string $search : Le mot clé à rechercher
 	 * 
@@ -116,6 +116,28 @@ class Stat extends \BFW_Sql\Classes\Modeles
 		
 		if($res) {return $res;}
 		else {return $default;}
+	}
+	
+	/**
+	 * Met à jour une stat
+	 * 
+	 * @param int   $idItem : L'id de l'item
+	 * @param array $data   : Les infos sur l'item
+	 * 
+	 * @return bool
+	 */
+	public function maj($id, $nom)
+	{
+		$default = false;
+		if(!is_int($id) || !is_string($nom))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans le paramètre donné.');}
+			else {return $default;}
+		}
+		
+		$req = $this->update($this->_name, array('nom' => $nom))->where('id=:id', array(':id' => $id));
+		if($req->execute()) {return true;}
+		else {return false;}
 	}
 }
 ?>
