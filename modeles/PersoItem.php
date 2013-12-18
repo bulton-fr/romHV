@@ -195,7 +195,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'poGagne', 'notes'))
-					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->where('pi.idUser=:user', array(':user' => $idUser))
 					->where('vendu=1')
@@ -272,7 +273,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'poGagne', 'notes'))
-					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomItem' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->where('pi.idUser=:user', array(':user' => $idUser))
 					->where('vendu=1')
@@ -339,7 +341,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'poGagne', 'notes'))
-					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->joinLeft(array('u' => 'users'), 'u.id=pi.idUser', array('nomUser' => 'login'))
 					->where('vendu=1')
@@ -396,7 +399,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array('ref', 'dateDebut', 'duree', 'enchere', 'rachat', 'ref', 'notes'))
-					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->where('pi.idUser=:user', array(':user' => $idUser))
 					->where('vendu=0')
@@ -466,7 +470,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array('ref', 'dateDebut', 'duree', 'enchere', 'rachat', 'notes'))
-					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->where('pi.idUser=:user', array(':user' => $idUser))
 					->where('enVente=1')
@@ -535,7 +540,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array('ref', 'dateDebut', 'duree', 'enchere', 'rachat', 'notes'))
-					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->joinLeft(array('u' => 'users'), 'u.id=pi.idUser', array('nomUser' => 'login'))
 					->where('enVente=1')
@@ -594,7 +600,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array('ref', 'dateDebut', 'duree', 'enchere', 'rachat', 'notes'))
-					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->where('pi.idPerso=:perso', array(':perso' => $idPerso))
 					->where('enVente=1')
@@ -664,7 +671,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array('ref', 'dateDebut', 'duree', 'enchere', 'rachat', 'ref', 'notes'))
-					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->where('pi.idPerso=:perso', array(':perso' => $idPerso))
 					->where('enVente=0')
@@ -734,7 +742,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'poGagne', 'notes'))
-					->join(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
+					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->where('pi.idPerso=:perso', array(':perso' => $idPerso))
 					->where('vendu=1')

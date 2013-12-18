@@ -106,14 +106,6 @@ function item_autocomplete(context, params)
 	            }
 	        });
 	    },
-		focus: function( event, ui ) {
-			$(context+"_name").val(ui.item.text);
-			$(context+"_idItem").val(ui.item.id);
-			
-			if(context == "#AddItem") {$("#EtatItem").attr("src", "../img/cross.png");}
-			
-			return false;
-		},
 		select: function( event, ui ) {
 			$(context+"_name").val(ui.item.text);
 			$(context+"_idItem").val(ui.item.id);
@@ -389,6 +381,7 @@ $(document).ready(function()
 	$(".cont").on('submit', 'form#FormAddItem', function() {
 		$(".bandeau li.wait").show();
 		
+		var token = $("#TokenForm").val();
 		var idPerso = $("#PersoViewId").val();
 		var idItem = $("#AddItem_idItem").val();
 		var idStat1 = $("#Stat1_idItem").val();
@@ -419,7 +412,8 @@ $(document).ready(function()
 				rachat : rachat,
 				date : date,
 				duree : duree,
-				notes : notes
+				notes : notes,
+				token : token
 			}
 		})
 		.done(function(data)
@@ -429,9 +423,11 @@ $(document).ready(function()
 			
 			contPersoView(button, $(button).attr("id"), idPerso);
 		})
-		.fail(function() {
+		.fail(function(data) {
 			$(".bandeau li.wait").hide();
-			alert("Désolé j'ai crashé :o")
+			
+			if(data.status == 409) {console.log('Token');}
+			else {alert("Désolé j'ai crashé :o");}
 		});
 		
 		return false;
