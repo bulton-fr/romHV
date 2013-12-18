@@ -389,6 +389,7 @@ $(document).ready(function()
 	$(".cont").on('submit', 'form#FormAddItem', function() {
 		$(".bandeau li.wait").show();
 		
+		var token = $("#TokenForm").val();
 		var idPerso = $("#PersoViewId").val();
 		var idItem = $("#AddItem_idItem").val();
 		var idStat1 = $("#Stat1_idItem").val();
@@ -419,7 +420,8 @@ $(document).ready(function()
 				rachat : rachat,
 				date : date,
 				duree : duree,
-				notes : notes
+				notes : notes,
+				token : token
 			}
 		})
 		.done(function(data)
@@ -429,9 +431,11 @@ $(document).ready(function()
 			
 			contPersoView(button, $(button).attr("id"), idPerso);
 		})
-		.fail(function() {
+		.fail(function(data) {
 			$(".bandeau li.wait").hide();
-			alert("Désolé j'ai crashé :o")
+			
+			if(data.status == 409) {console.log('Token');}
+			else {alert("Désolé j'ai crashé :o");}
 		});
 		
 		return false;
