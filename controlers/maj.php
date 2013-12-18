@@ -39,11 +39,11 @@ elseif($step == 7) //Sauvegarde des items
 }
 elseif($step == 8) //Extraction et sauvegarde des runes et stat
 {
-	require_once(path_modules.'maj/step/step8.php');
+//	require_once(path_modules.'maj/step/step8.php');
 }
 elseif($step == 9) //Mise à jour de la configuration
 {
-	ErrorView(500);
+	require_once(path_modules.'maj/step/step9.php');
 }
 elseif($step == 10) //Suppression des fichiers téléchargés
 {
