@@ -97,8 +97,14 @@ function graphRecap(typeGraph, idPerso)
 			var options = {
 				title: "Mes ventes de ces dernières semaines",
 				width: 670,
-				height: 400
+				height: 400,
+				vAxis: {logScale: false}
 			};
+			
+			if($("input#logGraph").is(":checked"))
+			{
+				options.vAxis.logScale = true;
+			}
 
 			var dataGraph = google.visualization.arrayToDataTable(data);
 			var chart = new google.visualization.LineChart(document.getElementById('GraphRecap'));
