@@ -5,7 +5,7 @@
  * @param bool   color
  * @param string idPerso
  */
-function contAttente(suite, tri)
+function contAttente(context, url, suite, tri)
 {
 	$(".bandeau li.wait").show();
 	url = base_url+"/enAttente"; //Evite les erreurs d'injection d'url. Le framework se chargeant du reste après (renvoi 404)
@@ -20,7 +20,8 @@ function contAttente(suite, tri)
 		url: url,
 		data: {suite: suite, triRow: triRow, triSens: triSens},
 		type: 'POST',
-		dataType: 'html'
+		dataType: 'html',
+		context: context
 	})
 	.done(function(data)
 	{
@@ -65,6 +66,7 @@ $(document).ready(function()
 			else {$("#triSens").val("ASC");}
 		}
 		
-		contAttente(false, $(this).attr("class"));
+		var button = $("button.selected");
+		contAttente(button, $(button).attr("id"), false, $(this).attr("class"));
 	})
 });

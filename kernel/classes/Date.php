@@ -333,7 +333,12 @@ class Date extends Kernel implements \BFW\IKernel\IDate
 		$diffMinute = $diff->format('%I');
 		$diffSeconde = $diff->format('%S');
 		$diffInvert = $diff->invert;
-		//var_dump($diff);
+		
+		/*
+		echo '<pre>';
+		var_dump($diff);
+		echo '</pre>';
+		*/
 		
 		if($diffAnnee == 0 && $diffMois == 0 && $diffJour == 0 && $diffHeure == 0 && $diffMinute == 0 && $diffSeconde == 0)
 		{
@@ -367,7 +372,7 @@ class Date extends Kernel implements \BFW\IKernel\IDate
 			
 			$aff_heure = ''; #Partie prévu pour l'affichage
 		}
-		elseif($diffInvert == 0 && $diffAnnee == 0 && $diffMois == 0 && ($diffJour == 0 && $diffHeure > 2) || ($diffJour == 1 && $diffHeure == 0))
+		elseif($diffInvert == 0 && $diffAnnee == 0 && $diffMois == 0 && (($diffJour == 0 && $diffHeure > 2) || ($diffJour == 1 && $diffHeure == 0)))
 		{
 			//C'était hier
 			$aff_date = 'Hier'; #On affiche donc en première partie "hier"

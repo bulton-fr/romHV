@@ -1,39 +1,48 @@
-<block name="start">
-<table id="Attente">
-	<thead>
-		<tr>
-			<td class="attenteItem">Item<div class="triPosition<var name='triItem' />"></div></td>
-			<td class="attentePerso">Personnage<div class="triPosition<var name='triPerso' />"></div></td>
-			<td class="attenteDate">Depuis<div class="triPosition<var name='triDate' />"></div></td>
-			<td class="attenteEnchere">Enchère<div class="triPosition<var name='triEnchere' />"></div></td>
-			<td class="attenteRachat">Rachat<div class="triPosition<var name='triRachat' />"></div></td>
-		</tr>
-	</thead>
-	<tbody id="AttenteTbody">
-</block>
-		<block name="items">
-			<tr>
-				<td>
-					<span style="color: #<var name='color' />;"><var name="nomItem" /></span>
-					
-					<block name="notes">
-						<p class="notes"><var name="notes" /></p>
-					</block>
-				</td>
-				<td class="center"><var name="nomPerso" /></td>
-				<td class="center"><var name="date" /></td>
-				<td class="po"><var name="enchere" /></td>
-				<td class="po"><var name="rachat" /></td>
-			</tr>
-		</block>
-<block name="start">
-	</tbody>
-</table>
-</block>
+<div class="center" id="buttonVendu">
+	<input type="hidden" id="action" value="" />
+	<input type="hidden" id="suite" value="0" />
+	<input type="hidden" id="triRow" value="venduDate" />
+	<input type="hidden" id="triSens" value="DESC" />
+</div>
 
-<block name="suite">
-	<p class="center suite" id="AttenteSuite">Afficher la suite ?</p>
-</block>
-<block name="suiteAfter">
-	<script type="text/javascript">$("#AttenteSuite").show();</script>
-</block>
+<div class="contAttente">
+	<block name="start">
+	<table id="Attente">
+		<thead>
+			<tr>
+				<td class="attenteItem">Item<div class="triPosition<var name='triItem' />"></div></td>
+				<td class="attentePerso">Personnage<div class="triPosition<var name='triPerso' />"></div></td>
+				<td class="attenteDate">Depuis<div class="triPosition<var name='triDate' />"></div></td>
+				<td class="attenteEnchere">Enchère<div class="triPosition<var name='triEnchere' />"></div></td>
+				<td class="attenteRachat">Rachat<div class="triPosition<var name='triRachat' />"></div></td>
+			</tr>
+		</thead>
+		<tbody id="AttenteTbody">
+	</block>
+			<block name="items">
+				<tr>
+					<td>
+						<span style="color: #<var name='color' />;"><var name="nomItem" /></span>
+						
+						<block name="notes">
+							<p class="notes"><var name="notes" /></p>
+						</block>
+					</td>
+					<td class="center"><var name="nomPerso" /></td>
+					<td class="center"><var name="date" /></td>
+					<td class="po"><var name="enchere" /></td>
+					<td class="po"><var name="rachat" /></td>
+				</tr>
+			</block>
+	<block name="start">
+		</tbody>
+	</table>
+	</block>
+	
+	<block name="suite">
+		<p class="center suite" id="AttenteSuite">Afficher la suite ?</p>
+	</block>
+	<block name="suiteAfter">
+		<script type="text/javascript">$("#AttenteSuite").show();</script>
+	</block>
+</div>

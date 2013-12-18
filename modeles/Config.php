@@ -44,7 +44,7 @@ class Config extends \BFW_Sql\Classes\Modeles
 			else {return false;}
 		}
 		
-		$req = $this->update($this->_name, array('value' => $value))->where('ref=:ref', array(':ref' => $ref));
+		$req = $this->update($this->_name, array('value' => '"'.$value.'"'))->where('ref=:ref', array(':ref' => $ref));
 		
 		if($req->execute()) {return true;}
 		else {return false;}

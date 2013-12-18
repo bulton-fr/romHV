@@ -1,0 +1,59 @@
+<div class="main">
+	<div class="menu_left">
+		<ul class="main_liste">
+			<li id="recap">Récap</li>
+			<li id="vendu">Vendu</li>
+			<li id="ventes">En vente</li>
+			<li id="enAttente">En attente d'être à l'HV</li>
+			<li class="emptyLi"></li>
+		</ul>
+		<ul class="list_perso">
+			<block name="persos">
+				<li class="perso" id="<var name='idPerso' />"><var name="nom" /></li>
+			</block>
+		</ul>
+		
+	</div>
+	<div class="bandeau">
+		<ul>
+			<li class="link" id="perso/liste">Mes personnages</li>
+			<li class="link" id="monCompte">Mon compte</li>
+			<li class="link" id="deco">Me déconnecter</li>
+			<li class="wait"><img src="<var name='path' />/img/ajax-loader.gif" /></li>
+			<li class="po"><var name="mesPo" /></li>
+			<li class="po" id="poPerso"></li>
+			<li class="clear"></li>
+		</ul>
+	</div>
+	<div class="cont">
+		<block name="noUpdate">
+			<p>Aucune mise à jour trouvé sur le serveur distant.</p>
+		</block>
+		
+		<block name="errorRecupInfos">
+			<p style="color: red;">Erreur lors de la récupération de la version disponible sur le serveur distant.</p>
+		</block>
+		
+		<block name="update">
+			<input type="hidden" id="urlVersion" value="<var name='urlVersion' />" />
+			<input type="hidden" id="urlGZip" value="<var name='urlGZip' />" />
+			
+			<p>Une mise à jour a été trouvé. <button id="maj">Faire la mise à jour</button></p>
+			<br/>
+			<p id="StatusMaj"></p>
+			<div class="allStepMaj">
+				<p id="majStep1">- Sauvegarde la base de données actuelle</p>
+				<p id="majStep2">- Supression des items en doublon</p>
+				<p id="majStep3">- Supression des runes en doublon</p>
+				<p id="majStep4">- Récupération du fichier de donnée</p>
+				<p id="majStep5">- Extraction des fichiers de donnée</p>
+				<p id="majStep6">- Extraction des items</p>
+				<p id="majStep7">- Sauvegarde des items</p>
+				<p id="majStep8">- Extraction et sauvegarde des runes et stat</p>
+				<p id="majStep9">- Mise à jour de la configuration</p>
+				<p id="majStep10">- Suppression des fichiers téléchargés</p>
+			</div>
+		</block>
+	</div>
+	<div class="clear"></div>
+</div>

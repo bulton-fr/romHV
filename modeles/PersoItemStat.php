@@ -60,5 +60,27 @@ class PersoItemStat extends \BFW_Sql\Classes\Modeles
 		if($res) {return $res;}
 		else {return $default;}
 	}
+	
+	/**
+	 * Mise à jour de la reférence
+	 * 
+	 * @param string $ref     : L'ancienne référence
+	 * @param string $newRef : La nouvelle référence
+	 * 
+	 * @return bool
+	 */
+	public function maj($ref, $newRef)
+	{
+		$default = false;
+		if(!is_string($ref) || !is_string($newRef))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres donnés.');}
+			else {return $default;}
+		}
+		
+		$update = $this->update($this->_name, array('ref' => $newRef))->where('ref=:ref', array(':ref' => $ref));
+		if($update->execute()) {return true;}
+		else {return $default;}
+	}
 }
 ?>

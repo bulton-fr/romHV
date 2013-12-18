@@ -978,5 +978,96 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		if($req->execute()) {return true;}
 		else {return $default;}
 	}
+
+	/**
+	 * Permet de recherche un item
+	 * 
+	 * @param string item : L'id de l'item qu'on recherche (avec son typem)
+	 * 
+	 * @return array()
+	 */
+	public function search($idItem)
+	{
+		$default = array();
+		if(!is_string($idItem))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans le paramètre donné');}
+			else {return $default;}
+		}
+		
+		$typeItem = substr($idItem, 0, 1);
+		$idItem = substr($idItem, 1);
+		
+		$req = $this->select()
+					->from($this->_name, 'ref')
+					->where('idItem=:idItem', array(':idItem' => $idItem))
+					->where('typeItem=:typeItem', array(':typeItem' => $typeItem));
+		$res = $req->fetchAll();
+		
+		if($res) {return $res;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Mise à jour de l'id de l'item utilisé
+	 * 
+	 * @param string $ref     : La référence de l'item à mettre à jour
+	 * @param string $newItem : L'id du nouvelle item (avec son type)
+	 * 
+	 * @return bool
+	 */
+	public function majIdItem($ref, $newItem)
+	{
+		$default = false;
+		if(!is_string($ref) || !is_string($newItem))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres donnés');}
+			else {return $default;}
+		}
+		
+		//Calcul de la nouvelle ref
+		$req = $this->select()->from($this->_name, array('idUser', 'idPerso'))->where('ref=:ref', array(':ref' => $ref));
+		$resInfos = $req->fetchRow();
+		if(!$resInfos) {return $default;}
+		
+		$typeItem = substr($newItem, 0, 1);
+		$idItem = substr($newItem, 1);
+		
+		$req = $this->select()
+					->from($this->_name, array('ref'))
+					->where('idUser=:user', array(':user' => $resInfos['idUser']))
+					->where('idPerso=:perso', array(':perso' => $resInfos['idPerso']))
+					->where('idItem=:item', array(':item' => $idItem));
+		$res = $req->fetchAll();
+		
+		$nb = 1;
+		if($res)
+		{
+			foreach($res as $result)
+			{
+				$num = (int) substr($result['ref'], (strpos($result['ref'], 'N')+1));
+				if($num >= $nb) {$nb = $num+1;}
+			}
+		}
+		
+		$newRef = 'U'.$resInfos['idUser'].'P'.$resInfos['idPerso'].$typeItem.$idItem.'N'.$nb;
+		
+		//maj table perso_item
+		$data = array(
+			'ref' => $newRef,
+			'idItem' => $idItem,
+			'typeItem' => $typeItem
+		);
+		$update = $this->update($this->_name, $data)->where('ref=:ref', array(':ref' => $ref));
+		
+		//maj table perso_item_stat
+		$MPIStat = new \modeles\PersoItemStat;
+		if($MPIStat->maj($ref, $newRef))
+		{
+			if($update->execute()) {return true;}
+			else {$MPIStat->maj($newRef, $ref);}
+		}
+		return $default;
+	}
 }
 ?>

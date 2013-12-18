@@ -438,6 +438,15 @@ $(document).ready(function()
 	});
 	
 	$('.cont').on('click', '#ViewPersoTbody button.ItemVendu', function() {
+		
+		var indexEnchere = 0;
+		var indexRachat = 0;
+		
+		if($("button.selected").attr("id") == 'vente') {indexEnchere = 2;}
+		if($("button.selected").attr("id") == 'attente') {indexEnchere = 1;}
+		indexRachat = indexEnchere+1;
+		
+		
 		var ref = $(this).attr("id");
 		var trSelect = $(this).parents("tr");
 		
@@ -449,27 +458,37 @@ $(document).ready(function()
 		
 		$(trSelect).children('td').each(function(index, element)
 		{
-			if(index == 2 && type == 'enchere') {val = parseInt($("#"+ref+"_enchere").val());}
-			if(index == 3 && type == 'rachat') {val = parseInt($("#"+ref+"_rachat").val());}
+			if(index == indexEnchere && type == 'enchere') {val = parseInt($("#"+ref+"_enchere").val());}
+			if(index == indexRachat && type == 'rachat') {val = parseInt($("#"+ref+"_rachat").val());}
 		});
 		
-		var calc = val-((val*6)/100)-1;
+		var calc = 0;
+		if(val > 0) {calc = val-((val*6)/100)-1;}
 		$("#poGagneVendu").val(numberWithCommas(calc));
 		
 		$("#dialogVenduRefItem").val($(this).attr("id"));
 		$("#dialogVendu").dialog("open");
 	});
 	
-	$('.cont').on('change', '#TypeAchatVendu', function() {
+	$('body').on('change', '#TypeAchatVendu', function() {
+		var indexEnchere = 0;
+		var indexRachat = 0;
+		
+		if($("button.selected").attr("id") == 'vente') {indexEnchere = 2;}
+		if($("button.selected").attr("id") == 'attente') {indexEnchere = 1;}
+		indexRachat = indexEnchere+1;
+		
+		
 		var trSelect = $("tr.trSelected");
+		var ref = $(trSelect).find('button.ItemMeV').attr("id");
 		var type = $("#TypeAchatVendu").val();
 		var calc = 0;
 		var val = 0;
 		
 		$(trSelect).children('td').each(function(index, element)
 		{
-			if(index == 2 && type == 'enchere') {val = parseInt($("#"+ref+"_enchere").val());}
-			if(index == 3 && type == 'rachat') {val = parseInt($("#"+ref+"_rachat").val());}
+			if(index == indexEnchere && type == 'enchere') {val = parseInt($("#"+ref+"_enchere").val());}
+			if(index == indexRachat && type == 'rachat') {val = parseInt($("#"+ref+"_rachat").val());}
 		});
 		
 		var calc = val-((val*6)/100)-1;

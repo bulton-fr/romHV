@@ -343,7 +343,7 @@ class SqlSelect extends SqlActions implements \BFW_Sql\Interfaces\ISqlSelect
 		//Fin Partie LIMIT
 		
 		//Et on créer la requête :)
-		$this->RequeteAssembler = 'SELECT '.$select.' FROM '.$from.$join.$joinLeft.$joinRight.$where.$order.$group.$limit;
+		$this->RequeteAssembler = 'SELECT '.$select.' FROM '.$from.$join.$joinLeft.$joinRight.$where.$group.$order.$limit;
 		
 		$this->notifyObserver(array('value' => 'REQ_SQL', 'REQ_SQL' => $this->RequeteAssembler));
 	}
