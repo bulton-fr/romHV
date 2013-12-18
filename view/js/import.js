@@ -2,7 +2,7 @@ nbRelanceStep2 = 0;
 
 function startStepMaj(step)
 {
-	var maxStep = 11;
+	var maxStep = 10;
 	if(step > maxStep)
 	{
 		$(".bandeau li.wait").hide();
