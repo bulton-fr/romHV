@@ -72,6 +72,7 @@ foreach($items as $item)
 	$item['date'] = $dateVendu->aff_simple();
 	$item['color'] = get_color_item($item['color']);
 	
+	if(is_null($item['nomItem'])) {$item['nomItem'] = $item['nomStat'];}
 	$TPL->AddBlock('items', $item);
 	
 	$moreInfos = false;
