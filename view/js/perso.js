@@ -106,14 +106,6 @@ function item_autocomplete(context, params)
 	            }
 	        });
 	    },
-		focus: function( event, ui ) {
-			$(context+"_name").val(ui.item.text);
-			$(context+"_idItem").val(ui.item.id);
-			
-			if(context == "#AddItem") {$("#EtatItem").attr("src", "../img/cross.png");}
-			
-			return false;
-		},
 		select: function( event, ui ) {
 			$(context+"_name").val(ui.item.text);
 			$(context+"_idItem").val(ui.item.id);
