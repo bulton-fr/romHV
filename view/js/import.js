@@ -36,8 +36,6 @@ function startStepMaj(step)
 			}
 			else
 			{
-				console.log(data);
-				
 				$("#StatusMaj").text("Erreur dans la maj à l'étape "+step+" : "+error);
 				$("#StatusMaj").css("color", "red");
 				endFail();
@@ -46,8 +44,16 @@ function startStepMaj(step)
 		else
 		{
 			$("#majStep"+step).css("color", "#00C000");
+			
+			var next = false;
+			if(step == 1)
+			{
+				if(confirm('La sauvegarde est-elle présente dans le dossier ?')) {next = true;}
+			}
+			else {next = true;}
+			
 			step++;
-			startStepMaj(step);
+			if(next == true) {startStepMaj(step);}
 		}
 	})
 	.fail(function(data) {
