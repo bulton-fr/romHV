@@ -21,8 +21,14 @@
 				</td>
 				<td class="po"><var name="enchere" /></td>
 				<td class="po"><var name="rachat" /></td>
-				<td class="center"><button class="ItemMeV" id="<var name='ref' />">Mise en vente</button></td>
-				<td class="center"><button class="ItemVendu" id="<var name='ref' />">Vendu</button></td>
+				<td class="center">
+					<button class="ItemMeV" id="<var name='ref' />">Mise en vente</button>
+				</td>
+				<td class="center">
+					<button class="ItemVendu" id="<var name='ref' />">Vendu</button>
+					<input type="hidden" id="<var name='ref' />_enchere" value="<var name='poEnchere' />" />
+					<input type="hidden" id="<var name='ref' />_rachat" value="<var name='poRachat' />" />
+				</td>
 			</tr>
 		</block>
 <block name="start">
