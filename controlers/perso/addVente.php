@@ -19,6 +19,7 @@ if($Form->verif_token())
 	$notes = post('notes');
 	
 	if(is_null($idPerso) || is_null($idItem) || is_null($enchere) || is_null($rachat)) {ErrorView(400);}
+	if(empty($idPerso) || empty($idItem)) {ErrorView(400);}
 	//foreach($idStat as $stat) {if(is_null($stat)) {ErrorView(400);}} //<-- Champ non obligatoire
 	
 	if(is_null($date) || is_null($duree) || empty($date))
@@ -35,11 +36,18 @@ if($Form->verif_token())
 	$enchere = set_po($enchere);
 	$rachat = set_po($rachat);
 	
-	$MPersoItem = new \modeles\PersoItem;
-	$result = $MPersoItem->add($idUser, $idPerso, $idItem, $idStat, $enchere, $rachat, $date, $duree, $notes);
+	$MItem = new \modeles\Item;
+	$itemExists = $MItem->ifExists(substr($idItem, 1));
 	
-	if($result) {echo 'OK';}
-	else {ErrorView(500);}
+	if($itemExists == false)
+	{
+		$MPersoItem = new \modeles\PersoItem;
+		$result = $MPersoItem->add($idUser, $idPerso, $idItem, $idStat, $enchere, $rachat, $date, $duree, $notes);
+		
+		if($result) {echo 'OK';}
+		else {ErrorView(500);}
+	}
+	else {ErrorView(400);}
 }
 else {ErrorView(409);}
 ?>
