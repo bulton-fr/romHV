@@ -51,6 +51,7 @@ function page(context, url, idPerso)
 			
 			if($(this).attr("id") == "ventes") {contVentes($("#buttonVentes button#me"), "me");}
 			if($(this).attr("id") == "vendu") {contVendu($("#buttonVendu button#semaine"), "semaine");}
+			
 			if($(this).parent().attr("class") == "list_perso" && $(this).parents('div').attr("class") == "menu_left")
 			{
 				maj_po_bandeau();
@@ -62,6 +63,27 @@ function page(context, url, idPerso)
 				$('#dialogMeVDate').datetimepicker({
 					timeFormat: 'HH:mm:ss',
 					dateFormat: 'dd/mm/yy'
+				});
+			}
+			
+			if($(this).attr("id") == "monCompte")
+			{
+				//Picker Color
+				pickerColor = $.farbtastic($('#pickerColor'));
+				pickerColor.linkTo(changeColor);
+				pickerColor.setColor(BackColor);
+				$("#pickerColor").hide();
+				
+				//Slider
+				slider = $("#sliderOpacity").slider({
+					range: "max",
+					min: 0,
+					max: 100,
+					value: BackOpacity,
+					slide: function( event, ui ) {
+						$("#valOpacity").text(ui.value);
+						$(".main").css("opacity", (ui.value/100));
+					}
 				});
 			}
 		}
@@ -147,5 +169,15 @@ $(document).ready(function()
 		var idPerso = $(this).parent("tr").attr("id");
 		
 		graphRecap(typeGraph, idPerso);
-	})
+	});
+	
+	if(BackColor != undefined)
+	{
+		var textColor = "black";
+		if(TextColorBlack == 0) {textColor = "white";}
+		
+		$(".main").css("background-color", BackColor);
+		$(".main").css("opacity", (BackOpacity/100));
+		$(".main").css("color", textColor);
+	}
 });

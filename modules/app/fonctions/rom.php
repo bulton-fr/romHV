@@ -57,7 +57,10 @@ function set_po($po)
  */
 function get_color_item($color)
 {
-	$color = str_replace('ffffff', '000000', $color); //Blanc en noir
+	global $Memcache, $idUser;
+	$textBlack = $Memcache->getVal('U'.$idUser.'_TextColorBlack');
+	
+	if($textBlack) {$color = str_replace('ffffff', '000000', $color);} //Blanc en noir
 	$color = str_replace('00ff00', '00C000', $color); //Vert plus foncé car trop clair
 	
 	return $color;

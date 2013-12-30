@@ -200,4 +200,145 @@ class Users extends \BFW_Sql\Classes\Modeles
 		
 		return $this->setPo($idUser, $po);
 	}
+	
+	/**
+	 * Récupère la valeur de la couleur de fond
+	 * 
+	 * @param int $idUser : L'id de l'user
+	 * 
+	 * @return string
+	 */
+	public function getBackgroundColor($idUser)
+	{
+		$default = false;
+		if(!is_int($idUser))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur sur l\'id donnée en paramètre.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()->from($this->_name, 'backgroundColor')->where('id=:id', array(':id' => $id));
+		$res = $req->fetchRow();
+		
+		if($res) {return $res['backgroundColor'];}
+		else {return $default;}
+	}
+	
+	/**
+	 * Change la valeur de la couleur de fond
+	 * 
+	 * @param int $idUser : L'id de l'user
+	 * @param string $color : la nouvelle couleur
+	 * 
+	 * @return bool
+	 */
+	public function setBackgroundColor($idUser, $color)
+	{
+		$default = false;
+		
+		if(!is_int($idUser) || !is_string($color))
+		{
+			if($this->get_debug()) {throw new Exception('Les paramètres données sont incorrect.');}
+			else {return $default;}
+		}
+		
+		$req = $this->update($this->_name, array('backgroundColor' => $color))->where('id=:id', array(':id' => $idUser));
+		
+		if($req->execute()) {return true;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Récupère la valeur de l'opacité du fond
+	 * 
+	 * @param int $idUser : L'id de l'user
+	 * 
+	 * @return string
+	 */
+	public function getBackgroundOpacity($idUser)
+	{
+		$default = false;
+		if(!is_int($idUser))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur sur l\'id donnée en paramètre.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()->from($this->_name, 'backgroundOpacity')->where('id=:id', array(':id' => $id));
+		$res = $req->fetchRow();
+		
+		if($res) {return $res['backgroundOpacity'];}
+		else {return $default;}
+	}
+	
+	/**
+	 * Change la valeur de l'opacité du fond
+	 * 
+	 * @param int $idUser : L'id de l'user
+	 * @param int $opacity : la nouvelle opacité
+	 * 
+	 * @return bool
+	 */
+	public function setBackgroundOpacity($idUser, $opacity)
+	{
+		$default = false;
+		
+		if(!is_int($idUser) || !is_int($opacity))
+		{
+			if($this->get_debug()) {throw new Exception('Les paramètres données sont incorrect.');}
+			else {return $default;}
+		}
+		
+		$req = $this->update($this->_name, array('backgroundOpacity' => $opacity))->where('id=:id', array(':id' => $idUser));
+		
+		if($req->execute()) {return true;}
+		else {return $default;}
+	}
+	
+	/**
+	 * Récupère la valeur du texte noir ou non
+	 * 
+	 * @param int $idUser : L'id de l'user
+	 * 
+	 * @return string
+	 */
+	public function getColorTextBlack($idUser)
+	{
+		$default = true;
+		if(!is_int($idUser))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur sur l\'id donnée en paramètre.');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()->from($this->_name, 'textColorBlack')->where('id=:id', array(':id' => $id));
+		$res = $req->fetchRow();
+		
+		if($res) {return $res['textColorBlack'];}
+		else {return $default;}
+	}
+	
+	/**
+	 * Change la valeur du texte noir ou non
+	 * 
+	 * @param int $idUser : L'id de l'user
+	 * @param bool $textBlack : la nouvelle valeur
+	 * 
+	 * @return bool
+	 */
+	public function setColorTextBlack($idUser, $textBlack)
+	{
+		$default = false;
+		
+		if(!is_int($idUser) || !is_bool($textBlack))
+		{
+			if($this->get_debug()) {throw new Exception('Les paramètres données sont incorrect.');}
+			else {return $default;}
+		}
+		
+		$req = $this->update($this->_name, array('textColorBlack' => $textBlack))->where('id=:id', array(':id' => $idUser));
+		
+		if($req->execute()) {return true;}
+		else {return $default;}
+	}
 }

@@ -17,4 +17,17 @@ if(isset($Params_head) && is_array($Params_head))
 	}
 }
 
+if(isset($idUser))
+{
+	$BackColor = $Memcache->getVal('U'.$idUser.'_BackColor');
+	$BackOpacity = $Memcache->getVal('U'.$idUser.'_BackOpacity');
+	$TextColorBlack = $Memcache->getVal('U'.$idUser.'_TextColorBlack');
+
+	$TPL->AddBlock('cssLogged', array(
+		'backColor' => $BackColor,
+		'backOpacity' => $BackOpacity,
+		'textColorBlack' => $TextColorBlack
+	));
+}
+
 $TPL->End();

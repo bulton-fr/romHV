@@ -1,0 +1,15 @@
+#changeBackground {width: 300px;}
+
+#changeBackground {float: left;}
+#pickerColor {float: right;}
+
+.labelOpacity
+{
+    margin-top: 7px;
+    float: left;
+}
+#sliderOpacity
+{
+    margin-left: 100px;
+    margin-top: 7px;
+}

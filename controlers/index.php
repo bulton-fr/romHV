@@ -3,12 +3,14 @@ $Params_head = array(
 	'css' => array(
 		$path.'jquery_ui/themes/redmond/jquery-ui.css',
 		$path.'jquery_ui/timepicker/timepicker.css',
+		$path.'farbtastic/farbtastic.css',
 		$path.'css/index.css',
 		$path.'css/recap.css',
 		$path.'css/vendu.css',
 		$path.'css/ventes.css',
 		$path.'css/enAttente.css',
-		$path.'css/perso.css'
+		$path.'css/perso.css',
+		$path.'css/compte.css'
 	),
 	'js' => array(
 		'https://www.google.com/jsapi',
@@ -19,7 +21,8 @@ $Params_head = array(
 		$path.'js/ventes.js',
 		$path.'js/enAttente.js',
 		$path.'jquery_ui/ui/jquery-ui.min.js',
-		$path.'jquery_ui/timepicker/jquery-ui-timepicker-addon.js'
+		$path.'jquery_ui/timepicker/jquery-ui-timepicker-addon.js',
+		$path.'farbtastic/farbtastic.js'
 	)
 );
 
