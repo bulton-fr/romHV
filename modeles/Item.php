@@ -101,13 +101,13 @@ class Item extends \BFW_Sql\Classes\Modeles
 			else {return $default;}
 		}
 		
-		$dataVerif = array(
+		$dataVerif = verifTypeData(array(
 			array('type' => 'int', 'data' => $data['id']),
 			array('type' => 'string', 'data' => $data['left']),
 			array('type' => 'string', 'data' => $data['right']),
 			array('type' => 'string', 'data' => $data['text']),
 			array('type' => 'string', 'data' => $data['color'])
-		);
+		));
 		
 		if(!$dataVerif) {return false;}
 		
