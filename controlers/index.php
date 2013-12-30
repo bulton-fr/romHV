@@ -22,7 +22,8 @@ $Params_head = array(
 		$path.'js/enAttente.js',
 		$path.'jquery_ui/ui/jquery-ui.min.js',
 		$path.'jquery_ui/timepicker/jquery-ui-timepicker-addon.js',
-		$path.'farbtastic/farbtastic.js'
+		$path.'farbtastic/farbtastic.js',
+		$path.'js/php.js'
 	)
 );
 

@@ -175,8 +175,8 @@ function dialogMeV()
 {
 	$("#dialogMeV").dialog({
 		autoOpen: false,
-		height: 170,
-		width: 350,
+		height: 190,
+		width: 400,
 		modal: true,
 		buttons:
 		{
@@ -504,6 +504,7 @@ $(document).ready(function()
 		var trSelect = $(this).parents("tr");
 		
 		$(trSelect).addClass("trSelected");
+		if($(".trSelected + tr").find('td').length == 2) {$(".trSelected + tr").addClass("trSelected");}
 		
 		var enchere = 0;
 		var rachat = 0;
@@ -514,8 +515,22 @@ $(document).ready(function()
 			if(index == 2) {rachat = $(trSelect).find('td').eq(index).text();}
 		});
 		
+		var enchere_unite = enchere;
+		var rachat_unite = rachat;
+		
+		var nbPiece = $("#"+ref+"_nbPiece").val();
+		if(nbPiece > 1)
+		{
+			enchere_unite = substr($(".trSelected:first + tr").find('td').eq(0).text(), 0, -4);
+			rachat_unite = substr($(".trSelected:first + tr").find('td').eq(1).text(), 0, -4);
+		}
+		
 		$("#dialogMeVEnchere").val(enchere);
 		$("#dialogMeVRachat").val(rachat);
+		
+		$("#dialogMeVUEnchere").val(enchere_unite);
+		$("#dialogMeVURachat").val(rachat_unite);
+		$("#dialogMeVUnb").val(nbPiece);
 		
 		$("#dialogMeVRefItem").val($(this).attr("id"));
 		$("#dialogMeVDate").datetimepicker('setDate', (new Date()) );
