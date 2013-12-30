@@ -892,19 +892,22 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	public function add($idUser, $idPerso, $idItem, $idStat, $enchere, $rachat, $Uenchere, $Urachat, $Unb, $date, $duree, $notes)
 	{
 		$default = false;
-		if(
-			!is_int($idUser) || 
-			!is_int($idPerso) || 
-			!is_string($idItem) || 
-			!is_int($enchere) || 
-			!is_int($rachat) || 
-			!is_int($Uenchere) || 
-			!is_int($Urachat) || 
-			!is_int($Unb) || 
-			!is_string($date) || 
-			!is_int($duree) || 
-			!is_string($notes)
-		)
+		
+		$dataVerif = verifTypeData(array(
+			array('type' => 'int', 'data' => $idUser),
+			array('type' => 'int', 'data' => $idPerso),
+			array('type' => 'string', 'data' => $idItem),
+			array('type' => 'int', 'data' => $enchere),
+			array('type' => 'int', 'data' => $rachat),
+			array('type' => 'int', 'data' => $Uenchere),
+			array('type' => 'int', 'data' => $Urachat),
+			array('type' => 'int', 'data' => $Unb),
+			array('type' => 'string', 'data' => $date),
+			array('type' => 'int', 'data' => $duree),
+			array('type' => 'string', 'data' => $notes)
+		));
+		
+		if(!$dataVerif)
 		{
 			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
 			else {return $default;}
@@ -1053,19 +1056,33 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	/**
 	 * Remise en vente d'un item
 	 * 
-	 * @param string $ref     : La ref de l'item
-	 * @param int    $enchere : La valeur pour un achat en enchère
-	 * @param int    $rachat  : La valeur pour un achat en rachat
-	 * @param string $date    : La date de début de mise en vente
-	 * @param int    $duree   : La durée de mise en vente
+	 * @param string $ref      : La ref de l'item
+	 * @param int    $enchere  : La valeur pour un achat en enchère
+	 * @param int    $rachat   : La valeur pour un achat en rachat
+	 * @param int    $Uenchere : Le prix unité en enchère
+	 * @param int    $Urachat  : Le prix unité en rachat
+	 * @param int    $Unb      : Le nombre d'unité
+	 * @param string $date     : La date de début de mise en vente
+	 * @param int    $duree    : La durée de mise en vente
 	 * 
 	 * @return bool
 	 */
-	public function setVente($ref, $enchere, $rachat, $date, $duree)
+	public function setVente($ref, $enchere, $rachat, $Uenchere, $Urachat, $Unb, $date, $duree)
 	{
 		$default = false;
 		
-		if(!is_string($ref) || !is_int($enchere) || !is_int($rachat) || !is_string($date) || !is_int($duree))
+		$dataVerif = verifTypeData(array(
+			array('type' => 'string', 'data' => $ref),
+			array('type' => 'int', 'data' => $enchere),
+			array('type' => 'int', 'data' => $rachat),
+			array('type' => 'int', 'data' => $Uenchere),
+			array('type' => 'int', 'data' => $Urachat),
+			array('type' => 'int', 'data' => $Unb),
+			array('type' => 'string', 'data' => $date),
+			array('type' => 'int', 'data' => $duree)
+		));
+		
+		if(!$dataVerif)
 		{
 			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
 			else {return $default;}
@@ -1077,6 +1094,9 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 			'enVente' => 1,
 			'enchere' => $enchere,
 			'rachat' => $rachat,
+			'enchere_unite' => $Uenchere,
+			'rachat_unite' => $Urachat,
+			'nb_piece' => $Unb,
 			'dateDebut' => '"'.$date->getSql().'"',
 			'duree' => $duree
 		);

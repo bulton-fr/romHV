@@ -183,8 +183,11 @@ function dialogMeV()
 			"C'est bien ça": function()
 			{
 				var ref = $("#dialogMeVRefItem").val();
-				var enchere = $("#dialogMeVEnchere").val();
-				var rachat = $("#dialogMeVRachat").val();
+				var enchere = $("#dialogMeVenchere").val();
+				var rachat = $("#dialogMeVrachat").val();
+				var Uenchere = $("#dialogMeVUenchere").val();
+				var Urachat = $("#dialogMeVUrachat").val();
+				var Unb = $("#dialogMeVUnb").val();
 				var date = $("#dialogMeVDate").val();
 				var duree = $("#dialogMeVDuree").val();
 				
@@ -194,6 +197,9 @@ function dialogMeV()
 						ref: ref,
 						enchere: enchere,
 						rachat: rachat,
+						Uenchere: Uenchere,
+						Urachat: Urachat,
+						Unb: Unb,
 						date: date,
 						duree: duree
 					},
@@ -236,6 +242,61 @@ function dialogMeV()
  */
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+/**
+ * Supprime les espace . et , des textes
+ * 
+ * @param Object str : String
+ * 
+ * @return int
+ */
+function deleteCommas(str)
+{
+	str = str.replace('.', '');
+	str = str.replace(',', '');
+	str = str.replace(' ', '');
+	return parseInt(str);
+}
+
+/**
+ * Calcul les prix en fonction des autres champs
+ */
+function calcPrice(focus, prefix)
+{
+	var enchere = 0;
+	var rachat = 0;
+	var Uenchere = 0;
+	var Urachat = 0;
+	var nb = 0;
+	
+	if(focus == 'nb' || focus == 'unite')
+	{
+		//Recalcul le prix normal par rapport au prix / unité
+		nb = $("#"+prefix+"Unb").val();
+		Uenchere = deleteCommas($("#"+prefix+"Uenchere").val());
+		Urachat = deleteCommas($("#"+prefix+"Urachat").val());
+		
+		if(Uenchere != 0) {enchere = Uenchere*nb;}
+		if(Urachat != 0) {rachat = Urachat*nb;}
+	}
+	
+	if(focus == 'global')
+	{
+		//Recalcul le prix / unité par rapport au prix normal
+		nb = $("#"+prefix+"Unb").val();
+		enchere = deleteCommas($("#"+prefix+"enchere").val());
+		rachat = deleteCommas($("#"+prefix+"rachat").val());
+		
+		if(enchere != 0) {Uenchere = enchere*nb;}
+		if(rachat != 0) {Urachat = rachat*nb;}
+	}
+	
+	$("#"+prefix+"Unb").val(nb);
+	$("#"+prefix+"enchere").val(numberWithCommas(enchere));
+	$("#"+prefix+"rachat").val(numberWithCommas(rachat));
+	$("#"+prefix+"Uenchere").val(numberWithCommas(Uenchere));
+	$("#"+prefix+"Urachat").val(numberWithCommas(Urachat));
 }
 
 $(document).ready(function()
@@ -453,6 +514,7 @@ $(document).ready(function()
 		var trSelect = $(this).parents("tr");
 		
 		$(trSelect).addClass("trSelected");
+		if($(".trSelected + tr").find('td').length == 2) {$(".trSelected + tr").addClass("trSelected");}
 		
 		var type = $("#TypeAchatVendu").val();
 		var calc = 0;
@@ -525,11 +587,11 @@ $(document).ready(function()
 			rachat_unite = substr($(".trSelected:first + tr").find('td').eq(1).text(), 0, -4);
 		}
 		
-		$("#dialogMeVEnchere").val(enchere);
-		$("#dialogMeVRachat").val(rachat);
+		$("#dialogMeVenchere").val(enchere);
+		$("#dialogMeVrachat").val(rachat);
 		
-		$("#dialogMeVUEnchere").val(enchere_unite);
-		$("#dialogMeVURachat").val(rachat_unite);
+		$("#dialogMeVUenchere").val(enchere_unite);
+		$("#dialogMeVUrachat").val(rachat_unite);
 		$("#dialogMeVUnb").val(nbPiece);
 		
 		$("#dialogMeVRefItem").val($(this).attr("id"));
@@ -537,6 +599,18 @@ $(document).ready(function()
 		
 		$("#dialogMeV").dialog("open");
 	});
+	
+	$(".cont").on("keyup", "#AddItem_enchere", function() {calcPrice('global', 'AddItem_');});
+	$(".cont").on("keyup", "#AddItem_rachat", function() {calcPrice('global', 'AddItem_');});
+	$(".cont").on("keyup", "#AddItem_Uenchere", function() {calcPrice('unite', 'AddItem_');});
+	$(".cont").on("keyup", "#AddItem_Urachat", function() {calcPrice('unite', 'AddItem_');});
+	$(".cont").on("keyup", "#AddItem_Unb", function() {calcPrice('nb', 'AddItem_');});
+	
+	$("body").on("keyup", "#dialogMeVenchere", function() {calcPrice('global', 'dialogMeV');});
+	$("body").on("keyup", "#dialogMeVrachat", function() {calcPrice('global', 'dialogMeV');});
+	$("body").on("keyup", "#dialogMeVUenchere", function() {calcPrice('unite', 'dialogMeV');});
+	$("body").on("keyup", "#dialogMeVUrachat", function() {calcPrice('unite', 'dialogMeV');});
+	$("body").on("keyup", "#dialogMeVUnb", function() {calcPrice('nb', 'dialogMeV');});
 	
 	//Vue d'un perso
 });

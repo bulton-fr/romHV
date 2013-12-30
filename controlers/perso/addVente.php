@@ -38,6 +38,8 @@ if($Form->verif_token())
 	
 	$enchere = set_po($enchere);
 	$rachat = set_po($rachat);
+	$Uenchere = set_po($Uenchere);
+	$Urachat = set_po($Urachat);
 	
 	$MItem = new \modeles\Item;
 	$itemExists = $MItem->ifExists(substr($idItem, 1));
@@ -48,7 +50,7 @@ if($Form->verif_token())
 		$result = $MPersoItem->add($idUser, $idPerso, $idItem, $idStat, $enchere, $rachat, $Uenchere, $Urachat, $Unb, $date, $duree, $notes);
 		
 		if($result) {echo 'OK';}
-		else {ErrorView(500);}
+		else {ErrorView(500, false);}
 	}
 	else {ErrorView(400);}
 }
