@@ -194,7 +194,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'poGagne', 'notes'))
+					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'enchere', 'rachat', 'notes'))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
@@ -272,7 +272,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'poGagne', 'notes'))
+					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'enchere', 'rachat', 'notes'))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
@@ -340,7 +340,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'poGagne', 'notes'))
+					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'enchere', 'rachat', 'notes'))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
@@ -741,7 +741,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'poGagne', 'notes'))
+					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'enchere', 'rachat', 'notes'))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))

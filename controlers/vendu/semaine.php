@@ -75,7 +75,9 @@ $MPersoItemStat = new \modeles\PersoItemStat;
 
 foreach($items as $item)
 {
-	$item['poGagne'] = get_po($item['poGagne']);
+	if($item['typeVente'] == 'rachat') {$item['po'] = get_po($item['rachat']);}
+	else {$item['po'] = get_po($item['enchere']);}
+	
 	$dateVendu = new \BFW\CKernel\Date($item['dateVendu']);
 	$item['dateVendu'] = $dateVendu->aff_simple();
 	$item['color'] = get_color_item($item['color']);
