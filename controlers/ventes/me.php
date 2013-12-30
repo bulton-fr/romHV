@@ -64,8 +64,15 @@ $MPersoItemStat = new \modeles\PersoItemStat;
 
 foreach($items as $item)
 {
+	$item['poEnchere'] = $item['enchere'];
+	$item['poRachat'] = $item['rachat'];
+	$item['poUEnchere'] = $item['enchere_unite'];
+	$item['poURachat'] = $item['rachat_unite'];
+	
 	$item['enchere'] = get_po($item['enchere']);
 	$item['rachat'] = get_po($item['rachat']);
+	$item['Uenchere'] = get_po($item['enchere_unite']);
+	$item['Urachat'] = get_po($item['rachat_unite']);
 	
 	$dateVendu = new \BFW\CKernel\Date($item['dateDebut']);
 	$dateVendu->modify('+'.$item['duree'].' jours');
@@ -93,7 +100,16 @@ foreach($items as $item)
 		if(!empty($item['notes']) && $moreInfos != '') {$moreInfos .= "\n";}
 		$moreInfos .= $item['notes'];
 		
-		$TPL->AddBlockWithEnd('notes', array('notes' => nl2br($moreInfos)));
+		$TPL->AddBlockWithEnd('notes', array('notes' => nl2br($moreInfos)), 1);
+	}
+	
+	if($item['nb_piece'] > 1)
+	{
+		$TPL->AddBlockWithEnd('unite', array(
+			'Uenchere' => $item['Uenchere'],
+			'Urachat' => $item['Urachat'],
+			'nb_piece' => $item['nb_piece']
+		), 1);
 	}
 }
 $TPL->EndBlock();

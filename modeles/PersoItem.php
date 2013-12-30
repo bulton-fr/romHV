@@ -194,7 +194,17 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'enchere', 'rachat', 'notes'))
+					->from(array('pi' => $this->_name), array(
+						'ref', 
+						'typeVente', 
+						'dateVendu', 
+						'enchere', 
+						'rachat', 
+						'enchere_unite', 
+						'rachat_unite', 
+						'nb_piece', 
+						'notes'
+					))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
@@ -272,7 +282,17 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'enchere', 'rachat', 'notes'))
+					->from(array('pi' => $this->_name), array(
+						'ref', 
+						'typeVente', 
+						'dateVendu', 
+						'enchere', 
+						'rachat', 
+						'enchere_unite', 
+						'rachat_unite', 
+						'nb_piece', 
+						'notes'
+					))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
@@ -340,7 +360,17 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'enchere', 'rachat', 'notes'))
+					->from(array('pi' => $this->_name), array(
+						'ref', 
+						'typeVente', 
+						'dateVendu', 
+						'enchere', 
+						'rachat', 
+						'enchere_unite', 
+						'rachat_unite', 
+						'nb_piece', 
+						'notes'
+					))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
@@ -398,7 +428,17 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'dateDebut', 'duree', 'enchere', 'rachat', 'ref', 'notes'))
+					->from(array('pi' => $this->_name), array(
+						'ref', 
+						'dateDebut', 
+						'duree', 
+						'enchere', 
+						'rachat', 
+						'enchere_unite', 
+						'rachat_unite', 
+						'nb_piece', 
+						'notes'
+					))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
@@ -469,7 +509,17 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'dateDebut', 'duree', 'enchere', 'rachat', 'notes'))
+					->from(array('pi' => $this->_name), array(
+						'ref', 
+						'dateDebut', 
+						'duree', 
+						'enchere', 
+						'rachat', 
+						'enchere_unite', 
+						'rachat_unite', 
+						'nb_piece', 
+						'notes'
+					))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
@@ -539,7 +589,17 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'dateDebut', 'duree', 'enchere', 'rachat', 'notes'))
+					->from(array('pi' => $this->_name), array(
+						'ref', 
+						'dateDebut', 
+						'duree', 
+						'enchere', 
+						'rachat', 
+						'enchere_unite', 
+						'rachat_unite', 
+						'nb_piece', 
+						'notes'
+					))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
@@ -599,7 +659,17 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'dateDebut', 'duree', 'enchere', 'rachat', 'notes'))
+					->from(array('pi' => $this->_name), array(
+						'ref', 
+						'dateDebut', 
+						'duree', 
+						'enchere', 
+						'rachat', 
+						'enchere_unite', 
+						'rachat_unite', 
+						'nb_piece', 
+						'notes'
+					))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
@@ -670,7 +740,17 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'dateDebut', 'duree', 'enchere', 'rachat', 'ref', 'notes'))
+					->from(array('pi' => $this->_name), array(
+						'ref', 
+						'dateDebut', 
+						'duree', 
+						'enchere', 
+						'rachat', 
+						'enchere_unite', 
+						'rachat_unite', 
+						'nb_piece', 
+						'notes'
+					))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
@@ -741,7 +821,17 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		);
 		
 		$req = $this->select()
-					->from(array('pi' => $this->_name), array('ref', 'typeVente', 'dateVendu', 'enchere', 'rachat', 'notes'))
+					->from(array('pi' => $this->_name), array(
+						'ref', 
+						'typeVente', 
+						'dateVendu', 
+						'enchere', 
+						'rachat', 
+						'enchere_unite', 
+						'rachat_unite', 
+						'nb_piece', 
+						'notes'
+					))
 					->joinLeft(array('i' => 'item'), 'i.id=pi.idItem', array('nomItem' => 'text', 'color' => 'color'))
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
@@ -784,19 +874,22 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	/**
 	 * Ajoute un item dans la liste des items des persos
 	 * 
-	 * @param int    $idUser  : L'id de l'user
-	 * @param int    $idPerso : L'id du perso
-	 * @param string $idItem  : L'id de l'item (avec le premier caractère indiquand le type)
-	 * @param array  $idStat  : L'id des stats sur l'item
-	 * @param int    $enchere : Le prix en enchère
-	 * @param int    $rachat  : Le prix en rachat
-	 * @param string $date    : La date de la mise en vente
-	 * @param int    $duree   : La durée de la mise en vente.
-	 * @param string $notes   : Les notes sur l'item
+	 * @param int    $idUser   : L'id de l'user
+	 * @param int    $idPerso  : L'id du perso
+	 * @param string $idItem   : L'id de l'item (avec le premier caractère indiquand le type)
+	 * @param array  $idStat   : L'id des stats sur l'item
+	 * @param int    $enchere  : Le prix en enchère
+	 * @param int    $rachat   : Le prix en rachat
+	 * @param int    $Uenchere : Le prix unité en enchère
+	 * @param int    $Urachat  : Le prix unité en rachat
+	 * @param int    $Unb      : Le nombre d'unité
+	 * @param string $date     : La date de la mise en vente
+	 * @param int    $duree    : La durée de la mise en vente.
+	 * @param string $notes    : Les notes sur l'item
 	 * 
 	 * @return bool
 	 */
-	public function add($idUser, $idPerso, $idItem, $idStat, $enchere, $rachat, $date, $duree, $notes)
+	public function add($idUser, $idPerso, $idItem, $idStat, $enchere, $rachat, $Uenchere, $Urachat, $Unb, $date, $duree, $notes)
 	{
 		$default = false;
 		if(
@@ -805,6 +898,9 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 			!is_string($idItem) || 
 			!is_int($enchere) || 
 			!is_int($rachat) || 
+			!is_int($Uenchere) || 
+			!is_int($Urachat) || 
+			!is_int($Unb) || 
 			!is_string($date) || 
 			!is_int($duree) || 
 			!is_string($notes)
@@ -861,6 +957,9 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 			'typeItem' => $typeItem,
 			'enchere' => $enchere,
 			'rachat' => $rachat,
+			'enchere_unite' => $Uenchere,
+			'rachat_unite' => $Urachat,
+			'nb_piece' => $Unb,
 			'enVente' => 1,
 			'dateDebut' => $date,
 			'duree' => $duree,

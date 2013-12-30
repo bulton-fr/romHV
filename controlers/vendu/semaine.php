@@ -75,8 +75,16 @@ $MPersoItemStat = new \modeles\PersoItemStat;
 
 foreach($items as $item)
 {
-	if($item['typeVente'] == 'rachat') {$item['po'] = get_po($item['rachat']);}
-	else {$item['po'] = get_po($item['enchere']);}
+	if($item['typeVente'] == 'rachat')
+	{
+		$item['po'] = get_po($item['rachat']);
+		$item['po_unite'] = get_po($item['rachat_unite']);
+	}
+	else
+	{
+		$item['po'] = get_po($item['enchere']);
+		$item['po_unite'] = get_po($item['enchere_unite']);
+	}
 	
 	$dateVendu = new \BFW\CKernel\Date($item['dateVendu']);
 	$item['dateVendu'] = $dateVendu->aff_simple();
@@ -103,7 +111,15 @@ foreach($items as $item)
 		if(!empty($item['notes']) && $moreInfos != '') {$moreInfos .= "\n";}
 		$moreInfos .= $item['notes'];
 		
-		$TPL->AddBlockWithEnd('notes', array('notes' => nl2br($moreInfos)));
+		$TPL->AddBlockWithEnd('notes', array('notes' => nl2br($moreInfos)), 1);
+	}
+	
+	if($item['nb_piece'] > 1)
+	{
+		$TPL->AddBlockWithEnd('unite', array(
+			'po_unite' => $item['po_unite'],
+			'nb_piece' => $item['nb_piece']
+		), 1);
 	}
 }
 $TPL->EndBlock();

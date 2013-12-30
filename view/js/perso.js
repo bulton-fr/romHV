@@ -392,6 +392,9 @@ $(document).ready(function()
 		var idStat6 = $("#Stat6_idItem").val();
 		var enchere = $("#AddItem_enchere").val();
 		var rachat = $("#AddItem_rachat").val();
+		var Uenchere = $("#AddItem_Uenchere").val();
+		var Urachat = $("#AddItem_Urachat").val();
+		var Unb = $("#AddItem_Unb").val();
 		var date = $("#AddItem_date").val();
 		var duree = $("#AddItem_duree").val();
 		var notes = $("#AddItem_notes").val();
@@ -410,6 +413,9 @@ $(document).ready(function()
 				idStat6 : idStat6,
 				enchere : enchere,
 				rachat : rachat,
+				Uenchere : Uenchere,
+				Urachat : Urachat,
+				Unb : Unb,
 				date : date,
 				duree : duree,
 				notes : notes,

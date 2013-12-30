@@ -14,6 +14,9 @@ if($Form->verif_token())
 	$idStat[] = post('idStat6');
 	$enchere = post('enchere');
 	$rachat = post('rachat');
+	$Uenchere = post('Uenchere');
+	$Urachat = post('Urachat');
+	$Unb = (int) post('Unb', 1);
 	$date = dateFr2Us(post('date'));
 	$duree = (int) post('duree');
 	$notes = post('notes');
@@ -42,7 +45,7 @@ if($Form->verif_token())
 	if($itemExists == false)
 	{
 		$MPersoItem = new \modeles\PersoItem;
-		$result = $MPersoItem->add($idUser, $idPerso, $idItem, $idStat, $enchere, $rachat, $date, $duree, $notes);
+		$result = $MPersoItem->add($idUser, $idPerso, $idItem, $idStat, $enchere, $rachat, $Uenchere, $Urachat, $Unb, $date, $duree, $notes);
 		
 		if($result) {echo 'OK';}
 		else {ErrorView(500);}

@@ -13,22 +13,35 @@
 </block>
 		<block name="items">
 			<tr>
-				<td>
+				<td 
+				<block name="unite">rowspan="2"</block>
+				>
 					<span style="color: #<var name='color' />;"><var name="nomItem" /></span>
+					<block name="unite">&nbsp;x<var name="nb_piece" /></block>
 					
 					<block name="notes">
 						<p class="notes"><var name="notes" /></p>
 					</block>
 				</td>
-				<td class="center"><var name="date" /></td>
+				<td class="center" 
+				<block name="unite">rowspan="2"</block>
+				><var name="date" /></td>
 				<td class="po"><var name="enchere" /></td>
 				<td class="po"><var name="rachat" /></td>
-				<td class="center">
+				<td class="center" 
+				<block name="unite">rowspan="2"</block>
+				>
 					<button class="ItemVendu" id="<var name='ref' />">Vendu</button>
 					<input type="hidden" id="<var name='ref' />_enchere" value="<var name='poEnchere' />" />
 					<input type="hidden" id="<var name='ref' />_rachat" value="<var name='poRachat' />" />
 				</td>
 			</tr>
+			<block name="unite">
+				<tr>
+					<td class="po"><var name="Uenchere" /> / U</td>
+				<td class="po"><var name="Urachat" /> / U</td>
+				</tr>
+			</block>
 		</block>
 <block name="start">
 	</tbody>
