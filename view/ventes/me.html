@@ -13,18 +13,31 @@
 </block>
 		<block name="items">
 			<tr>
-				<td>
+				<td 
+				<block name="unite">rowspan="2"</block>
+				>
 					<span style="color: #<var name='color' />;"><var name="nomItem" /></span>
+					<block name="unite">&nbsp;x<var name="nb_piece" /></block>
 					
 					<block name="notes">
 						<p class="notes"><var name="notes" /></p>
 					</block>
 				</td>
-				<td class="center"><var name="nomPerso" /></td>
-				<td class="center"><var name="date" /></td>
+				<td class="center" 
+				<block name="unite">rowspan="2"</block>
+				><var name="nomPerso" /></td>
+				<td class="center" 
+				<block name="unite">rowspan="2"</block>
+				><var name="date" /></td>
 				<td class="po"><var name="enchere" /></td>
 				<td class="po"><var name="rachat" /></td>
 			</tr>
+			<block name="unite">
+				<tr>
+					<td class="po"><var name="Uenchere" /> / U</td>
+				<td class="po"><var name="Urachat" /> / U</td>
+				</tr>
+			</block>
 		</block>
 <block name="start">
 	</tbody>

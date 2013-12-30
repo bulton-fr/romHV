@@ -54,7 +54,7 @@ if($typeGraph == 'onePerso') {$headGraph = '[["Semaine", "'.$nomPerso.'"]';}
 if($typeGraph == 'allPerso')
 {
 	$headGraph = '[["Semaine"';
-	foreach($persos as $perso) {$headGraph .= ',"'.html_entity_decode($perso['nom']).'"';}
+	foreach($persos as $perso) {$headGraph .= ',"'.html_entity_decode($perso['nom'], ENT_COMPAT, 'UTF-8').'"';}
 	$headGraph .= ']';
 }
 

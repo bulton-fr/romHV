@@ -254,7 +254,7 @@ class Ram extends Kernel implements \BFW\IKernel\IRam
 				}
 			}
 			
-			if(!empty($data)) {return false;}
+			if(empty($data)) {return false;}
 			return $data;
 		}
 	}

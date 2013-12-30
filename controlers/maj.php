@@ -7,7 +7,8 @@ if($step == 1) //Sauvegarde la base de données actuelle
 }
 elseif($step == 2) //Supression des items en doublon
 {
-	require_once(path_modules.'maj/step/step2.php');
+	//Pas besoin de le faire à chaque maj.
+	//require_once(path_modules.'maj/step/step2.php');
 }
 elseif($step == 3) //Supression des runes en doublon
 {

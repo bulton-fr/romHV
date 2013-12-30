@@ -53,7 +53,7 @@ foreach($ItemPreview_ListData as $key => $item)
 		$data['text'] = addslashes($item['text']);
 		$data['color'] = $item['color'];
 		
-		$searchItem = count($MItem->search($data['text'], true));
+		$searchItem = count($MItem->search(stripslashes($data['text']), true));
 		
 		if($searchItem > 0)
 		{
