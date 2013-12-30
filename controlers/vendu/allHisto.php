@@ -70,6 +70,8 @@ foreach($items as $item)
 	$item['color'] = get_color_item($item['color']);
 	
 	if(is_null($item['nomItem'])) {$item['nomItem'] = $item['nomStat'];}
+	if(is_null($item['nomItem'])) {$item['nomItem'] = '';} //Pour éviter le "template erreur"
+	
 	$TPL->AddBlock('items', $item);
 	
 	$moreInfos = false;
