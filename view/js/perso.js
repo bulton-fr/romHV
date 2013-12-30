@@ -476,7 +476,7 @@ $(document).ready(function()
 		
 		
 		var trSelect = $("tr.trSelected");
-		var ref = $(trSelect).find('button.ItemMeV').attr("id");
+		var ref = $(trSelect).find('button.ItemVendu').attr("id");
 		var type = $("#TypeAchatVendu").val();
 		var calc = 0;
 		var val = 0;
@@ -488,6 +488,8 @@ $(document).ready(function()
 		});
 		
 		var calc = val-((val*6)/100)-1;
+		if(calc < 0) {calc = 0;}
+		
 		$("#poGagneVendu").val(numberWithCommas(calc));
 	});
 	
