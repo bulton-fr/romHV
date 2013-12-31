@@ -1,0 +1,23 @@
+<fieldset class="addBug">
+	<legend>Déclarer un bug</legend>
+	<form id="addBug">
+		<label for="addBugTitre">Titre : </label><input type="text" id="addBugTitre" /><br/>
+		<label for="addBugBody">Description : </label><br/>
+		<textarea id="addBugBody"></textarea>
+		<br/><br/>
+		<div class="center"><input type="submit" value="Déclarer" /></div>
+	</form>
+</fieldset>
+
+<block name="issue">
+	<div class="issue">
+		<div class="issue_title">
+			<span class="issue_label" style='background-color: #<var name="label_color" />'><var name="label" /></span> #<var name="number" /> <var name="title" />
+		</div>
+		<div class="issue_body"><var name="body" /></div>
+	</div>
+</block>
+
+<block name="ErrorGetIssue">
+	<p>Erreur à la récupération des issues.</p>
+</block>

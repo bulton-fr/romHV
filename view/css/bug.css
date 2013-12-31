@@ -1,0 +1,50 @@
+.issue
+{
+    border: 1px solid #2779AA;
+    margin-bottom: 7px;
+    width: 665px;
+}
+
+.issue_title
+{
+    border: 0px;
+    border-bottom: 1px solid #2779AA;
+    
+    padding: 5px;
+    color: white;
+    
+    background: #5c9ccc url("../jquery_ui/themes/redmond/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png") 50% 50% repeat-x;
+    
+}
+
+.issue_label
+{
+    display: inline-block;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.issue_body {padding: 3px;}
+
+.addBug
+{
+    width: 645px;
+    border: 1px solid #2779AA;
+    
+    margin-bottom: 10px;
+}
+
+.addBug legend {margin-left: 10px;}
+.addBug input[type=text]
+{
+    margin-bottom: 10px;
+    width: 400px;
+}
+
+.addBug textarea
+{
+    width: 630px;
+    height: 70px;
+}
+
+.addBug input[type=submit] {font-weight: bold;}
