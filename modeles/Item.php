@@ -19,7 +19,7 @@ class Item extends \BFW_Sql\Classes\Modeles
 	 * 
 	 * @return array();
 	 */
-	public function search($search, $exact=false)
+	public function search($search, $exact=false, $onlyStart=false)
 	{
 		$default = array();
 		
@@ -34,8 +34,9 @@ class Item extends \BFW_Sql\Classes\Modeles
 					->order('`text` ASC')
 					->limit(array(0, 15));
 					
-		if($exact) {$req->where('`text`=:search', array(':search' => $search));}
-		else {$req->where('`text` LIKE ?', array('%'.$search.'%'));}
+			if($exact)     {$req->where('`text`=:search', array(':search' => $search));}
+		elseif($onlyStart) {$req->where('`text` LIKE ?', array($search.'%'));}
+		else               {$req->where('`text` LIKE ?', array('%'.$search.'%'));}
 		$res = $req->fetchAll();
 		
 		if($res) {return $res;}

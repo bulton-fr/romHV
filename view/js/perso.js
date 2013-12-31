@@ -98,7 +98,7 @@ function item_autocomplete(context, params)
 	                
 	                //process response  
 	                $.each(data, function(i, val){  
-	                 	suggestions.push({"id": val.id, "value": val.value, "text": val.text});  
+	                 	suggestions.push({"id": val.id, "value": val.value, "text": val.text, "color": val.color});  
 	             	});  
 	             	
 	             	//pass array to callback  
@@ -108,6 +108,7 @@ function item_autocomplete(context, params)
 	    },
 		select: function( event, ui ) {
 			$(context+"_name").val(ui.item.text);
+			$(context+"_name").css('color', '#'+ui.item.color);
 			$(context+"_idItem").val(ui.item.id);
 			
 			if(context == "#AddItem") {$("#EtatItem").attr("src", "../img/tick.png");}
@@ -116,10 +117,8 @@ function item_autocomplete(context, params)
 		}
 	})
     .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( "<a>" + item.value + "</a>" )
-        .appendTo( ul );
-    };;
+		return $( "<li>" ).append( "<a>" + item.value + "</a>" ).appendTo(ul);
+    };
 }
 
 /**

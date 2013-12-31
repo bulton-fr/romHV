@@ -79,3 +79,10 @@
 }
 
 .ui-widget .ui-widget {font-size: 0.85em;}
+
+
+.ui-autocomplete {
+    max-height: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
