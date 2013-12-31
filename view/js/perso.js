@@ -98,7 +98,7 @@ function item_autocomplete(context, params)
 	                
 	                //process response  
 	                $.each(data, function(i, val){  
-	                 	suggestions.push({"id": val.id, "value": val.value, "text": val.text});  
+	                 	suggestions.push({"id": val.id, "value": val.value, "text": val.text, "color": val.color});  
 	             	});  
 	             	
 	             	//pass array to callback  
@@ -108,6 +108,7 @@ function item_autocomplete(context, params)
 	    },
 		select: function( event, ui ) {
 			$(context+"_name").val(ui.item.text);
+			$(context+"_name").css('color', '#'+ui.item.color);
 			$(context+"_idItem").val(ui.item.id);
 			
 			if(context == "#AddItem") {$("#EtatItem").attr("src", "../img/tick.png");}
@@ -116,10 +117,8 @@ function item_autocomplete(context, params)
 		}
 	})
     .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( "<a>" + item.value + "</a>" )
-        .appendTo( ul );
-    };;
+		return $( "<li>" ).append( "<a>" + item.value + "</a>" ).appendTo(ul);
+    };
 }
 
 /**
@@ -221,8 +220,11 @@ function dialogMeV()
 		{
 			$(".trSelected").removeClass("trSelected");
 			
-			$("#dialogMeVEnchere").val("");
-			$("#dialogMeVRachat").val("");
+			$("#dialogMeVenchere").val("");
+			$("#dialogMeVrachat").val("");
+			$("#dialogMeVUenchere").val("");
+			$("#dialogMeVUrachat").val("");
+			$("#dialogMeVUnb").val("");
 			$("#dialogMeVDate").val("");
 			$("#dialogMeVDuree").val("3");
 			
@@ -230,6 +232,91 @@ function dialogMeV()
 	});
 	
 	$(".ui-dialog-titlebar").removeClass("ui-corner-all");
+}
+
+/**
+ * Pour la fenêtre de dialog quand un item est mit en vente
+ */
+function dialogDetail()
+{
+	$("#dialogDetail").dialog({
+		autoOpen: false,
+		height: 200,
+		width: 400,
+		modal: true,
+		buttons:
+		{
+			"Modifier": function()
+			{
+				var ref = $("#dialogDetailRefItem").val();
+				var perso = $("#dialogDetailPerso").val();
+				var enchere = $("#dialogDetailenchere").val();
+				var rachat = $("#dialogDetailrachat").val();
+				var Uenchere = $("#dialogDetailUenchere").val();
+				var Urachat = $("#dialogDetailUrachat").val();
+				var Unb = $("#dialogDetailUnb").val();
+				
+				$.ajax({
+					url: base_url+"/perso/itemModif",
+					data: {
+						ref: ref,
+						perso: perso,
+						enchere: enchere,
+						rachat: rachat,
+						Uenchere: Uenchere,
+						Urachat: Urachat,
+						Unb: Unb
+					},
+					type: 'post'
+				})
+				.done(function() {
+					$("#dialogDetail").dialog("close");
+					
+					var button = $("button.selected");
+					var idPerso = $("#PersoViewId").val();
+					
+					contPersoView(button, $(button).attr("id"), idPerso);
+				})
+				.fail(function() {alert("Désolé j'ai crashé");});
+			},
+			"Supprimer l'item": function()
+			{
+				if(confirm("Êtes-vous sûr de vouloir supprimer l'item ?"))
+				{
+					var ref = $("#dialogDetailRefItem").val();
+					
+					$.ajax({
+						url: base_url+"/perso/itemSuppr",
+						data: {ref: ref},
+						type: 'post'
+					})
+					.done(function() {
+						$("#dialogDetail").dialog("close");
+						
+						var button = $("button.selected");
+						var idPerso = $("#PersoViewId").val();
+						
+						contPersoView(button, $(button).attr("id"), idPerso);
+					})
+					.fail(function() {alert("Désolé j'ai crashé");});
+				}
+			},
+			"Annuler": function() {$(this).dialog("close");}
+		},
+		close: function()
+		{
+			$(".trSelected").removeClass("trSelected");
+			
+			$("#dialogDetailenchere").val("");
+			$("#dialogDetailrachat").val("");
+			$("#dialogDetailUenchere").val("");
+			$("#dialogDetailUrachat").val("");
+			$("#dialogDetailUnb").val("");
+		}
+	});
+	
+	$(".ui-dialog-titlebar").removeClass("ui-corner-all");
+	$("div#dialogDetail").parent().find('button.ui-button').eq(2).css('color', 'red');
 }
 
 /**
@@ -612,5 +699,58 @@ $(document).ready(function()
 	$("body").on("keyup", "#dialogMeVUrachat", function() {calcPrice('unite', 'dialogMeV');});
 	$("body").on("keyup", "#dialogMeVUnb", function() {calcPrice('nb', 'dialogMeV');});
 	
+	$("body").on("keyup", "#dialogDetailenchere", function() {calcPrice('global', 'dialogDetail');});
+	$("body").on("keyup", "#dialogDetailrachat", function() {calcPrice('global', 'dialogDetail');});
+	$("body").on("keyup", "#dialogDetailUenchere", function() {calcPrice('unite', 'dialogDetail');});
+	$("body").on("keyup", "#dialogDetailUrachat", function() {calcPrice('unite', 'dialogDetail');});
+	$("body").on("keyup", "#dialogDetailUnb", function() {calcPrice('nb', 'dialogDetail');});
+	
+	$(".cont").on("click", ".itemName", function()
+	{
+		var ref = $(this).attr("id");
+		var trSelect = $(this).parents("tr");
+		
+		$(trSelect).addClass("trSelected");
+		if($(".trSelected + tr").find('td').length == 2) {$(".trSelected + tr").addClass("trSelected");}
+		
+		var enchere = 0;
+		var rachat = 0;
+		
+		var indexEnchere = 0;
+		var indexRachat = 0;
+		
+		if($("button.selected").attr("id") == 'vente') {indexEnchere = 2;}
+		if($("button.selected").attr("id") == 'attente') {indexEnchere = 1;}
+		indexRachat = indexEnchere+1;
+		
+		$(trSelect).children('td').each(function(index, element)
+		{
+			if(index == indexEnchere) {enchere = $(trSelect).find('td').eq(index).text();}
+			if(index == indexRachat) {rachat = $(trSelect).find('td').eq(index).text();}
+		});
+		
+		var enchere_unite = enchere;
+		var rachat_unite = rachat;
+		
+		var nbPiece = $("#"+ref+"_nbPiece").val();
+		if(nbPiece > 1)
+		{
+			enchere_unite = substr($(".trSelected:first + tr").find('td').eq(0).text(), 0, -4);
+			rachat_unite = substr($(".trSelected:first + tr").find('td').eq(1).text(), 0, -4);
+		}
+		else {nbPiece = 1;}
+		
+		$("#dialogDetailenchere").val(enchere);
+		$("#dialogDetailrachat").val(rachat);
+		
+		$("#dialogDetailUenchere").val(enchere_unite);
+		$("#dialogDetailUrachat").val(rachat_unite);
+		$("#dialogDetailUnb").val(nbPiece);
+		
+		$("#dialogDetailRefItem").val($(this).attr("id"));
+		$("#dialogDetailPerso").val($("li.menuSelected").attr("id"));
+		
+		$("#dialogDetail").dialog("open");
+	});
 	//Vue d'un perso
 });

@@ -16,7 +16,7 @@
 				<td 
 				<block name="unite">rowspan="2"</block>
 				>
-					<span style="color: #<var name='color' />;"><var name="nomItem" /></span>
+					<span id="<var name='ref' />" class="itemName" style="color: #<var name='color' />;"><var name="nomItem" /></span>
 					<block name="unite">&nbsp;x<var name="nb_piece" /></block>
 					
 					<block name="notes">
@@ -34,6 +34,7 @@
 					<button class="ItemVendu" id="<var name='ref' />">Vendu</button>
 					<input type="hidden" id="<var name='ref' />_enchere" value="<var name='poEnchere' />" />
 					<input type="hidden" id="<var name='ref' />_rachat" value="<var name='poRachat' />" />
+					<input type="hidden" id="<var name='ref' />_nbPiece" value="<var name='nb_piece' />" />
 				</td>
 			</tr>
 			<block name="unite">

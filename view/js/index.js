@@ -48,6 +48,7 @@ function page(context, url, idPerso)
 			
 			$(".cont").html(data);
 			$("#poPerso").hide();
+			dialogDetail();
 			
 			if($(this).attr("id") == "ventes") {contVentes($("#buttonVentes button#me"), "me");}
 			if($(this).attr("id") == "vendu") {contVendu($("#buttonVendu button#semaine"), "semaine");}

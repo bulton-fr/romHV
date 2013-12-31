@@ -141,3 +141,5 @@ p.ListeDesPersos img
     top: 3px;
     cursor: pointer;
 }
+
+.itemName {cursor: pointer;}

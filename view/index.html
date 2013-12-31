@@ -19,6 +19,7 @@
 			<li class="link" id="perso/liste">Mes personnages</li>
 			<li class="link" id="monCompte">Mon compte</li>
 			<li class="link" id="deco">Me déconnecter</li>
+			<li class="link" id="bug">Un bug ?</li>
 			<li class="wait"><img src="<var name='path' />/img/ajax-loader.gif" /></li>
 			<li class="po"><var name="mesPo" /></li>
 			<li class="po" id="poPerso"></li>
@@ -27,4 +28,39 @@
 	</div>
 	<div class="cont"></div>
 	<div class="clear"></div>
+</div>
+
+
+<div id="dialogDetail" title="Détails de l'item">
+	<p id="dialogDetailItemName"></p>
+	<form>
+		<input type="hidden" id="dialogDetailRefItem" />
+		<p>
+			Déplacer l'item vers : <select id="dialogDetailPerso">
+				<block name="persos"><option value="<var name='idPerso' />"><var name="nom" /></option></block>
+			</select>
+		</p>
+		<p><br/></p>
+		<p>
+			<input type="text" class="po" placeholder="Enchère" id="dialogDetailenchere" />
+			&nbsp;&nbsp;&nbsp;
+			<input type="text" class="po" placeholder="Rachat" id="dialogDetailrachat" />
+		</p>
+		<p>
+			<input type="text" class="po" placeholder="Enchère" id="dialogDetailUenchere" />/U
+			<input type="text" class="po" placeholder="Rachat" id="dialogDetailUrachat" />/U
+			&nbsp;&nbsp;&nbsp;x
+			<input type="text" placeholder="Nombre" id="dialogDetailUnb" style="width: 50px;" />
+		</p>
+		<!--
+		<p>
+			<input type="text" id="dialogDetailDate" placeholder="Quand ?" />&nbsp;&nbsp;Pour
+			<select id="dialogDetailDuree">
+				<option value="1">1 jour</option>
+				<option value="2">2 jours</option>
+				<option value="3" selected="selected">3 jours</option>
+			</select>
+		</p>
+		-->
+	</form>
 </div>

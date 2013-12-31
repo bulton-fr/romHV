@@ -10,7 +10,8 @@ $Params_head = array(
 		$path.'css/ventes.css',
 		$path.'css/enAttente.css',
 		$path.'css/perso.css',
-		$path.'css/compte.css'
+		$path.'css/compte.css',
+		$path.'css/bug.css'
 	),
 	'js' => array(
 		'https://www.google.com/jsapi',
@@ -20,6 +21,7 @@ $Params_head = array(
 		$path.'js/vendu.js',
 		$path.'js/ventes.js',
 		$path.'js/enAttente.js',
+		$path.'js/bug.js',
 		$path.'jquery_ui/ui/jquery-ui.min.js',
 		$path.'jquery_ui/timepicker/jquery-ui-timepicker-addon.js',
 		$path.'farbtastic/farbtastic.js',

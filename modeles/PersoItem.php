@@ -1181,9 +1181,9 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		
 		//maj table perso_item
 		$data = array(
-			'ref' => $newRef,
+			'ref' => '"'.$newRef.'"',
 			'idItem' => $idItem,
-			'typeItem' => $typeItem
+			'typeItem' => '"'.$typeItem.'"'
 		);
 		$update = $this->update($this->_name, $data)->where('ref=:ref', array(':ref' => $ref));
 		
@@ -1195,6 +1195,152 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 			else {$MPIStat->maj($newRef, $ref);}
 		}
 		return $default;
+	}
+
+	/**
+	 * Retourne les infos sur un seul item en particulier
+	 * 
+	 * @param string $ref : La référence de l'item dans la table perso_item
+	 * 
+	 * @return array
+	 */
+	public function getPersoItem($ref)
+	{
+		$default = array();
+		if(!is_string($ref))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans le paramètre donné');}
+			else {return $default;}
+		}
+		
+		$req = $this->select()->from($this->_name)->where('ref=:ref', array(':ref' => $ref));
+		$res = $req->fetchRow();
+		
+		if(!$res) {return $default;}
+		else {return $res;}
+	}
+	
+	/**
+	 * Déplace un item d'un perso à un autre
+	 * 
+	 * @param string $ref     : La référence de l'item dans la table perso_item
+	 * @param int    $idPerso : L'id du nouveau perso
+	 */
+	public function movePerso($ref, $idPerso)
+	{
+		$default = false;
+		if(!is_string($ref) || !is_int($idPerso))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres donnés');}
+			else {return $default;}
+		}
+		
+		//Calcul de la nouvelle ref
+		$req = $this->select()->from($this->_name, array('idUser', 'idItem', 'typeItem'))->where('ref=:ref', array(':ref' => $ref));
+		$resInfos = $req->fetchRow();
+		if(!$resInfos) {return $default;}
+		
+		$req = $this->select()
+					->from($this->_name, array('ref'))
+					->where('idUser=:user', array(':user' => $resInfos['idUser']))
+					->where('idPerso=:perso', array(':perso' => $idPerso))
+					->where('idItem=:item', array(':item' => $resInfos['idItem']));
+		$res = $req->fetchAll();
+		
+		$nb = 1;
+		if($res)
+		{
+			foreach($res as $result)
+			{
+				$num = (int) substr($result['ref'], (strpos($result['ref'], 'N')+1));
+				if($num >= $nb) {$nb = $num+1;}
+			}
+		}
+		
+		$newRef = 'U'.$resInfos['idUser'].'P'.$idPerso.$resInfos['typeItem'].$resInfos['idItem'].'N'.$nb;
+		
+		//maj table perso_item
+		$data = array(
+			'ref' => '"'.$newRef.'"',
+			'idPerso' => $idPerso
+		);
+		$update = $this->update($this->_name, $data)->where('ref=:ref', array(':ref' => $ref));
+		
+		//maj table perso_item_stat
+		$MPIStat = new \modeles\PersoItemStat;
+		if($MPIStat->maj($ref, $newRef))
+		{
+			if($update->execute()) {return true;}
+			else {$MPIStat->maj($newRef, $ref);}
+		}
+		return $default;
+	}
+
+	/**
+	 * Modifie les prix d'un item
+	 * 
+	 * @param string $ref      : La référence de l'item dans la table perso_item
+	 * @param int    $enchere  : Le prix en enchère
+	 * @param int    $rachat   : Le prix en rachat
+	 * @param int    $Uenchere : Le prix unité en enchère
+	 * @param int    $Urachat  : Le prix unité en rachat
+	 * @param int    $Unb      : Le nombre d'unité
+	 * 
+	 * @return bool
+	 */
+	public function editVente($ref, $enchere, $rachat, $Uenchere, $Urachat, $Unb)
+	{
+		$default = false;
+		
+		$dataVerif = verifTypeData(array(
+			array('type' => 'string', 'data' => $ref),
+			array('type' => 'int', 'data' => $enchere),
+			array('type' => 'int', 'data' => $rachat),
+			array('type' => 'int', 'data' => $Uenchere),
+			array('type' => 'int', 'data' => $Urachat),
+			array('type' => 'int', 'data' => $Unb)
+		));
+		
+		if(!$dataVerif)
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres données.');}
+			else {return $default;}
+		}
+		
+		$data = array(
+			'enchere' => $enchere,
+			'rachat' => $rachat,
+			'enchere_unite' => $Uenchere,
+			'rachat_unite' => $Urachat,
+			'nb_piece' => $Unb
+		);
+		
+		$req = $this->update($this->_name, $data)->where('ref=:ref', array(':ref' => $ref));
+		
+		if($req->execute()) {return true;}
+		else {return $default;}
+	}
+
+	/**
+	 * Supprime un item
+	 * 
+	 * @param string $ref : La référence de l'item dans la table perso_item
+	 * 
+	 * @return bool
+	 */
+	public function supprItem($ref)
+	{
+		$default = false;
+		if(!is_string($ref))
+		{
+			if($this->get_debug()) {throw new Exception('Erreur dans le paramètre donné');}
+			else {return $default;}
+		}
+		
+		$req = $this->delete($this->_name)->where('ref=:ref', array(':ref' => $ref));
+		
+		if($req->execute()) {return true;}
+		else {return $default;}
 	}
 }
 ?>
