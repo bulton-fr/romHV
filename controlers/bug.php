@@ -13,11 +13,12 @@ foreach($issues as $issue)
 {
 	$tpl_issue = array();
 	
+	$tpl_issue['url'] = $issue['html_url'];
 	$tpl_issue['id'] = $issue['id'];
 	$tpl_issue['number'] = $issue['number'];
 	$tpl_issue['title'] = $issue['title'];
 	$tpl_issue['created_at'] = $issue['created_at'];
-	$tpl_issue['body'] = $issue['body'];
+	$tpl_issue['body'] = nl2br($issue['body']);
 	
 	$labels = $issue['labels'];
 	$label = $label_color = '';

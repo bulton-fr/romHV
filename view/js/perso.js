@@ -340,9 +340,9 @@ function numberWithCommas(x) {
  */
 function deleteCommas(str)
 {
-	str = str.replace('.', '');
-	str = str.replace(',', '');
-	str = str.replace(' ', '');
+	str = str.replace(/\./g, '');
+	str = str.replace(/,/g, '');
+	str = str.replace(/ /g, '');
 	return parseInt(str);
 }
 
@@ -355,12 +355,13 @@ function calcPrice(focus, prefix)
 	var rachat = 0;
 	var Uenchere = 0;
 	var Urachat = 0;
-	var nb = 0;
+	var nb = $("#"+prefix+"Unb").val();
+	
+	if(nb == undefined || nb == NaN) {nb = 1;}
 	
 	if(focus == 'nb' || focus == 'unite')
 	{
 		//Recalcul le prix normal par rapport au prix / unité
-		nb = $("#"+prefix+"Unb").val();
 		Uenchere = deleteCommas($("#"+prefix+"Uenchere").val());
 		Urachat = deleteCommas($("#"+prefix+"Urachat").val());
 		
@@ -371,13 +372,17 @@ function calcPrice(focus, prefix)
 	if(focus == 'global')
 	{
 		//Recalcul le prix / unité par rapport au prix normal
-		nb = $("#"+prefix+"Unb").val();
 		enchere = deleteCommas($("#"+prefix+"enchere").val());
 		rachat = deleteCommas($("#"+prefix+"rachat").val());
 		
 		if(enchere != 0) {Uenchere = enchere*nb;}
 		if(rachat != 0) {Urachat = rachat*nb;}
 	}
+	
+	if(isNaN(enchere)) {enchere = 0;}
+	if(isNaN(rachat)) {rachat = 0;}
+	if(isNaN(Uenchere)) {Uenchere = 0;}
+	if(isNaN(Urachat)) {Urachat = 0;}
 	
 	$("#"+prefix+"Unb").val(nb);
 	$("#"+prefix+"enchere").val(numberWithCommas(enchere));
@@ -687,23 +692,23 @@ $(document).ready(function()
 		$("#dialogMeV").dialog("open");
 	});
 	
-	$(".cont").on("keyup", "#AddItem_enchere", function() {calcPrice('global', 'AddItem_');});
-	$(".cont").on("keyup", "#AddItem_rachat", function() {calcPrice('global', 'AddItem_');});
-	$(".cont").on("keyup", "#AddItem_Uenchere", function() {calcPrice('unite', 'AddItem_');});
-	$(".cont").on("keyup", "#AddItem_Urachat", function() {calcPrice('unite', 'AddItem_');});
-	$(".cont").on("keyup", "#AddItem_Unb", function() {calcPrice('nb', 'AddItem_');});
+	$(".cont").on("input", "#AddItem_enchere", function() {calcPrice('global', 'AddItem_');});
+	$(".cont").on("input", "#AddItem_rachat", function() {calcPrice('global', 'AddItem_');});
+	$(".cont").on("input", "#AddItem_Uenchere", function() {calcPrice('unite', 'AddItem_');});
+	$(".cont").on("input", "#AddItem_Urachat", function() {calcPrice('unite', 'AddItem_');});
+	$(".cont").on("input", "#AddItem_Unb", function() {calcPrice('nb', 'AddItem_');});
 	
-	$("body").on("keyup", "#dialogMeVenchere", function() {calcPrice('global', 'dialogMeV');});
-	$("body").on("keyup", "#dialogMeVrachat", function() {calcPrice('global', 'dialogMeV');});
-	$("body").on("keyup", "#dialogMeVUenchere", function() {calcPrice('unite', 'dialogMeV');});
-	$("body").on("keyup", "#dialogMeVUrachat", function() {calcPrice('unite', 'dialogMeV');});
-	$("body").on("keyup", "#dialogMeVUnb", function() {calcPrice('nb', 'dialogMeV');});
+	$("body").on("input", "#dialogMeVenchere", function() {calcPrice('global', 'dialogMeV');});
+	$("body").on("input", "#dialogMeVrachat", function() {calcPrice('global', 'dialogMeV');});
+	$("body").on("input", "#dialogMeVUenchere", function() {calcPrice('unite', 'dialogMeV');});
+	$("body").on("input", "#dialogMeVUrachat", function() {calcPrice('unite', 'dialogMeV');});
+	$("body").on("input", "#dialogMeVUnb", function() {calcPrice('nb', 'dialogMeV');});
 	
-	$("body").on("keyup", "#dialogDetailenchere", function() {calcPrice('global', 'dialogDetail');});
-	$("body").on("keyup", "#dialogDetailrachat", function() {calcPrice('global', 'dialogDetail');});
-	$("body").on("keyup", "#dialogDetailUenchere", function() {calcPrice('unite', 'dialogDetail');});
-	$("body").on("keyup", "#dialogDetailUrachat", function() {calcPrice('unite', 'dialogDetail');});
-	$("body").on("keyup", "#dialogDetailUnb", function() {calcPrice('nb', 'dialogDetail');});
+	$("body").on("input", "#dialogDetailenchere", function() {calcPrice('global', 'dialogDetail');});
+	$("body").on("input", "#dialogDetailrachat", function() {calcPrice('global', 'dialogDetail');});
+	$("body").on("input", "#dialogDetailUenchere", function() {calcPrice('unite', 'dialogDetail');});
+	$("body").on("input", "#dialogDetailUrachat", function() {calcPrice('unite', 'dialogDetail');});
+	$("body").on("input", "#dialogDetailUnb", function() {calcPrice('nb', 'dialogDetail');});
 	
 	$(".cont").on("click", ".itemName", function()
 	{
@@ -719,9 +724,15 @@ $(document).ready(function()
 		var indexEnchere = 0;
 		var indexRachat = 0;
 		
-		if($("button.selected").attr("id") == 'vente') {indexEnchere = 2;}
-		if($("button.selected").attr("id") == 'attente') {indexEnchere = 1;}
+		var buttonId = $("button.selected").attr("id");
+              if(buttonId == 'vente') {indexEnchere = 2;}
+        else {if(buttonId == 'attente') {indexEnchere = 1;}
+        else {indexEnchere = 3;}}
 		indexRachat = indexEnchere+1;
+		
+		var idPerso = 0;
+		if(buttonId == 'vente' || buttonId == 'attente') {idPerso = $("li.menuSelected").attr("id");}
+		else {idPerso = $("#"+ref+"_idPerso").val();}
 		
 		$(trSelect).children('td').each(function(index, element)
 		{
@@ -748,7 +759,7 @@ $(document).ready(function()
 		$("#dialogDetailUnb").val(nbPiece);
 		
 		$("#dialogDetailRefItem").val($(this).attr("id"));
-		$("#dialogDetailPerso").val($("li.menuSelected").attr("id"));
+		$("#dialogDetailPerso").val(idPerso);
 		
 		$("#dialogDetail").dialog("open");
 	});

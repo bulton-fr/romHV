@@ -430,6 +430,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array(
 						'ref', 
+						'idPerso', 
 						'dateDebut', 
 						'duree', 
 						'enchere', 
@@ -511,6 +512,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array(
 						'ref', 
+						'idPerso', 
 						'dateDebut', 
 						'duree', 
 						'enchere', 
