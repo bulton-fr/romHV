@@ -724,9 +724,15 @@ $(document).ready(function()
 		var indexEnchere = 0;
 		var indexRachat = 0;
 		
-		if($("button.selected").attr("id") == 'vente') {indexEnchere = 2;}
-		if($("button.selected").attr("id") == 'attente') {indexEnchere = 1;}
+		var buttonId = $("button.selected").attr("id");
+              if(buttonId == 'vente') {indexEnchere = 2;}
+        else {if(buttonId == 'attente') {indexEnchere = 1;}
+        else {indexEnchere = 3;}}
 		indexRachat = indexEnchere+1;
+		
+		var idPerso = 0;
+		if(buttonId == 'vente' || buttonId == 'attente') {idPerso = $("li.menuSelected").attr("id");}
+		else {idPerso = $("#"+ref+"_idPerso").val();}
 		
 		$(trSelect).children('td').each(function(index, element)
 		{
@@ -753,7 +759,7 @@ $(document).ready(function()
 		$("#dialogDetailUnb").val(nbPiece);
 		
 		$("#dialogDetailRefItem").val($(this).attr("id"));
-		$("#dialogDetailPerso").val($("li.menuSelected").attr("id"));
+		$("#dialogDetailPerso").val(idPerso);
 		
 		$("#dialogDetail").dialog("open");
 	});
