@@ -11,11 +11,12 @@
     border-bottom: 1px solid #2779AA;
     
     padding: 5px;
-    color: white;
-    
     background: #5c9ccc url("../jquery_ui/themes/redmond/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png") 50% 50% repeat-x;
-    
 }
+
+.issue_title, .issue_title a, .issue_title a:hover {color: white;}
+.issue_title, .issue_title a {text-decoration: none;}
+.issue_title a:hover {text-decoration: underline;}
 
 .issue_label
 {
