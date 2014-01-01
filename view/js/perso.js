@@ -340,9 +340,9 @@ function numberWithCommas(x) {
  */
 function deleteCommas(str)
 {
-	str = str.replace('.', '');
-	str = str.replace(',', '');
-	str = str.replace(' ', '');
+	str = str.replace(/\./g, '');
+	str = str.replace(/,/g, '');
+	str = str.replace(/ /g, '');
 	return parseInt(str);
 }
 
@@ -355,12 +355,13 @@ function calcPrice(focus, prefix)
 	var rachat = 0;
 	var Uenchere = 0;
 	var Urachat = 0;
-	var nb = 0;
+	var nb = $("#"+prefix+"Unb").val();
+	
+	if(nb == undefined || nb == NaN) {nb = 1;}
 	
 	if(focus == 'nb' || focus == 'unite')
 	{
 		//Recalcul le prix normal par rapport au prix / unité
-		nb = $("#"+prefix+"Unb").val();
 		Uenchere = deleteCommas($("#"+prefix+"Uenchere").val());
 		Urachat = deleteCommas($("#"+prefix+"Urachat").val());
 		
@@ -371,13 +372,17 @@ function calcPrice(focus, prefix)
 	if(focus == 'global')
 	{
 		//Recalcul le prix / unité par rapport au prix normal
-		nb = $("#"+prefix+"Unb").val();
 		enchere = deleteCommas($("#"+prefix+"enchere").val());
 		rachat = deleteCommas($("#"+prefix+"rachat").val());
 		
 		if(enchere != 0) {Uenchere = enchere*nb;}
 		if(rachat != 0) {Urachat = rachat*nb;}
 	}
+	
+	if(isNaN(enchere)) {enchere = 0;}
+	if(isNaN(rachat)) {rachat = 0;}
+	if(isNaN(Uenchere)) {Uenchere = 0;}
+	if(isNaN(Urachat)) {Urachat = 0;}
 	
 	$("#"+prefix+"Unb").val(nb);
 	$("#"+prefix+"enchere").val(numberWithCommas(enchere));
@@ -687,11 +692,11 @@ $(document).ready(function()
 		$("#dialogMeV").dialog("open");
 	});
 	
-	$(".cont").on("keyup", "#AddItem_enchere", function() {calcPrice('global', 'AddItem_');});
-	$(".cont").on("keyup", "#AddItem_rachat", function() {calcPrice('global', 'AddItem_');});
-	$(".cont").on("keyup", "#AddItem_Uenchere", function() {calcPrice('unite', 'AddItem_');});
-	$(".cont").on("keyup", "#AddItem_Urachat", function() {calcPrice('unite', 'AddItem_');});
-	$(".cont").on("keyup", "#AddItem_Unb", function() {calcPrice('nb', 'AddItem_');});
+	$(".cont").on("input", "#AddItem_enchere", function() {calcPrice('global', 'AddItem_');});
+	$(".cont").on("input", "#AddItem_rachat", function() {calcPrice('global', 'AddItem_');});
+	$(".cont").on("input", "#AddItem_Uenchere", function() {calcPrice('unite', 'AddItem_');});
+	$(".cont").on("input", "#AddItem_Urachat", function() {calcPrice('unite', 'AddItem_');});
+	$(".cont").on("input", "#AddItem_Unb", function() {calcPrice('nb', 'AddItem_');});
 	
 	$("body").on("keyup", "#dialogMeVenchere", function() {calcPrice('global', 'dialogMeV');});
 	$("body").on("keyup", "#dialogMeVrachat", function() {calcPrice('global', 'dialogMeV');});
