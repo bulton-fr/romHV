@@ -698,17 +698,17 @@ $(document).ready(function()
 	$(".cont").on("input", "#AddItem_Urachat", function() {calcPrice('unite', 'AddItem_');});
 	$(".cont").on("input", "#AddItem_Unb", function() {calcPrice('nb', 'AddItem_');});
 	
-	$("body").on("keyup", "#dialogMeVenchere", function() {calcPrice('global', 'dialogMeV');});
-	$("body").on("keyup", "#dialogMeVrachat", function() {calcPrice('global', 'dialogMeV');});
-	$("body").on("keyup", "#dialogMeVUenchere", function() {calcPrice('unite', 'dialogMeV');});
-	$("body").on("keyup", "#dialogMeVUrachat", function() {calcPrice('unite', 'dialogMeV');});
-	$("body").on("keyup", "#dialogMeVUnb", function() {calcPrice('nb', 'dialogMeV');});
+	$("body").on("input", "#dialogMeVenchere", function() {calcPrice('global', 'dialogMeV');});
+	$("body").on("input", "#dialogMeVrachat", function() {calcPrice('global', 'dialogMeV');});
+	$("body").on("input", "#dialogMeVUenchere", function() {calcPrice('unite', 'dialogMeV');});
+	$("body").on("input", "#dialogMeVUrachat", function() {calcPrice('unite', 'dialogMeV');});
+	$("body").on("input", "#dialogMeVUnb", function() {calcPrice('nb', 'dialogMeV');});
 	
-	$("body").on("keyup", "#dialogDetailenchere", function() {calcPrice('global', 'dialogDetail');});
-	$("body").on("keyup", "#dialogDetailrachat", function() {calcPrice('global', 'dialogDetail');});
-	$("body").on("keyup", "#dialogDetailUenchere", function() {calcPrice('unite', 'dialogDetail');});
-	$("body").on("keyup", "#dialogDetailUrachat", function() {calcPrice('unite', 'dialogDetail');});
-	$("body").on("keyup", "#dialogDetailUnb", function() {calcPrice('nb', 'dialogDetail');});
+	$("body").on("input", "#dialogDetailenchere", function() {calcPrice('global', 'dialogDetail');});
+	$("body").on("input", "#dialogDetailrachat", function() {calcPrice('global', 'dialogDetail');});
+	$("body").on("input", "#dialogDetailUenchere", function() {calcPrice('unite', 'dialogDetail');});
+	$("body").on("input", "#dialogDetailUrachat", function() {calcPrice('unite', 'dialogDetail');});
+	$("body").on("input", "#dialogDetailUnb", function() {calcPrice('nb', 'dialogDetail');});
 	
 	$(".cont").on("click", ".itemName", function()
 	{
