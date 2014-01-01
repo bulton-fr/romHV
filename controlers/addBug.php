@@ -1,6 +1,6 @@
 <?php
-$titre = post('titre', null, true);
-$body = post('body', null, true);
+$titre = stripslashes(post('titre', null, true));
+$body = stripslashes(post('body', null, true));
 
 if(is_null($titre) || is_null($body)) {ErrorView(404);}
 
