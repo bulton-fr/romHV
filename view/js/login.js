@@ -17,7 +17,7 @@ $(document).ready(function()
 		else
 		{
 			$.ajax({
-				url: base_url,
+				url: base_url+"/login",
 				data: {login: login, mdp: mdp},
 				type: 'POST',
 				dataType: 'json'

@@ -98,6 +98,7 @@ class SqlActions extends \BFW\CKernel\Kernel implements \BFW_Sql\Interfaces\ISql
 	
 	/**
 	 * Execute la requête (type INSERT, UPDATE et DELETE)
+	 * 
 	 * @return mixed : La ressource de la requête exécuté si elle a réussi, false sinon (avec une Exception).
 	 */
 	public function execute()
@@ -132,7 +133,8 @@ class SqlActions extends \BFW\CKernel\Kernel implements \BFW_Sql\Interfaces\ISql
 	
 	/**
 	 * Permet d'inserer sa propre requête directement sans avoir à utiliser les méthodes from etc
-	 * @param string : La requête
+	 * 
+	 * @param string $req : La requête
 	 */
 	public function query($req)
 	{
@@ -149,7 +151,8 @@ class SqlActions extends \BFW\CKernel\Kernel implements \BFW_Sql\Interfaces\ISql
 	
 	/**
 	 * Définie les options pour la requête préparée
-	 * @param array : Les options
+	 * 
+	 * @param array $option : Les options
 	 */
 	public function set_prepare_option($option)
 	{
@@ -158,7 +161,10 @@ class SqlActions extends \BFW\CKernel\Kernel implements \BFW_Sql\Interfaces\ISql
 	
 	/**
 	 * Permet d'ajouter une clause where à la requête
-	 * @param string : La condition du where
+	 * 
+	 * @param string $cond    : La condition du where
+	 * @param array  $prepare : [opt] Les paramètres pour la requête préparé
+	 * 
 	 * @return Sql_Select : L'instance de l'objet courant.
 	 */
 	public function where($cond, $prepare=null)
@@ -168,12 +174,14 @@ class SqlActions extends \BFW\CKernel\Kernel implements \BFW_Sql\Interfaces\ISql
 		{
 			foreach($prepare as $key => $val)
 			{
-				//$this->prepare[] = $prepare;
 				if(isset($this->prepare[$key]) && $this->prepare[$key] != $val)
 				{
 					new Exception('La clé '.$key.' pour la requête sql préparé est déjà utilisé avec une autre valeur.');
 				}
-				else {$this->prepare[$key] = $val;}
+				else
+				{
+					$this->prepare[$key] = $val;
+				}
 			}
 		}
 		

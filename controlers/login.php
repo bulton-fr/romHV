@@ -1,6 +1,6 @@
 <?php
-$Params_head['css'] = array($path.'css/login.css');
-$Params_head['js'] = array($path.'js/login.js');
+$Params_head['css'] = array($base_url.'/css/login.css');
+$Params_head['js'] = array($base_url.'/js/login.js');
 require_once('header.php');
 
 $TPL = new \BFW_Tpl\Classes\Template('login.html');

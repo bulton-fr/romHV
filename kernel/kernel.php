@@ -13,11 +13,7 @@ session_start(); //Ouverture des sessions
 //Définition des chemins d'accès
 if(!isset($path))
 {
-	$path = '../';
-}
-if(strpos($base_url, -1) == '/')
-{
-	$base_url = strpos($base_url, 0, -1);
+	$path = '';
 }
 
 //Class Loader
@@ -27,6 +23,9 @@ $ClassLoaderCKernel->register();
 
 $ClassLoaderIKernelI = new SplClassLoader('BFW\IKernel', $path.'kernel/interfaces');
 $ClassLoaderIKernelI->register();
+
+$ClassLoaderCtr = new SplClassLoader('controler', $path.'controlers');
+$ClassLoaderCtr->register();
 
 $ClassLoaderModule = new SplClassLoader('modules', $path.'modules');
 $ClassLoaderModule->register();
@@ -49,7 +48,7 @@ setcookie("arecookiesenabled", "yes", time()+365*24*60*60*10); //anti-cache
 
 //Inclusion fonction
 $dir = opendir($path.'kernel/fonctions'); //Ouverture du dossier fonctions se trouvant à la racine
-$dir_arr = array('.', '..', '.htaccess'); //Les fichiers & dossiers à ignorer à la lecture
+$dir_arr = array('.', '..'); //Les fichiers & dossiers à ignorer à la lecture
 
 while(false !== ($file = readdir($dir))) //Si on a un fichier
 {
@@ -71,17 +70,17 @@ require_once($path.'kernel/conf.php');
 //Sql
 if($bd_enabled)
 {
-	if(file_exists($path.'/modules/'.$bd_module.'/kernel_init.php'))
+	if(file_exists($path.'modules/'.$bd_module.'/kernel_init.php'))
 	{
-		require_once($path.'/modules/'.$bd_module.'/kernel_init.php');
+		require_once($path.'modules/'.$bd_module.'/kernel_init.php');
 	}
 }
 //Sql
 
 //Template
-if(file_exists($path.'/modules/'.$tpl_module.'/kernel_init.php'))
+if(file_exists($path.'modules/'.$tpl_module.'/kernel_init.php'))
 {
-	require_once($path.'/modules/'.$tpl_module.'/kernel_init.php');
+	require_once($path.'modules/'.$tpl_module.'/kernel_init.php');
 }
 //Template
 
@@ -109,7 +108,7 @@ unset($dir, $dir_arr, $file);
 //Inclusions des modules
 
 //Infos sur la page en cours
-$http = $host = $_SERVER["HTTP_HOST"]; //Host
+$http = $host = (isset($_SERVER["HTTP_HOST"])) ? $_SERVER["HTTP_HOST"] : ''; //Host
 $self = $_SERVER['PHP_SELF']; //adresse propre de la page
 $page_on_serv = secure(dirname($_SERVER['PHP_SELF'])."/".basename($_SERVER['PHP_SELF']));
 

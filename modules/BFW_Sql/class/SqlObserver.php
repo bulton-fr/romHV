@@ -16,6 +16,12 @@ namespace BFW_Sql\Classes;
  */
 class SqlObserver extends \BFW\CKernel\Observer
 {
+	/**
+	 * Fonction appelé lorsque l'observer est déclanché
+	 * 
+	 * @param Kernel $subject : Le sujet de l'observer
+	 * @param array  $action : L'information sur l'action à déclancher
+	 */
 	public function updateWithAction($subject, $action)
 	{
 		if(is_array($action))

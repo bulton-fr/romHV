@@ -1,7 +1,16 @@
 <?php
+/**
+ * Interface en rapport avec la classe CreateClasse
+ * @author Vermeulen Maxime
+ * @version 1.0
+ */
 
 namespace BFW\IKernel;
 
+/**
+ * Interface de la classe CreateClasse
+ * @package BFW
+ */
 interface ICreateClasse
 {
 	/**

@@ -13,11 +13,22 @@ namespace BFW\CKernel;
  */
 class Observer implements \SplObserver
 {
+	/**
+	 * Méthode par défaut appelé lorsque l'observer se déclanche
+	 * 
+	 * @param SplSubject $subject : Le sujet déclanchant l'observer
+	 */
 	public function update(SplSubject $subject)
 	{
 		
 	}
 	
+	/**
+	 * Méthode appelé lorsque l'observer se déclanche via la classe Kernel
+	 * 
+	 * @param SplSubject $subject : Le sujet déclanchant l'observer
+	 * @param string     $action  : L'action à faire lors du déclanchement
+	 */
 	public function updateWithAction(SplSubject $subject, $action)
 	{
 		//Gestion de l'action.

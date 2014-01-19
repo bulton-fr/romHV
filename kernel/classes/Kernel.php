@@ -174,7 +174,7 @@ class Kernel implements \SplSubject
 	 * 
 	 * @param bool $debug : True si on est en mode débug, False sinon.
 	 */
-	public function set_debug($debug, $withSqlObserver=true)
+	public function set_debug($debug)
 	{
 		$this->debug = $debug;
 		

@@ -1,7 +1,16 @@
 <?php
+/**
+ * Interface en rapport avec la classe XmlWriter_custom
+ * @author Vermeulen Maxime
+ * @version 1.0
+ */
 
 namespace BFW\IKernel;
 
+/**
+ * Interface de la classe XmlWriter_custom
+ * @package BFW
+ */
 interface IXmlWriter_custom
 {
 	/**

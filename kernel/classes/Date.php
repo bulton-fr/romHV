@@ -334,12 +334,6 @@ class Date extends Kernel implements \BFW\IKernel\IDate
 		$diffSeconde = $diff->format('%S');
 		$diffInvert = $diff->invert;
 		
-		/*
-		echo '<pre>';
-		var_dump($diff);
-		echo '</pre>';
-		*/
-		
 		if($diffAnnee == 0 && $diffMois == 0 && $diffJour == 0 && $diffHeure == 0 && $diffMinute == 0 && $diffSeconde == 0)
 		{
 			$aff_date = 'Maintenant';

@@ -1,5 +1,4 @@
 <?php
- 
 /**
  * SplClassLoader implementation that implements the technical interoperability
  * standards for PHP 5.3 namespaces and class names.
@@ -17,11 +16,30 @@
  * @author Kris Wallsmith <kris.wallsmith@gmail.com>
  * @author Fabien Potencier <fabien.potencier@symfony-project.org>
  */
+
+/**
+ * Class SplClassLoader
+ */ 
 class SplClassLoader
 {
+	/**
+	 * @var $_fileExternsion : 
+	 */
     private $_fileExtension = '.php';
+	
+	/**
+	 * @var $_namespace : 
+	 */
     private $_namespace;
+	
+	/**
+	 * @var $_includePath : 
+	 */
     private $_includePath;
+	
+	/**
+	 * @var $_namespaceSeparator : 
+	 */
     private $_namespaceSeparator = '\\';
  
     /**
@@ -40,6 +58,7 @@ class SplClassLoader
      * specified namespace.
      * 
      * @param string $ns The namespace to use.
+	 * @param string $includePath
      */
     public function __construct($ns = null, $includePath = null)
     {
@@ -183,7 +202,10 @@ class SplClassLoader
  				$fileName = $this->_includePath . DIRECTORY_SEPARATOR . $fileName;
 			}
 			
-            require_once($fileName);
+            if(file_exists($fileName))
+            {
+                require_once($fileName);
+            }
         }
     }
 	

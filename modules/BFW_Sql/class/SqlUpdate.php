@@ -18,9 +18,10 @@ class SqlUpdate extends SqlActions implements \BFW_Sql\Interfaces\ISqlUpdate
 {
 	/**
 	 * Constructeur
-	 * @param Sql (référence) : L'instance Sql
-	 * @param string : La table sur laquelle agir
-	 * @param array : Les données à modifier : array('champSql' => 'données');
+	 * 
+	 * @param Sql    $Sql    : Référence vers l'instance Sql
+	 * @param string $table  : La table sur laquelle agir
+	 * @param array  $champs : Les données à modifier : array('champSql' => 'données');
 	 */
 	public function __construct(&$Sql, $table, $champs)
 	{
@@ -90,8 +91,10 @@ class SqlUpdate extends SqlActions implements \BFW_Sql\Interfaces\ISqlUpdate
 	
 	/**
 	 * Permet de déclarer une requête UPDATE
-	 * @param string : La table sur laquelle agir
-	 * @param array : Les données à modifier : array('champSql' => 'données');
+	 * 
+	 * @param string $table  : La table sur laquelle agir
+	 * @param array  $champs : Les données à modifier : array('champSql' => 'données');
+	 * 
 	 * @return Sql_Update : L'instance de l'objet courant.
 	 */
 	public function update($table, $champs)
@@ -104,7 +107,9 @@ class SqlUpdate extends SqlActions implements \BFW_Sql\Interfaces\ISqlUpdate
 	
 	/**
 	 * Permet d'ajouter d'autres données à ajouter
-	 * @param array : Les données à ajouter : array('champSql' => 'données');
+	 * 
+	 * @param array $champs : Les données à ajouter : array('champSql' => 'données');
+	 * 
 	 * @return Sql_Update : L'instance de l'objet courant.
 	 */
 	public function addChamps($champs)

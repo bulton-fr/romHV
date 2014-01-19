@@ -14,6 +14,12 @@ $bd_module = 'BFW_Sql';
 $tpl_module = 'BFW_Template';
 //*** Template ***
 
+//*** Controler ***
+$ctr_module = 'BFW_Controler';
+$ctr_class = false;
+$ctr_defaultMethode = 'index'; //La méthode à appeler si aucune n'est définie dans l'url (pour tous les contrôleurs)
+//*** Controler ***
+
 //*** Adresse ***
 $base_url = 'http://romhv';
 //*** Adresse ***
