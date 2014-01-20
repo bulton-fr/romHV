@@ -17,9 +17,12 @@ function hashage($val)
 
 /**
  * Permet de sécuriser une variable
- * @param mixed la variable à sécuriser (les types string, nombre et array sont géré)
- * @param bool mettre à true pour que la variable ne subisse pas un htmlentities()
- * @param bool mettre à true si on agit sur le nom d'une variable car par exemple "cou_cou" devient "cou\_cou"
+ * 
+ * @param mixed $string       : la variable à sécuriser (les types string, nombre et array sont géré)
+ * @param bool  $html         : mettre à true pour que la variable ne subisse pas un htmlentities()
+ * @param bool  $null_cslashe : mettre à true si on agit sur le nom d'une variable car par exemple "cou_cou" devient "cou\_cou"
+ * 
+ * @return mixed
  */
 function secure($string, $html=false, $null_cslashe=false)
 {
@@ -76,8 +79,9 @@ function secure($string, $html=false, $null_cslashe=false)
 
 /**
  * Fonction de création de cookie
+ * 
  * @param string $name : le nom du cookie
- * @param string $val : la valeur du cookie
+ * @param string $val  : la valeur du cookie
  */
 function create_cookie($name, $val)
 {
@@ -87,7 +91,9 @@ function create_cookie($name, $val)
 
 /**
  * Fonction nl2br refait. Celle de php AJOUTE <br/> APRES les \n, il ne les remplace pas.
+ * 
  * @param string $str : le texte à convertir
+ * 
  * @return string le texte converti
  */
 function nl2br_replace($str)
@@ -97,6 +103,7 @@ function nl2br_replace($str)
 
 /**
  * Permet de rediriger une page
+ * 
  * @param string $page : la page vers laquelle rediriger
  */
 function redirection($page)
@@ -107,9 +114,11 @@ function redirection($page)
 
 /**
  * Sécurise la valeur du post demandé et la renvoie
- * @param string $key : La donnée post demandée
- * @param mixed $default [opt] : La valeur par défault qui sera retourné si le get existe pas. Null si pas indiqué
- * @param bool $html : Savoir si on applique l'htmlentities (false pour oui, true pour non)
+ * 
+ * @param string $key      : La donnée post demandée
+ * @param mixed  $default  : [opt] La valeur par défault qui sera retourné si le get existe pas. Null si pas indiqué
+ * @param bool   $html     : Savoir si on applique l'htmlentities (false pour oui, true pour non)
+ * 
  * @return string : La valeur demandé sécurisé
  */
 function post($key, $default=null, $html=false)
@@ -133,8 +142,10 @@ function post($key, $default=null, $html=false)
 
 /**
  * Sécurise la valeur du get demandé et la renvoie
- * @param string $key : La donnée get demandée
- * @param mixed $default [opt] : La valeur par défault qui sera retourné si le get existe pas. Null si pas indiqué
+ * 
+ * @param string $key     : La donnée get demandée
+ * @param mixed  $default : [opt] La valeur par défault qui sera retourné si le get existe pas. Null si pas indiqué
+ * 
  * @return string : La valeur demandé sécurisé
  */
 function get($key, $default=null)
@@ -151,7 +162,9 @@ function get($key, $default=null)
 
 /**
  * Permet de savoir si le mail passé en paramètre est un e-mail valide ou non
+ * 
  * @param string $mail : L'adresse e-mail à vérifier
+ * 
  * @return bool : 
  */
 function valid_mail($mail)
@@ -162,14 +175,15 @@ function valid_mail($mail)
 /**
  * Affiche une page d'erreur
  * 
- * @param int/string $num : Le n° d'erreur à afficher ou l'erreur au format texte
- * @param bool			  : Indique si le cache du tampon de sortie doit être vidé ou pas
+ * @param int/string $num        : Le n° d'erreur à afficher ou l'erreur au format texte
+ * @param bool       $cleanCache : Indique si le cache du tampon de sortie doit être vidé ou pas
  */
 function ErrorView($num, $cleanCache=true)
 {
-	if($cleanCache) {
-		ob_clean(); //On efface tout ce qui a pu être mis dans le buffer pour l'affichage
-	}
+    if($cleanCache)
+    {
+	   ob_clean(); //On efface tout ce qui a pu être mis dans le buffer pour l'affichage
+    }
 	
 	global $request;
 	global $Overlay, $Overlay_type, $Overlay_msg, $Overlay_opt;
@@ -184,9 +198,9 @@ function ErrorView($num, $cleanCache=true)
 	else
 	{
 		if(function_exists('http_response_code')) {http_response_code($num);}
-		else {header(':', true, $num);}
-		
-		echo 'Erreur '.$num;
+        else {header(':', true, $num);}
+        
+        echo 'Erreur '.$num;
 	}
 	
 	exit;
@@ -222,27 +236,26 @@ function logfile($file, $txt, $date=true)
  */
 function verifTypeData($vars)
 {
-	if(is_array($vars))
-	{
-		foreach($vars as $var)
-		{
-			if(is_array($var))
-			{
-				if(!empty($var['type']) && isset($var['data']))
-				{
-					if($var['type'] == 'int') {$var['type'] = 'integer';}
-					if($var['type'] == 'float') {$var['type'] = 'double';}
-					
-					if(!is_string($var['type'])) {return false;}
-					if(gettype($var['data']) != $var['type']) {return false;}
-				}
-				else {return false;}
-			}
-			else {return false;}
-		}
-	}
-	else {return false;}
-	
-	return true;
+    if(is_array($vars))
+    {
+        foreach($vars as $var)
+        {
+            if(is_array($var))
+            {
+                if(!empty($var['type']) && isset($var['data']))
+                {
+                    if($var['type'] == 'int') {$var['type'] = 'integer';}
+                    if($var['type'] == 'float') {$var['type'] = 'double';}
+                    
+                    if(!is_string($var['type'])) {return false;}
+                    if(gettype($var['data']) != $var['type']) {return false;}
+                }
+                else {return false;}
+            }
+            else {return false;}
+        }
+    }
+    else {return false;}
+    
+    return true;
 }
-	

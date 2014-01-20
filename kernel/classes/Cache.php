@@ -621,7 +621,7 @@ class Cache extends Kernel implements \BFW\IKernel\ICache
 	/**
 	 * Récupère le code html qui est entre le block indiqué en paramètre.
 	 * 
-	 * @param string $nomBlock=null : Le nom du block dont on doit retourner le contenu.
+	 * @param string $nomBlock : Le nom du block dont on doit retourner le contenu.
 	 * 								  Par défault à null pour en dehors des blocks.
 	 */
 	private function recupHtml($nomBlock=null)
@@ -740,7 +740,7 @@ class Cache extends Kernel implements \BFW\IKernel\ICache
 	/**
 	 * Remplace toutes les balises <var /> par des variables contenant leurs valeurs
 	 * 
-	 * @param string $nomBlock=null : Le nom du block dont on doit retourner le contenu.
+	 * @param string $nomBlock : Le nom du block dont on doit retourner le contenu.
 	 * 								  Par défault à null pour en dehors des blocks.
 	 * @param string $line : La ligne qu'on lit
 	 * 

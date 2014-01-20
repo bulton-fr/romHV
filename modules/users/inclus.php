@@ -61,7 +61,7 @@ if($request == '/deco')
 
 if(!isset($_SESSION['logged']) && !($request == '/' || $request == '/login'))
 {
-	header('Location: /');
+	header('Location: '.$base_url);
 }
 
 if(isset($_SESSION['logged']) && $_SESSION['logged'] == true)

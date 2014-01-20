@@ -225,7 +225,7 @@ class Visiteur extends Kernel implements \BFW\IKernel\IVisiteur
 		}
 		else
 		{
-			$this->Ip = $_SERVER['REMOTE_ADDR'];
+			$this->Ip = (isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '';
 		}
 	}
 	
@@ -372,7 +372,7 @@ class Visiteur extends Kernel implements \BFW\IKernel\IVisiteur
 		Puis en (préférence 0.4/1)
 		*/
 		
-		$language = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+		$language = (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '';
 		$ex = explode(',', $language);
 		
 		$ex2 = explode(';', $ex[0]);

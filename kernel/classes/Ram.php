@@ -71,7 +71,7 @@ class Ram extends Kernel implements \BFW\IKernel\IRam
 		
 		if(!$verifParams || gettype($data) == 'resource')
 		{
-			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres de Ram->setVal()');}
+			if($this->get_debug()) {throw new \Exception('Erreur dans les paramètres de Ram->setVal()');}
 			else {return $default;}
 		}
 		
@@ -108,14 +108,14 @@ class Ram extends Kernel implements \BFW\IKernel\IRam
 	public function majExpire($key, $exp)
 	{
 		$default = false;
-		$verifParams = verifTypeData(array(
+		$verifParams = \verifTypeData(array(
 			array('type' => 'string', 'data' => $key),
 			array('type' => 'int', 'data' => $exp)
 		));
 		
 		if(!$verifParams)
 		{
-			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres de Ram->majExpire()');}
+			if($this->get_debug()) {throw new \Exception('Erreur dans les paramètres de Ram->majExpire()');}
 			else {return $default;}
 		}
 		
@@ -161,7 +161,7 @@ class Ram extends Kernel implements \BFW\IKernel\IRam
 		
 		if(!$verifParams)
 		{
-			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres de Ram->ifExists()');}
+			if($this->get_debug()) {throw new \Exception('Erreur dans les paramètres de Ram->ifExists()');}
 			else {return $default;}
 		}
 		
@@ -215,11 +215,11 @@ class Ram extends Kernel implements \BFW\IKernel\IRam
 	public function getVal($key)
 	{
 		$default = false;
-		$verifParams = verifTypeData(array(array('type' => 'string', 'data' => $key)));
+		$verifParams = \verifTypeData(array(array('type' => 'string', 'data' => $key)));
 		
 		if(!$verifParams)
 		{
-			if($this->get_debug()) {throw new Exception('Erreur dans les paramètres de Ram->getVal()');}
+			if($this->get_debug()) {throw new \Exception('Erreur dans les paramètres de Ram->getVal()');}
 			else {return $default;}
 		}
 		

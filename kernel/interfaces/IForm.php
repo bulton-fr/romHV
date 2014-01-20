@@ -1,7 +1,16 @@
 <?php
+/**
+ * Interface en rapport avec la classe Form
+ * @author Vermeulen Maxime
+ * @version 1.0
+ */
 
 namespace BFW\IKernel;
 
+/**
+ * Interface de la classe Form
+ * @package BFW
+ */
 interface IForm
 {
 	/**

@@ -18,8 +18,9 @@ class SqlDelete extends SqlActions implements \BFW_Sql\Interfaces\ISqlDelete
 {
 	/**
 	 * Constructeur
-	 * @param Sql (référence) : L'instance Sql
-	 * @param string : La table sur laquelle agir
+	 * 
+	 * @param Sql    $Sql   : (référence) L'instance Sql
+	 * @param string $table : La table sur laquelle agir
 	 */
 	public function __construct(&$Sql, $table)
 	{
@@ -68,7 +69,9 @@ class SqlDelete extends SqlActions implements \BFW_Sql\Interfaces\ISqlDelete
 	
 	/**
 	 * Permet de déclarer une requête DELETE
-	 * @param string : La table sur laquelle agir
+	 * 
+	 * @param string $table : La table sur laquelle agir
+	 * 
 	 * @return Sql_Delete : L'instance de l'objet courant.
 	 */
 	public function delete($table)

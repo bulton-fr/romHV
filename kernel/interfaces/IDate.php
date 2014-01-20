@@ -1,11 +1,24 @@
 <?php
+/**
+ * Interface en rapport avec la classe Date
+ * @author Vermeulen Maxime
+ * @version 1.0
+ */
 
 namespace BFW\IKernel;
 
+/**
+ * Interface de la classe Date
+ * @package BFW
+ */
 interface IDate
 {
 	const ZONE_DEFAULT = 'Europe/Paris'; //Le timeZone par défault
 	
+	/**
+	 * Fonction magique, permet de lire les attributs directement
+	 * @param string $name : Le nom de l'attribut auquel on veux accéder.
+	 */
 	public function __get($name);
 	
 	/**

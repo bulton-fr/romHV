@@ -3,13 +3,13 @@ $Memcache->delete('majStep2Start');
 
 $Params_head = array(
 	'css' => array(
-		$path.'css/index.css'
+		$base_url.'/css/index.css'
 	),
 	'js' => array(
 		'https://www.google.com/jsapi',
-		$path.'js/index.js',
-		$path.'js/import.js',
-		$path.'js/php.js'
+		$base_url.'/js/index.js',
+		$base_url.'/js/import.js',
+		$base_url.'/js/php.js'
 	)
 );
 

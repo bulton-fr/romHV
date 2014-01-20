@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
-namespace BFW_Sql\classes;
+namespace BFW_Sql\Classes;
  
 /**
  * Gestion des modèles

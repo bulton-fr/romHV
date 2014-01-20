@@ -1,7 +1,16 @@
 <?php
+/**
+ * Interface en rapport avec la classe Cache
+ * @author Vermeulen Maxime
+ * @version 1.0
+ */
 
 namespace BFW\IKernel;
 
+/**
+ * Interface de la classe Cache
+ * @package BFW
+ */
 interface ICache
 {
 	/**
@@ -57,17 +66,17 @@ interface ICache
 	/**
 	 * Récupère le code html qui est entre le block indiqué en paramètre.
 	 * 
-	 * @param string $nomBlock=null : Le nom du block dont on doit retourner le contenu.
-	 * 								  Par défault à null pour en dehors des blocks.
+	 * @param string $nomBlock : Le nom du block dont on doit retourner le contenu.
+	 * 	                         Par défault à null pour en dehors des blocks.
 	 */
 	private function recupHtml($nomBlock=null);
 
 	/**
 	 * Remplace toutes les balises <var /> par des variables contenant leurs valeurs
 	 * 
-	 * @param string $nomBlock=null : Le nom du block dont on doit retourner le contenu.
-	 * 								  Par défault à null pour en dehors des blocks.
-	 * @param string $line : La ligne qu'on lit
+	 * @param string $nomBlock : Le nom du block dont on doit retourner le contenu.
+	 * 	                         Par défault à null pour en dehors des blocks.
+	 * @param string $line     : La ligne qu'on lit
 	 * 
 	 * @return string La ligne avec les balises <var /> remplacé.
 	 */

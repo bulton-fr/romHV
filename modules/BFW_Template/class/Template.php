@@ -647,7 +647,7 @@ class Template extends \BFW\CKernel\Kernel implements \BFW_Tpl\Interfaces\ITempl
 						}
 						else
 						{
-							echo 'Template Erreur : Variable '.$nameVar[1].' inconnue.<br/>';
+							echo 'Template ('.$this->FileLink.') Erreur : Variable '.$nameVar[1].' inconnue (1).<br/>';
 							exit;
 						}
 					}
@@ -674,7 +674,10 @@ class Template extends \BFW\CKernel\Kernel implements \BFW_Tpl\Interfaces\ITempl
 							}
 							else
 							{
-								echo 'Template Erreur : Variable '.$nameVar[1].' inconnue.<br/>';
+								echo 'Template ('.$this->FileLink.') Erreur : Variable '.$nameVar[1].' inconnue (2).<br/>';
+                                var_dump($this->Gen_Variable[$nameVar[1]]);
+                                var_dump(isset($this->Gen_Variable[$nameVar[1]]));
+                                echo '<pre>';print_r($this->Gen_Variable);
 								exit;
 							}
 						}
@@ -692,6 +695,37 @@ class Template extends \BFW\CKernel\Kernel implements \BFW_Tpl\Interfaces\ITempl
 			}
 			while($search); //On répete tant qu'il reste des balises <var /> dans la ligne
 		}
+
+        $posVarUri = strpos($line, '<varUri');
+        if($posVarUri !== false)
+        {
+            global $base_url;
+            
+            $search = false;
+            do
+            {
+                $nameVar = array(); //Déclaration de variable à array vide.
+                
+                //On recherche dans la ligne la 1ere balise <var name"" />.
+                //Le contenu de name est mis dans $nameVar[1]
+                //Si la balise a été trouvé, $search vaux true, sinon false.
+                $search_uri1 = preg_match('#<varUri />#', $line, $nameVar);
+                
+                if($search_uri1)
+                {
+                    $line = preg_replace('#<varUri />#', $base_url, $line, 1);
+                }
+                else
+                {
+                    $search_uri2 = preg_match('#<varUri/>#', $line, $nameVar);
+                    if($search_uri2)
+                    {
+                        $line = preg_replace('#<varUri/>#', $base_url, $line, 1);
+                    }
+                }
+            }
+            while($search);
+        }
 		
 		return $line; //Puis on retourne la ligne avec les balises <var /> remplacé par leurs valeurs respectives
 	}

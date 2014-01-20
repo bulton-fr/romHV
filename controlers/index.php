@@ -1,31 +1,38 @@
 <?php
+
+if(!isset($base_url))
+{
+    echo '<pre>';print_r(debug_backtrace());die;
+}
+
+
 $Params_head = array(
 	'css' => array(
-		$path.'jquery_ui/themes/redmond/jquery-ui.css',
-		$path.'jquery_ui/timepicker/timepicker.css',
-		$path.'farbtastic/farbtastic.css',
-		$path.'css/index.css',
-		$path.'css/recap.css',
-		$path.'css/vendu.css',
-		$path.'css/ventes.css',
-		$path.'css/enAttente.css',
-		$path.'css/perso.css',
-		$path.'css/compte.css',
-		$path.'css/bug.css'
+		$base_url.'/jquery_ui/themes/redmond/jquery-ui.css',
+		$base_url.'/jquery_ui/timepicker/timepicker.css',
+		$base_url.'/farbtastic/farbtastic.css',
+		$base_url.'/css/index.css',
+		$base_url.'/css/recap.css',
+		$base_url.'/css/vendu.css',
+		$base_url.'/css/ventes.css',
+		$base_url.'/css/enAttente.css',
+		$base_url.'/css/perso.css',
+		$base_url.'/css/compte.css',
+		$base_url.'/css/bug.css'
 	),
 	'js' => array(
 		'https://www.google.com/jsapi',
-		$path.'js/index.js',
-		$path.'js/perso.js',
-		$path.'js/compte.js',
-		$path.'js/vendu.js',
-		$path.'js/ventes.js',
-		$path.'js/enAttente.js',
-		$path.'js/bug.js',
-		$path.'jquery_ui/ui/jquery-ui.min.js',
-		$path.'jquery_ui/timepicker/jquery-ui-timepicker-addon.js',
-		$path.'farbtastic/farbtastic.js',
-		$path.'js/php.js'
+		$base_url.'/js/index.js',
+		$base_url.'/js/perso.js',
+		$base_url.'/js/compte.js',
+		$base_url.'/js/vendu.js',
+		$base_url.'/js/ventes.js',
+		$base_url.'/js/enAttente.js',
+		$base_url.'/js/bug.js',
+		$base_url.'/jquery_ui/ui/jquery-ui.min.js',
+		$base_url.'/jquery_ui/timepicker/jquery-ui-timepicker-addon.js',
+		$base_url.'/farbtastic/farbtastic.js',
+		$base_url.'/js/php.js'
 	)
 );
 
