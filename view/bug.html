@@ -17,6 +17,23 @@
 		</div>
 		<div class="issue_body"><var name="body" /></div>
 	</div>
+	<block name="CommentEvent">
+		<block name="comment">
+			<div class="comment">
+				<p>Par <var name="user" /> <var name="date" /></p>
+				<p><var name="body" /></p>
+			</div>
+		</block>
+		<block name="event_referenced">
+			<div class="event_referenced">
+				<span></span> Commit 
+				<a href="https://github.com/bulton-fr/romHV/commit/<var name='commit_id' />" target="_blank">#<var name="commit" /></a> 
+				par <var name="user" /> <var name="date" />
+			</div>
+		</block>
+		<block name="event_reopened"><div class="event_reopened"><span>Reopened</span> par <var name="user" /> <var name="date" /></var></div></block>
+		<block name="event_closed"><div class="event_closed"><span>Closed</span> par <var name="user" /> <var name="date" /></div></block>
+	</block>
 </block>
 
 <block name="ErrorGetIssue">
