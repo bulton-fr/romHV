@@ -202,6 +202,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 						'rachat', 
 						'enchere_unite', 
 						'rachat_unite', 
+						'poGagne',
 						'nb_piece', 
 						'notes'
 					))
@@ -289,7 +290,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 						'enchere', 
 						'rachat', 
 						'enchere_unite', 
-						'rachat_unite', 
+						'rachat_unite',  
+                        'poGagne',
 						'nb_piece', 
 						'notes'
 					))
@@ -367,7 +369,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 						'enchere', 
 						'rachat', 
 						'enchere_unite', 
-						'rachat_unite', 
+						'rachat_unite',  
+                        'poGagne',
 						'nb_piece', 
 						'notes'
 					))
@@ -436,7 +439,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 						'enchere', 
 						'rachat', 
 						'enchere_unite', 
-						'rachat_unite', 
+						'rachat_unite',  
+                        'poGagne',
 						'nb_piece', 
 						'notes'
 					))
@@ -518,7 +522,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 						'enchere', 
 						'rachat', 
 						'enchere_unite', 
-						'rachat_unite', 
+						'rachat_unite',  
+                        'poGagne',
 						'nb_piece', 
 						'notes'
 					))
@@ -598,7 +603,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 						'enchere', 
 						'rachat', 
 						'enchere_unite', 
-						'rachat_unite', 
+						'rachat_unite',  
+                        'poGagne',
 						'nb_piece', 
 						'notes'
 					))
@@ -668,7 +674,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 						'enchere', 
 						'rachat', 
 						'enchere_unite', 
-						'rachat_unite', 
+						'rachat_unite',  
+                        'poGagne',
 						'nb_piece', 
 						'notes'
 					))
@@ -749,7 +756,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 						'enchere', 
 						'rachat', 
 						'enchere_unite', 
-						'rachat_unite', 
+						'rachat_unite',  
+                        'poGagne',
 						'nb_piece', 
 						'notes'
 					))
@@ -830,7 +838,8 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 						'enchere', 
 						'rachat', 
 						'enchere_unite', 
-						'rachat_unite', 
+						'rachat_unite',  
+                        'poGagne',
 						'nb_piece', 
 						'notes'
 					))

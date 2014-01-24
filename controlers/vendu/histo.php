@@ -71,8 +71,9 @@ foreach($items as $item)
 	}
 	else
 	{
-		$item['po'] = get_po($item['enchere']);
-		$item['po_unite'] = get_po($item['enchere_unite']);
+		$po = $item['poGagne'] + (($item['poGagne']*6)/100)+1;
+        $item['po'] = get_po($po);
+        $item['po_unite'] = get_po(($po / $item['nb_piece']));
 	}
 	
 	$dateVendu = new \BFW\CKernel\Date($item['dateVendu']);
