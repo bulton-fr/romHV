@@ -1,0 +1,1 @@
+ALTER TABLE  `romhv_perso_item` CHANGE  `nb_piece`  `nb_piece` INT UNSIGNED NOT NULL DEFAULT  '1'
