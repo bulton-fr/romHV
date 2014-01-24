@@ -375,8 +375,8 @@ function calcPrice(focus, prefix)
 		enchere = deleteCommas($("#"+prefix+"enchere").val());
 		rachat = deleteCommas($("#"+prefix+"rachat").val());
 		
-		if(enchere != 0) {Uenchere = enchere*nb;}
-		if(rachat != 0) {Urachat = rachat*nb;}
+		if(enchere != 0) {Uenchere = enchere/nb;}
+		if(rachat != 0) {Urachat = rachat/nb;}
 	}
 	
 	if(isNaN(enchere)) {enchere = 0;}
