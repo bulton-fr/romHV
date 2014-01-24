@@ -5,7 +5,7 @@ if(!file_exists(path_modules.'temp/import/runes.targz')) {ErrorView(500);}
 
 if(function_exists('system'))
 {
-	$system = system('cd ../modules/temp/import && tar -zxf runes.targz');
+	$system = system('cd '.path_modules.'temp/import && tar -zxf runes.targz');
 	if($system === false) {ErrorView(500);}
 	
 	if(!(
