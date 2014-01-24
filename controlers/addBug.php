@@ -1,8 +1,12 @@
 <?php
 $titre = stripslashes(post('titre', null, true));
-$body = stripslashes(post('body', null, true));
+$body = stripslashes(str_replace('\n', '\\\n', post('body', null, true)));
 
 if(is_null($titre) || is_null($body)) {ErrorView(404);}
+
+var_dump(post('body'));
+var_dump($body);
+exit;
 
 $client = new \Github\Client();
 try
