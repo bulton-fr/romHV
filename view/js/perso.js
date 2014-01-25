@@ -153,6 +153,7 @@ function dialogVendu()
 					var idPerso = $("#PersoViewId").val();
 					
 					$("#PersoViewPo").val(data);
+					majPoUser();
 					contPersoView(button, $(button).attr("id"), idPerso);
 				})
 				.fail(function() {alert("Désolé j'ai crashé");});
@@ -411,7 +412,12 @@ $(document).ready(function()
 			data: {nom: nom, po: po},
 			type: 'POST'
 		})
-		.done(function() {page($(".menuSelected"), "perso/liste");})
+		.done(function()
+		{
+			majPersoListe();
+			majPoUser();
+			page($(".menuSelected"), "perso/liste");
+		})
 		.fail(function()
 		{
 			$(".bandeau li.wait").hide();
@@ -445,6 +451,7 @@ $(document).ready(function()
 		.done(function(data) {
 			$(".bandeau li.wait").hide();
 			$('p.ListeDesPersos input#nomPerso').replaceWith('<span class="nomPerso">'+data+'</span>');
+			majPersoListe();
 		})
 		.fail(function() {
 			$(".bandeau li.wait").hide();
@@ -464,6 +471,7 @@ $(document).ready(function()
 			type: 'POST'
 		})
 		.done(function(data) {
+			majPoUser();
 			$(".bandeau li.wait").hide();
 			$('p.ListeDesPersos input#poPerso').replaceWith('<span class="poPerso">'+data+'</span>');
 		})
@@ -484,7 +492,12 @@ $(document).ready(function()
 				data: {idPerso: idPerso},
 				type: 'POST'
 			})
-			.done(function(data) {page("perso/liste");})
+			.done(function(data)
+			{
+				majPersoListe();
+				majPoUser();
+				page($(".menuSelected"), "perso/liste");
+			})
 			.fail(function() {
 				$(".bandeau li.wait").hide();
 				alert("Désolé j'ai crashé :o")
