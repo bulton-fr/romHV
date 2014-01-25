@@ -18,6 +18,9 @@ if($idUser == $persoItem['idUser'])
         $poPerso = $oldPoPerso + $po;
         
         $MPerso->setPo((int) $persoItem['idPerso'], $poPerso);
+        
+        ob_clean();
+        echo get_po($poPerso);
     }
     else {ErrorView(500);}
 }

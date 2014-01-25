@@ -46,6 +46,8 @@ function contPersoView(context, url, idPerso, suite, tri)
 		if(suite == 1) {$(".cont_persoView").html(data);}
 		else {$("#ViewPersoTbody").append(data);}
 		
+		maj_po_bandeau();
+		
 		if($(this).attr("id") == "addItem")
 		{
 			$('#AddItem_date').datetimepicker({
@@ -144,12 +146,13 @@ function dialogVendu()
 					data: {type: type, po: po, ref: ref},
 					type: 'post'
 				})
-				.done(function() {
+				.done(function(data) {
 					$("#dialogVendu").dialog("close");
 					
 					var button = $("button.selected");
 					var idPerso = $("#PersoViewId").val();
 					
+					$("#PersoViewPo").val(data);
 					contPersoView(button, $(button).attr("id"), idPerso);
 				})
 				.fail(function() {alert("Désolé j'ai crashé");});
