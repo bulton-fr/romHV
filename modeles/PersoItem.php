@@ -361,6 +361,10 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 			'Po' => 'pi.poGagne'
 		);
 		
+        global $idUser;
+        $MUserGroupe = new \modules\users\modeles\UsersGroupe;
+        $listUser = $MUserGroupe->getUsersForUser($idUser, true, 'pi');
+        
 		$req = $this->select()
 					->from(array('pi' => $this->_name), array(
 						'ref', 
@@ -378,7 +382,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 					->joinLeft(array('s' => 'stat'), 's.idStat=pi.idItem', array('nomStat' => 'nom'))
 					->joinLeft(array('p' => 'perso'), 'p.idPerso=pi.idPerso', array('nomPerso' => 'nom'))
 					->joinLeft(array('u' => 'users'), 'u.id=pi.idUser', array('nomUser' => 'login'))
-					->where('vendu=1')
+					->where('vendu=1 AND ('.$listUser.')')
 					->order($correspondance[$order[0]].' '.$order[1])
 					->limit(array($limit['start'], $limit['nb']));
 		
@@ -394,9 +398,13 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	 */
 	public function getNbVenduAll()
 	{
-		$req = $this->select()
+		global $idUser;
+        $MUserGroupe = new \modules\users\modeles\UsersGroupe;
+        $listUser = $MUserGroupe->getUsersForUser($idUser, true);
+        
+        $req = $this->select()
 					->from($this->_name, 'idItem')
-					->where('vendu=1');
+					->where('vendu=1 AND ('.$listUser.')');
 		
 		$req->fetchRow();
 		return $req->nb_result();
@@ -595,7 +603,11 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 			'Rachat' => 'pi.rachat'
 		);
 		
-		$req = $this->select()
+		global $idUser;
+        $MUserGroupe = new \modules\users\modeles\UsersGroupe;
+        $listUser = $MUserGroupe->getUsersForUser($idUser, true, 'pi');
+        
+        $req = $this->select()
 					->from(array('pi' => $this->_name), array(
 						'ref', 
 						'dateDebut', 
@@ -614,6 +626,7 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 					->joinLeft(array('u' => 'users'), 'u.id=pi.idUser', array('nomUser' => 'login'))
 					->where('enVente=1')
 					->where('vendu=0')
+                    ->where('('.$listUser.')')
 					->order($correspondance[$order[0]].' '.$order[1])
 					->limit(array($limit['start'], $limit['nb']));
 		
@@ -629,10 +642,15 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 	 */
 	public function getNbVenteAll()
 	{
-		$req = $this->select()
+		global $idUser;
+        $MUserGroupe = new \modules\users\modeles\UsersGroupe;
+        $listUser = $MUserGroupe->getUsersForUser($idUser, true);
+        
+        $req = $this->select()
 					->from($this->_name, 'idItem')
 					->where('enVente=1')
-					->where('vendu=0');
+					->where('vendu=0')
+                    ->where('('.$listUser.')');
 		
 		$req->fetchRow();
 		return $req->nb_result();
