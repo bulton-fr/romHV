@@ -389,7 +389,7 @@ class SqlSelect extends SqlActions implements \BFW_Sql\Interfaces\ISqlSelect
 		{
 			foreach($champs as $key => $val)
 			{
-				if(strpos($val, '('))
+				if(strpos($val, '(') !== false)
 				{
 					if(is_string($key))
 					{
@@ -402,16 +402,23 @@ class SqlSelect extends SqlActions implements \BFW_Sql\Interfaces\ISqlSelect
 				}
 				else
 				{
-					if($val != '*')
+					if($val != '*' && strpos($key, 'noEntoure') === false)
 					{
 						$val = '`'.$val.'`';
 					}
 					
 					if(is_string($key))
 					{
-						$array[] = array('`'.$as.'`.'.$val, $key);
+						if(strpos($key, 'noAS') !== false)
+                        {
+                            $array[] = array($val);
+                        }
+                        else
+                        {
+                            $array[] = array('`'.$as.'`.'.$val, $key);
+                        }
 					}
-					else
+                    else
 					{
 						$array[] = array('`'.$as.'`.'.$val);
 					}
@@ -422,7 +429,7 @@ class SqlSelect extends SqlActions implements \BFW_Sql\Interfaces\ISqlSelect
 		{
 			if($champs != '')
 			{
-				if(strpos($champs, '('))
+				if(strpos($champs, '(') !== false)
 				{
 					$array[] = array($champs);
 				}
