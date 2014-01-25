@@ -223,7 +223,12 @@ class Perso extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->delete($this->_name)->where('idPerso=:id', array(':id' => $idPerso));
 		
-		if($req->execute()) {return true;}
+		if($req->execute())
+        {
+            global $idUser;
+            $MUser = new \modules\users\modeles\Users;
+            return $MUser->recalculPo($idUser);
+        }
 		else {return false;}
 	}
 	
