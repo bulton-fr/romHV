@@ -52,6 +52,7 @@ function page(context, url, idPerso)
 			
 			if($(this).attr("id") == "ventes") {contVentes($("#buttonVentes button#me"), "me");}
 			if($(this).attr("id") == "vendu") {contVendu($("#buttonVendu button#semaine"), "semaine");}
+			if($(this).attr("id") == "issues/view") {dialogAddCommentIssue();}
 			
 			if($(this).parent().attr("class") == "list_perso" && $(this).parents('div').attr("class") == "menu_left")
 			{
@@ -94,7 +95,73 @@ function page(context, url, idPerso)
 	{
 		$(".bandeau li.wait").hide();
 		
-		alert("Désolé j'ai crashé :o")
+		alert("Désolé j'ai crashé :o");
+	});
+}
+
+/**
+ * Mise à jour des po de l'user 
+ */
+function majPoUser()
+{
+	$.ajax({
+		url: base_url+"/majBlock",
+		data: {block: 'poUser'},
+		type: 'POST'
+	})
+	.done(function(data)
+	{
+		$("#poUser").text(data);
+	});
+}
+
+/**
+ *Mise à jour de la liste des perso 
+ */
+function majPersoListe()
+{
+	$.ajax({
+		url: base_url+"/majBlock",
+		data: {block: 'listPerso'},
+		type: 'POST',
+		dataType: 'json'
+	})
+	.done(function(data)
+	{
+		var nbPersoRcv = data.length;
+		var nbPerso = $(".list_perso li").length;
+		var diff = nbPersoRcv - nbPerso;
+		
+		if(diff >= 0)
+		{
+			for(var i=0; i<nbPerso; i++)
+			{
+				if(data[i].nom != $(".list_perso li").eq(i).text())
+				{
+					$(".list_perso li").eq(i).text(data[i].nom);
+				}
+			}
+			
+			
+			if(diff > 0)
+			{
+				var j = nbPerso;
+				for(var i=0; i<diff; i++)
+				{
+					$(".list_perso").append('<li class="perso" id="'+data[j].idPerso+'">'+data[j].nom+'</li>');
+					j++;
+				}
+			}
+		}
+		else //Supprime un perso
+		{
+			$(".list_perso li").remove();
+			
+			for(var i=0; i<nbPersoRcv; i++)
+			{
+				$(".list_perso").append('<li class="perso" id="'+data[i].idPerso+'">'+data[i].nom+'</li>');
+			}
+		}
 	});
 }
 
@@ -153,7 +220,7 @@ $(document).ready(function()
 	
 	$(".link").click(function() {page(this, $(this).attr("id"));});
 	$("ul.main_liste > li").not('.emptyLi').click(function() {page(this, $(this).attr("id"));});
-	$("ul.list_perso > li").click(function() {page(this, "perso/view", $(this).attr("id"));});
+	$("body").on('click', "ul.list_perso > li", function() {page(this, "perso/view", $(this).attr("id"));});
 	
 	$(".cont").on("click", ".GraphRecap button", function() {
 		$(".GraphRecap button.selected").removeClass("selected");
@@ -161,7 +228,7 @@ $(document).ready(function()
 		
 		var typeGraph = $(this).attr("id");
 		graphRecap(typeGraph);
-	})
+	});
 	
 	$(".cont").on("click", ".statPerso", function() {
 		$(".GraphRecap button.selected").removeClass("selected");

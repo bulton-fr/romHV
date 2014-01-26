@@ -10,7 +10,7 @@ if(function_exists('system') && !empty($urlGZip))
 		if(!unlink(path_modules.'temp/import/runes.targz')) {ErrorView(500);}
 	}
 	
-	$system = system('cd ../modules/temp/import && wget --no-check-certificate '.$urlGZip);
+	$system = system('cd '.path_modules.'temp/import && wget --no-check-certificate '.$urlGZip);
 	if($system === false) {ErrorView(500);}
 	
 	if(!file_exists(path_modules.'temp/import/runes.targz')) {ErrorView(500);}

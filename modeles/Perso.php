@@ -121,6 +121,29 @@ class Perso extends \BFW_Sql\Classes\Modeles
 		if($req->execute()) {return true;}
 		else {return false;}
 	}
+    
+    /**
+     * Récupère le nombre de po d'un perso
+     * 
+     * @param int $idPerso : L'id du perso
+     * 
+     * @return int
+     */
+    public function getPo($idPerso)
+    {
+        $default = 0;
+        if(!is_int($idPerso))
+        {
+            if($this->get_debug()) {throw new Exception('Les paramètres données ne sont pas correct.');}
+            else {return $default;}
+        }
+        
+        $req = $this->select()->from($this->_name, array('po'))->where('idPerso=:id', array(':id' => $idPerso));
+        $res = $req->fetchRow();
+        
+        if($res) {return (int) $res['po'];}
+        else {return $default;}
+    }
 	
 	/**
 	 * Met à jour le nombre de po d'un perso
@@ -200,7 +223,12 @@ class Perso extends \BFW_Sql\Classes\Modeles
 		
 		$req = $this->delete($this->_name)->where('idPerso=:id', array(':id' => $idPerso));
 		
-		if($req->execute()) {return true;}
+		if($req->execute())
+        {
+            global $idUser;
+            $MUser = new \modules\users\modeles\Users;
+            return $MUser->recalculPo($idUser);
+        }
 		else {return false;}
 	}
 	

@@ -1,7 +1,7 @@
 .issue
 {
     border: 1px solid #2779AA;
-    margin-bottom: 7px;
+    margin-top: 7px;
     width: 665px;
 }
 
@@ -12,6 +12,20 @@
     
     padding: 5px;
     background: #5c9ccc url("../jquery_ui/themes/redmond/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png") 50% 50% repeat-x;
+}
+
+.commentIssue
+{
+	background-image: url("../img/comment.png");
+	background-repeat: no-repeat;
+	background-position: 3px;
+	
+	width: 20px;
+	height: 20px;
+	
+	display: inline-block;
+	float: right;
+	cursor: pointer;
 }
 
 .issue_title, .issue_title a, .issue_title a:hover {color: white;}
@@ -49,3 +63,80 @@
 }
 
 .addBug input[type=submit] {font-weight: bold;}
+
+.comment, .event_reopened, .event_closed, .event_referenced
+{
+	border: 1px solid #2779AA;
+	border-top: 0px;
+	width: 655px;
+}
+
+.comment {width: 665px;}
+
+.comment p, .event_reopened, .event_closed {padding: 3px;}
+
+.comment p
+{
+	padding-left: 25px;
+	margin: 0px;
+}
+
+.comment p:first-child
+{
+	background-image: url("../img/comment.png");
+	background-repeat: no-repeat;
+	background-position: 3px;
+	
+	font-style: italic;
+}
+
+.event_reopened span, .event_closed span, .label_open span, .label_close span
+{
+	border-radius: 3px;
+	text-align: center;
+	color: #fff;
+	font-weight: bold;
+	display: inline-block;
+	padding: 0 5px;
+	width: 72px;
+}
+
+.event_reopened span, .label_open span {background-color: #6cc644;}
+.event_closed span, .label_close span {background-color: #bd2c00;}
+.event_referenced span
+{
+	background-image: url("../img/link.png");
+	background-repeat: no-repeat;
+	background-position: 3px 3px;
+	display: inline-block;
+	
+	width: 18px;
+	height: 16px;
+}
+
+.event_reopened, .event_closed, .event_referenced {padding: 5px;}
+
+.comment a {color: black;}
+.comment a:hover {color: black; text-decoration: underline;}
+
+#dialogAddCommentIssue textarea
+{
+	width: 100%;
+	height: 70px;
+}
+
+.label_open span, .label_close span {width: 50px;}
+.labels span, .label_open span, .label_close span
+{
+	color: white;
+	cursor: pointer;
+}
+
+#listeIssue {margin-top: 20px;}
+.label_open, .label_close, .listLabel {display: inline;}
+
+.label_selected
+{
+	padding-bottom: 5px;
+	border-bottom: 3px solid #2779AA;
+}

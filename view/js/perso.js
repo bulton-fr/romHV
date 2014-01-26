@@ -46,6 +46,8 @@ function contPersoView(context, url, idPerso, suite, tri)
 		if(suite == 1) {$(".cont_persoView").html(data);}
 		else {$("#ViewPersoTbody").append(data);}
 		
+		maj_po_bandeau();
+		
 		if($(this).attr("id") == "addItem")
 		{
 			$('#AddItem_date').datetimepicker({
@@ -144,12 +146,14 @@ function dialogVendu()
 					data: {type: type, po: po, ref: ref},
 					type: 'post'
 				})
-				.done(function() {
+				.done(function(data) {
 					$("#dialogVendu").dialog("close");
 					
 					var button = $("button.selected");
 					var idPerso = $("#PersoViewId").val();
 					
+					$("#PersoViewPo").val(data);
+					majPoUser();
 					contPersoView(button, $(button).attr("id"), idPerso);
 				})
 				.fail(function() {alert("Désolé j'ai crashé");});
@@ -375,8 +379,8 @@ function calcPrice(focus, prefix)
 		enchere = deleteCommas($("#"+prefix+"enchere").val());
 		rachat = deleteCommas($("#"+prefix+"rachat").val());
 		
-		if(enchere != 0) {Uenchere = enchere*nb;}
-		if(rachat != 0) {Urachat = rachat*nb;}
+		if(enchere != 0) {Uenchere = enchere/nb;}
+		if(rachat != 0) {Urachat = rachat/nb;}
 	}
 	
 	if(isNaN(enchere)) {enchere = 0;}
@@ -408,7 +412,12 @@ $(document).ready(function()
 			data: {nom: nom, po: po},
 			type: 'POST'
 		})
-		.done(function() {page($(".menuSelected"), "perso/liste");})
+		.done(function()
+		{
+			majPersoListe();
+			majPoUser();
+			page($(".menuSelected"), "perso/liste");
+		})
 		.fail(function()
 		{
 			$(".bandeau li.wait").hide();
@@ -442,6 +451,7 @@ $(document).ready(function()
 		.done(function(data) {
 			$(".bandeau li.wait").hide();
 			$('p.ListeDesPersos input#nomPerso').replaceWith('<span class="nomPerso">'+data+'</span>');
+			majPersoListe();
 		})
 		.fail(function() {
 			$(".bandeau li.wait").hide();
@@ -461,6 +471,7 @@ $(document).ready(function()
 			type: 'POST'
 		})
 		.done(function(data) {
+			majPoUser();
 			$(".bandeau li.wait").hide();
 			$('p.ListeDesPersos input#poPerso').replaceWith('<span class="poPerso">'+data+'</span>');
 		})
@@ -481,7 +492,12 @@ $(document).ready(function()
 				data: {idPerso: idPerso},
 				type: 'POST'
 			})
-			.done(function(data) {page("perso/liste");})
+			.done(function(data)
+			{
+				majPersoListe();
+				majPoUser();
+				page($(".menuSelected"), "perso/liste");
+			})
 			.fail(function() {
 				$(".bandeau li.wait").hide();
 				alert("Désolé j'ai crashé :o")
