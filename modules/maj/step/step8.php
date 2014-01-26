@@ -8,7 +8,7 @@ while($line = fgets($fop))
 	if(preg_match('#^"Sys([0-9]+)_name"="(.+)"$#', $line, $match))
 	{
 		$id = (int) $match[1];
-		$title = $match[2];
+		$title = addslashes($match[2]);
 		
 		if($id >= 510000 && $id < 530000 && $title != 'Sys'.$id.'_name')
 		{
