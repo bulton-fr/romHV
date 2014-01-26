@@ -52,6 +52,7 @@ function page(context, url, idPerso)
 			
 			if($(this).attr("id") == "ventes") {contVentes($("#buttonVentes button#me"), "me");}
 			if($(this).attr("id") == "vendu") {contVendu($("#buttonVendu button#semaine"), "semaine");}
+			if($(this).attr("id") == "issues/view") {dialogAddCommentIssue();}
 			
 			if($(this).parent().attr("class") == "list_perso" && $(this).parents('div').attr("class") == "menu_left")
 			{
@@ -94,7 +95,7 @@ function page(context, url, idPerso)
 	{
 		$(".bandeau li.wait").hide();
 		
-		alert("Désolé j'ai crashé :o")
+		alert("Désolé j'ai crashé :o");
 	});
 }
 
@@ -128,7 +129,7 @@ function majPersoListe()
 	.done(function(data)
 	{
 		var nbPersoRcv = data.length;
-		var nbPerso = $(".list_perso li").length
+		var nbPerso = $(".list_perso li").length;
 		var diff = nbPersoRcv - nbPerso;
 		
 		if(diff >= 0)

@@ -1,0 +1,28 @@
+<fieldset class="addBug">
+	<legend>Déclarer un bug</legend>
+	<form id="addBug">
+		<label for="addBugTitre">Titre : </label><input type="text" id="addBugTitre" /><br/>
+		<label for="addBugBody">Description : </label><br/>
+		<textarea id="addBugBody"></textarea>
+		<br/><br/>
+		<div class="center"><input type="submit" value="Déclarer" /></div>
+	</form>
+</fieldset>
+
+<div class="label_open label_selected"><span>Open</span></div>&nbsp;&nbsp;
+<div class="label_close"><span>Close</span></div>
+<br/><br/>
+
+<div class="labels">
+	<block name="label"><div class="listLabel"><span class="issue_label" style='background-color: #<var name="label_color" />'><var name="label" /></span></div></block>
+</div>
+
+<div id="listeIssue"><var name="listeIssue" /></div>
+
+<div id="dialogAddCommentIssue" title="Ajouter un commentaire">
+	<p id="titreAddCommentIssue"></p>
+	<form>
+		<input type="hidden" id="AddCommentIssueNumber" value="" />
+		<textarea placeholder="Mon commentaire" id="textAddCommentIssue"></textarea>
+	</form>
+</div>

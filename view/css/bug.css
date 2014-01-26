@@ -14,6 +14,20 @@
     background: #5c9ccc url("../jquery_ui/themes/redmond/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png") 50% 50% repeat-x;
 }
 
+.commentIssue
+{
+	background-image: url("../img/comment.png");
+	background-repeat: no-repeat;
+	background-position: 3px;
+	
+	width: 20px;
+	height: 20px;
+	
+	display: inline-block;
+	float: right;
+	cursor: pointer;
+}
+
 .issue_title, .issue_title a, .issue_title a:hover {color: white;}
 .issue_title, .issue_title a {text-decoration: none;}
 .issue_title a:hover {text-decoration: underline;}
@@ -76,7 +90,7 @@
 	font-style: italic;
 }
 
-.event_reopened span, .event_closed span
+.event_reopened span, .event_closed span, .label_open span, .label_close span
 {
 	border-radius: 3px;
 	text-align: center;
@@ -87,8 +101,8 @@
 	width: 72px;
 }
 
-.event_reopened span {background-color: #6cc644;}
-.event_closed span {background-color: #bd2c00;}
+.event_reopened span, .label_open span {background-color: #6cc644;}
+.event_closed span, .label_close span {background-color: #bd2c00;}
 .event_referenced span
 {
 	background-image: url("../img/link.png");
@@ -104,3 +118,25 @@
 
 .comment a {color: black;}
 .comment a:hover {color: black; text-decoration: underline;}
+
+#dialogAddCommentIssue textarea
+{
+	width: 100%;
+	height: 70px;
+}
+
+.label_open span, .label_close span {width: 50px;}
+.labels span, .label_open span, .label_close span
+{
+	color: white;
+	cursor: pointer;
+}
+
+#listeIssue {margin-top: 20px;}
+.label_open, .label_close, .listLabel {display: inline;}
+
+.label_selected
+{
+	padding-bottom: 5px;
+	border-bottom: 3px solid #2779AA;
+}

@@ -1,15 +1,32 @@
 <?php
-$TPL = new \BFW_Tpl\Classes\Template('bug.html');
+$TPL_list = new \BFW_Tpl\Classes\Template('issues/liste.html');
 
-$client = new \Github\Client(
-    new \Github\HttpClient\CachedHttpClient(array('cache_dir' => __DIR__.'/../modules/github/cache'))
-);
-
-$apiIssue = $client->api('issue');
+if(!isset($apiIssue))
+{
+    $state = post('state');
+    $label = post('label');
+    
+    $returnTPL = false;
+    
+    $client = new \Github\Client(
+        new \Github\HttpClient\CachedHttpClient(array('cache_dir' => __DIR__.'/../../modules/github/cache'))
+    );
+    
+    $apiIssue = $client->api('issue');
+}
+else
+{
+    $returnTPL = true;
+    $state = 'open';
+    $label = '';
+}
 
 try
 {
-	$issues = $apiIssue->all('bulton-fr', 'romHV', array('state' => 'open'));
+    $option = array('state' => $state);
+    if($label != '') {$option['labels'] = $label;}
+    
+    $issues = $apiIssue->all('bulton-fr', 'romHV', $option);
 }
 catch(exception $e)
 {
@@ -17,30 +34,31 @@ catch(exception $e)
     $issues = array();
 }
 
-//echo '<pre>';print_r($issues);
 foreach($issues as $issue)
 {
+    //if($issue['number'] == 40) {echo '<pre>';print_r($client->api('issue')->show('bulton-fr', 'romHV', 40));}
+    
     $tpl_issue = array();
-	
-	$tpl_issue['url'] = $issue['html_url'];
-	$tpl_issue['id'] = $issue['id'];
-	$tpl_issue['number'] = $issue['number'];
-	$tpl_issue['title'] = $issue['title'];
-	$tpl_issue['created_at'] = $issue['created_at'];
-	$tpl_issue['body'] = nl2br($issue['body']);
-	
-	$labels = $issue['labels'];
-	$label = $label_color = '';
-	if(isset($labels[0]))
-	{
-		$label = $labels[0]['name'];
-		$labelColor = $labels[0]['color'];
-	}
-	
-	$tpl_issue['label'] = $label;
-	$tpl_issue['label_color'] = $labelColor;
-	
-	$TPL->AddBlock('issue', $tpl_issue);
+    
+    $tpl_issue['url'] = $issue['html_url'];
+    $tpl_issue['id'] = $issue['id'];
+    $tpl_issue['number'] = $issue['number'];
+    $tpl_issue['title'] = $issue['title'];
+    $tpl_issue['created_at'] = $issue['created_at'];
+    $tpl_issue['body'] = nl2br($issue['body']);
+    
+    $labels = $issue['labels'];
+    $label = $label_color = '';
+    if(isset($labels[0]))
+    {
+        $label = $labels[0]['name'];
+        $labelColor = $labels[0]['color'];
+    }
+    
+    $tpl_issue['label'] = $label;
+    $tpl_issue['label_color'] = $labelColor;
+    
+    $TPL_list->AddBlock('issue', $tpl_issue);
     
     $lists = array();
     if($issue['comments'] > 0)
@@ -119,23 +137,24 @@ foreach($issues as $issue)
             $date = new \BFW\CKernel\Date(date('Y-m-d H:i:sO', $time));
             $user = (is_array($list['user'])) ? $list['user']['login'] : '';
             
-            $TPL->AddBlock('CommentEvent');
-                $TPL->AddBlock($list['type'].$event, array(
+            $TPL_list->AddBlock('CommentEvent');
+                $TPL_list->AddBlock($list['type'].$event, array(
                     'user' => $user,
                     'body' => $list['body'],
                     'date' => $date->aff_simple(),
                     'commit_id' => $list['commit_id'],
                     'commit' => $list['commit']
                 ));
-                $TPL->remonte();
-            $TPL->remonte();
+                $TPL_list->remonte();
+            $TPL_list->remonte();
         }
     }
     
-    $TPL->EndBlock();
+    $TPL_list->EndBlock();
 }
 
-if(count($issues) == 0) {$TPL->AddBlockWithEnd('ErrorGetIssue');}
+if(count($issues) == 0) {$TPL_list->AddBlockWithEnd('NoIssue');}
 
-$TPL->End();
+if($returnTPL) {$tplListIssue = $TPL_list->End(true);}
+else {$TPL_list->End();}
 ?>

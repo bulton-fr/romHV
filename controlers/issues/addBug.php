@@ -4,10 +4,6 @@ $body = stripslashes(str_replace('\n', '\\\n', post('body', null, true)));
 
 if(is_null($titre) || is_null($body)) {ErrorView(404);}
 
-var_dump(post('body'));
-var_dump($body);
-exit;
-
 $client = new \Github\Client();
 try
 {
@@ -25,8 +21,8 @@ try
     $mail->SetFrom('bulton.fr@gmail.com', 'Bulton.fr');
     $mail->AddAddress('bulton.fr@gmail.com', 'Bulton.fr');
     
-    $mail->Subject = utf8_decode('Nouveau bug reporté sur romHV');
-    $mail->Body = utf8_decode(htmlentities(addslashes($_SESSION['Login']))).' vient de signaler un nouveau bug sur romHV : '.utf8_decode(htmlentities(addslashes($titre)));
+    $mail->Subject = utf8_decode('ROMHV Issue : Nouvelle issue');
+    $mail->Body = utf8_decode(htmlentities(addslashes($_SESSION['Login']))).' vient de créer une nouvelle issue sur romHV : '.utf8_decode(htmlentities(addslashes($titre)));
     
     $mail->Send();
 }
