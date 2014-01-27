@@ -161,7 +161,8 @@ class Date extends Kernel implements \BFW\IKernel\IDate
 			
 			if($dateOri == $dateMod2 || $mod2 == false)
 			{
-				return false;
+				$this->MAJ_Attributes();
+                return false;
 			}
 			else
 			{
@@ -171,7 +172,8 @@ class Date extends Kernel implements \BFW\IKernel\IDate
 		}
 		else
 		{
-			$this->MAJ_Attributes(); return true;
+			$this->MAJ_Attributes();
+			return true;
 		}
 	}
 	
