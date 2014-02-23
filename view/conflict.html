@@ -1,0 +1,44 @@
+<div class="main" style="margin: 5px;">
+	<p>Nombre de conflit : <var name="nbConflict" /> sur un total de <var name="nbTotalPItem" /> (<var name="pourcent" />%)</p>
+	<p><input type="button" value="Regénérer les références" id="regen"/></p><br/>
+	<table style="background-color: white; color: black; width: auto;">
+		<thead>
+			<tr>
+				<block name="conflictColumn">
+					<td><var name="nameColumn" /></td>
+				</block>
+			</tr>
+		</thead>
+		<tbody>
+			<block name="conflicts">
+				<tr>
+					<block name="conflict">
+						<td><var name="val" /></td>
+					</block>
+				</tr>
+			</block>
+		</tbody>
+	</table>
+</div>
+
+</body></html>
+
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		$("#regen").click(function()
+		{
+			$.ajax({
+				url: base_url+"/conflict/resolve"
+			})
+			.done(function(data)
+			{
+				window.location.href = base_url+"/conflict";
+			})
+			.fail(function()
+			{
+				alert("Erreur à la régénération des références.");
+			});
+		});
+	});
+</script>

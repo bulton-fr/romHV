@@ -1371,5 +1371,21 @@ class PersoItem extends \BFW_Sql\Classes\Modeles
 		if($req->execute()) {return true;}
 		else {return $default;}
 	}
+    
+    /**
+     * Renvoi toutes les lignes des persosItems (pour debug)
+     * 
+     * @return array()
+     */
+    public function all()
+    {
+        $default = array();
+        
+        $req = $this->select()->from($this->_name);
+        $res = $req->fetchAll();
+        
+        if($res) {return $res;}
+        else {return $default;}
+    }
 }
 ?>
